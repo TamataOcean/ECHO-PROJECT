@@ -68,7 +68,7 @@ Caméras → 6 caméras (3 caméras par bassin, et donc 1 caméra par arène)
 - Bonne résolution / qualité de l’image (pour pouvoir bien traiter l’image)
 - Possibilité de changer d’objectifs (pour optimiser le champ selon la distance
 entre la caméra et l’arène)
-## Objectifs → 6 objectifs de 12.5mm (ou autre taille) pour les 6 caméras [modèle « Kowa » de 12.5mm](https://www.baslerweb.com/fr-fr/shop/kowa-lens-lm12hc-f1-4-f12-5mm-1/) : 349€ l’unité
+- Objectifs → 6 objectifs de 12.5mm (ou autre taille) pour les 6 caméras [modèle « Kowa » de 12.5mm](https://www.baslerweb.com/fr-fr/shop/kowa-lens-lm12hc-f1-4-f12-5mm-1/) : 349€ l’unité
 - Hub POE → minimum 6 ports pour les 6 caméras (?€)
 - Stockage NAS (fichiers vidéo volumineux et accès à distance)
 - Box internet → fournie
