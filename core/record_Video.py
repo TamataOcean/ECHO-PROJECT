@@ -8,16 +8,17 @@ from pypylon import pylon
 # Paramètres vidéo
 output_file = sys.argv[1]
 fps = 25  # Fréquence d'acquisition
-width = 1278
+width = 1024
 height = 1024
 codec = "libx264"
 
 # Commande FFmpeg
-ffmpeg_command = [
+ffmpeg_old = [
     "ffmpeg",
     "-y",
     "-f", "rawvideo",
-    "-pixel_format", "bayer_bggr8",
+    #♣"-pixel_format", "bayer_bggr8", # Gain énorme en taille de vidéo ! 
+    "-pixel_format", "gray", # Gain énorme en taille de vidéo ! 
     "-video_size", f"{width}x{height}",
     "-framerate", str(fps),
     "-i", "-",
@@ -28,6 +29,26 @@ ffmpeg_command = [
     output_file,
 ]
 
+ffmpeg_command = [
+    "ffmpeg",
+    "-y",
+    "-r", str(fps),  
+    "-f", "rawvideo",
+    "-pixel_format", "gray",  
+    "-video_size", f"{width}x{height}",
+    "-framerate", str(fps),  
+    "-i", "-",
+    "-c:v", "libx264",  
+    "-preset", "ultrafast",  
+    #"-b:v", "2000k",  
+    "-crf", "23",
+    "-pix_fmt", "yuv420p",
+    "-vf", "format=yuv420p",  # 🔹 Convertit en YUV pour la compression
+    "-vsync", "cfr",
+    output_file,
+]
+
+
 # Lancement de FFmpeg
 ffmpeg_process = subprocess.Popen(ffmpeg_command, stdin=subprocess.PIPE)
 
@@ -35,15 +56,19 @@ ffmpeg_process = subprocess.Popen(ffmpeg_command, stdin=subprocess.PIPE)
 camera = pylon.InstantCamera(pylon.TlFactory.GetInstance().CreateFirstDevice())
 camera.Open()
 
-camera.GainAuto.SetValue("Once") # Permet de faire la mise à jour de la balance au lancement du program
-# camera.ExposureAuto.SetValue("On") ne marche pas !!!
-
-# pylon.FeaturePersistence.Save("config_record_Video.txt", camera.GetNodeMap())
-
 # Configurer la caméra
+camera.GainAuto.SetValue("Once") # Permet de faire la mise à jour de la balance au lancement du program
 camera.Width.SetValue(width)
 camera.Height.SetValue(height)
+#camera.PixelFormat.SetValue("YUV422_YUYV_Packed") # Format from Basler
 camera.PixelFormat.SetValue("BayerRG8")  # Format compatible avec FFmpeg
+camera.PixelFormat.Value = "Mono8"
+# Set the upper limit of the camera's frame rate to 30 fps
+camera.AcquisitionFrameRateEnable.Value = True
+camera.AcquisitionFrameRateAbs.Value = fps
+camera.ExposureAuto.SetValue("Continuous")
+camera.GammaEnable.SetValue(False)
+#camera.ExposureTimeAbs.SetValue(2000)
 
 # Acquisition et envoi à FFmpeg
 camera.StartGrabbing(pylon.GrabStrategy_LatestImageOnly)
