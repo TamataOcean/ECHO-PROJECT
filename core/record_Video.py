@@ -6,30 +6,15 @@ import sys # Keep console arguments
 from pypylon import pylon
 
 # Paramètres vidéo
-output_file = sys.argv[1]
+#output_file = sys.argv[1]
+output_file = "Record_Video_MQTT.mp4"
 fps = 25  # Fréquence d'acquisition
 width = 1024
 height = 1024
 codec = "libx264"
 
 # Commande FFmpeg
-ffmpeg_old = [
-    "ffmpeg",
-    "-y",
-    "-f", "rawvideo",
-    #♣"-pixel_format", "bayer_bggr8", # Gain énorme en taille de vidéo ! 
-    "-pixel_format", "gray", # Gain énorme en taille de vidéo ! 
-    "-video_size", f"{width}x{height}",
-    "-framerate", str(fps),
-    "-i", "-",
-    "-c:v", codec,
-    "-preset", "ultrafast",
-    "-r", str(fps),             # -r to force output framarate 
-    #"-vsync cfr",              # Pour éviter toute désynchronisation, on encode avec un framerate constant
-    output_file,
-]
-
-ffmpeg_command = [
+ffmpeg_command_OLD = [
     "ffmpeg",
     "-y",
     "-r", str(fps),  
@@ -41,13 +26,28 @@ ffmpeg_command = [
     "-c:v", "libx264",  
     "-preset", "ultrafast",  
     #"-b:v", "2000k",  
-    "-crf", "23",
+    #"-crf", "23",
     "-pix_fmt", "yuv420p",
     "-vf", "format=yuv420p",  # 🔹 Convertit en YUV pour la compression
     "-vsync", "cfr",
     output_file,
 ]
 
+ffmpeg_command = [
+    "ffmpeg",
+    "-y",
+    "-f", "rawvideo",
+    "-pixel_format", "gray",
+    "-video_size", f"{width}x{height}",
+    "-framerate", str(fps),  # 🔹 Définit bien l'entrée en 25 FPS
+    "-i", "-",
+    "-c:v", "libx264",
+    "-preset", "ultrafast",
+    "-crf", "23",
+    "-pix_fmt", "yuv420p",
+    "-vsync", "cfr",
+    output_file,
+]
 
 # Lancement de FFmpeg
 ffmpeg_process = subprocess.Popen(ffmpeg_command, stdin=subprocess.PIPE)
@@ -55,6 +55,8 @@ ffmpeg_process = subprocess.Popen(ffmpeg_command, stdin=subprocess.PIPE)
 # Initialiser la caméra Basler
 camera = pylon.InstantCamera(pylon.TlFactory.GetInstance().CreateFirstDevice())
 camera.Open()
+
+print(f"FPS réel configuré : {camera.AcquisitionFrameRateAbs.Value}")
 
 # Configurer la caméra
 camera.GainAuto.SetValue("Once") # Permet de faire la mise à jour de la balance au lancement du program
