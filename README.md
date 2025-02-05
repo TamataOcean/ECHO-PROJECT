@@ -6,35 +6,17 @@ Enregistrement vidéos automatisé pour analyser le comportement de poissons dan
 # Contexte du projet
 Le projet de recherche ECHO, financé par l’AAP Observatoire de l’éolien en mer - l’Office
 Français de la Biodiversité, se concentre sur les pressions acoustiques liées à l’éolien en mer
-sur les mammifères marins et l’ichtyofaune. Ce projet mobilise les compétences
-interdisciplinaires de plusieurs partenaires scientifiques et techniques : le laboratoire LIENSs
-CNRS – La Rochelle Université, l’ADERA – Cohabys, la Fondation OPEN-C, le Laboratoire LOG
-de l’Université du Littoral Côte d’Opale et la société NEREIS Environnement. Lancé en janvier
-2024, ce projet de recherche s’étendra sur une durée de trois ans, avec pour objectif
-d’approfondir les connaissances sur les interactions entre le développement des énergies
-marines renouvelables et la biodiversité marine.
-Dans le cadre de ce projet de recherche, une thèse réalisée par Morgane Millot, sous la
-direction de Christel Lefrançois et avec le soutien scientifique et technique d’Emmanuel
-Dubillot et de Benjamin Bellier, vise à étudier spécifiquement les « pressions acoustiques
-liées à l’éolien en mer sur le bar européen (Dicentrarchus labrax) et la sole commune (Solea
-solea) dans un contexte de changement climatique ». Pour ce faire, une série
-d’expérimentations (en laboratoire, en mésocosme et in situ) a été programmée dans le but
-de comprendre les réponses comportementales des poissons engendrées par des
-expositions au bruit éolien.
-Pour les expérimentations en laboratoire, un groupe de « poissons témoins » (avec bruit non
-éolien émis à l’aide d’un haut-parleur) et un groupe de « poissons exposés » (avec bruit éolien
-émis à l’aide d’un haut-parleur) seront placés dans deux bassins distincts et acoustiquement
-isolés, chacune d’un diamètre de 3.6m et d’une hauteur de 1.2m. Pour chaque bassin, les
-groupes de poissons seront divisés en trois arènes d’un diamètre de 0.8m et d’une hauteur
-de 0.8m, contenant chacune 3 à 5 poissons. Ainsi, pour étudier les différences de réponses
-comportementales initiales (e.g. changements soudains de la vitesse et de la direction de la
-nage) ou soutenues (e.g. cohésion du banc) entre conditions, des analyses vidéo sont
-nécessaires et la mise en place de caméras est essentielle. Dans un objectif
-d’automatisation, de praticité et de réplicabilité, le LIENSs souhaite développer un système
-permettant de piloter plusieurs caméras et d’en sortir des données brutes. Ces données
-brutes auront pour devenir : 1/ la bancarisation sur support dédié (e.g. NAS, voir ci-dessous)
-et sur plateforme de dépôt dans le cadre de la démarche de partage de données et 2/ d’être
-traitées et analysées pour calculer plusieurs variables comportementales.
+sur les mammifères marins et l’ichtyofaune. Ce projet mobilise les compétences interdisciplinaires de plusieurs partenaires scientifiques et techniques : le laboratoire LIENSs CNRS – La Rochelle Université, l’ADERA – Cohabys, la Fondation OPEN-C, le Laboratoire LOG de l’Université du Littoral Côte d’Opale et la société NEREIS Environnement. 
+
+Lancé en janvier 2024, ce projet de recherche s’étendra sur une durée de trois ans, avec pour objectif d’approfondir les connaissances sur les interactions entre le développement des énergies marines renouvelables et la biodiversité marine. Dans le cadre de ce projet de recherche, une thèse réalisée par Morgane Millot, sous la direction de Christel Lefrançois et avec le soutien scientifique et technique d’Emmanuel Dubillot et de Benjamin Bellier, vise à étudier spécifiquement les « pressions acoustiques liées à l’éolien en mer sur le bar européen (Dicentrarchus labrax) et la sole commune (Solea
+solea) dans un contexte de changement climatique ». 
+
+Pour ce faire, une série d’expérimentations (en laboratoire, en mésocosme et in situ) a été programmée dans le but
+de comprendre les réponses comportementales des poissons engendrées par des expositions au bruit éolien. Pour les expérimentations en laboratoire, un groupe de « poissons témoins » (avec bruit non éolien émis à l’aide d’un haut-parleur) et un groupe de « poissons exposés » (avec bruit éolien émis à l’aide d’un haut-parleur) seront placés dans deux bassins distincts et acoustiquement isolés, chacune d’un diamètre de 3.6m et d’une hauteur de 1.2m. Pour chaque bassin, les groupes de poissons seront divisés en trois arènes d’un diamètre de 0.8m et d’une hauteur de 0.8m, contenant chacune 3 à 5 poissons. 
+
+Ainsi, pour étudier les différences de réponses comportementales initiales (e.g. changements soudains de la vitesse et de la direction de la nage) ou soutenues (e.g. cohésion du banc) entre conditions, des analyses vidéo sont nécessaires et la mise en place de caméras est essentielle. Dans un objectif d’automatisation, de praticité et de réplicabilité, le LIENSs souhaite développer un système permettant de piloter plusieurs caméras et d’en sortir des données brutes. Ces données brutes auront pour devenir : 
+- 1/ la bancarisation sur support dédié (e.g. NAS, voir ci-dessous) et sur plateforme de dépôt dans le cadre de la démarche de partage de données
+- 2/ d’être traitées et analysées pour calculer plusieurs variables comportementales.
 
 # CAHIER DES CHARGES
 ### Objet de la demande
