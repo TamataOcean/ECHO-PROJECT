@@ -1,0 +1,61 @@
+Richard Buchmann
+22:14
+gstd
+gstd-client pipeline_create toto videotestsrc ! autovideosink
+pip install pygst
+Richard Buchmann
+22:24
+regarde ridgerun gstd (multimedia server ?)
+Richard Buchmann
+22:32
+genicam
+Richard Buchmann
+22:40
+ridgerun / tegra
+Vous
+22:47
+je t'entends bien et toi  ?
+Pointez sur un message pour l'épingler
+keep
+Richard Buchmann
+22:52
+time gst-launch-1.0 -q rtspsrc location=rtsp://${IP_CAMERA}/live/mainstream latency=100 ! watchdog timeout=200 ! queue ! rtph264depay ! h264parse ! avdec_h264 ! queue ! videoconvert ! textoverlay text="$(date)" valignment=top halignment=left font-desc="Sans, 24" ! fpsdisplaysink sync=false
+Richard Buchmann
+22:54
+gst-launch-1.0 -e rtspsrc location=rtsp://<adresse_du_flux> latency=100 ! \
+rtph264depay ! h264parse ! qtmux ! filesink location=output.mp4
+Richard Buchmann
+23:04
+gstd-client element_set pipename elementname propertyname value
+filesink
+multifilesink
+splutmuxsink
+Vous
+23:06
+gstreamer.freedesktop.org
+Richard Buchmann
+23:06
+https://gstreamer.freedesktop.org/documentation/multifile/splitmuxsink.html?gi-language=c
+Richard Buchmann
+23:16
+time gst-launch-1.0 -e -q rtspsrc location=rtsp://${IP_CAMERA}/live/mainstream latency=100 ! watchdog timeout=200 ! queue ! rtph264depay ! h264parse ! avdec_h264 ! queue ! openh264enc ! h264parse ! splitmuxsink location=video%02d.mov max-size-time=10000000000 max-size-bytes=1000000
+npm-ntan-mro
+
+Exemple GSTD
+
+>gstd &
+>gstd-client pipeline_create test videotestsrc ! videoconvert ! autovideosink
+>gstd-client pipeline_play test 
+>history 
+>gstd-client pipeline_pause test 
+>gstd-client pipeline_play test 
+>gstd-client pipeline_create test2 videotestsrc ! videoconvert ! autovideosink
+>gstd-client pipeline_play test2 
+>htop
+>gstd-client element_set test videotestsrc1 pattern 1
+>gstd-client list_elements test 
+>gstd-client element_set t
+
+
+### THE COMMAND
+time gst-launch-1.0 -e -q rtspsrc location=rtsp://${IP_CAMERA}/live/mainstream latency=100 ! watchdog timeout=200 ! queue ! rtph264depay ! h264parse ! queue ! h264parse ! splitmuxsink location=video%02d.mov max-size-time=10000000000 max-size-bytes=1000000
