@@ -19,6 +19,9 @@ Pointez sur un message pour l'épingler
 keep
 Richard Buchmann
 22:52
+
+### AFFICHAGE EN DIRECT de la vidéo streamée !!!
+################################################
 time gst-launch-1.0 -q rtspsrc location=rtsp://${IP_CAMERA}/live/mainstream latency=100 ! watchdog timeout=200 ! queue ! rtph264depay ! h264parse ! avdec_h264 ! queue ! videoconvert ! textoverlay text="$(date)" valignment=top halignment=left font-desc="Sans, 24" ! fpsdisplaysink sync=false
 Richard Buchmann
 22:54
