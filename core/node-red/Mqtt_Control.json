@@ -18,8 +18,8 @@
         "nl": false,
         "rap": false,
         "inputs": 0,
-        "x": 600,
-        "y": 180,
+        "x": 680,
+        "y": 240,
         "wires": [
             [
                 "cf2e93f32c5b4b8b",
@@ -34,8 +34,8 @@
         "name": "Affichage Debug",
         "active": true,
         "tosidebar": true,
-        "x": 800,
-        "y": 140,
+        "x": 920,
+        "y": 200,
         "wires": []
     },
     {
@@ -43,7 +43,7 @@
         "type": "mqtt out",
         "z": "f1a3b7b3d9b27e01",
         "name": "Envoyer Commande",
-        "topic": "video/control",
+        "topic": "gstreamer/control",
         "qos": "0",
         "retain": "false",
         "respTopic": "",
@@ -52,15 +52,15 @@
         "correl": "",
         "expiry": "",
         "broker": "ba7648b8.35c9f8",
-        "x": 400,
-        "y": 180,
+        "x": 480,
+        "y": 240,
         "wires": []
     },
     {
         "id": "b6c9e5fbd3e74a21",
         "type": "inject",
         "z": "f1a3b7b3d9b27e01",
-        "name": "Démarrer",
+        "name": "Start Recording",
         "props": [
             {
                 "p": "payload"
@@ -73,8 +73,8 @@
         "topic": "",
         "payload": "start",
         "payloadType": "str",
-        "x": 140,
-        "y": 80,
+        "x": 160,
+        "y": 60,
         "wires": [
             [
                 "4b9023b7eb6a72c2"
@@ -85,7 +85,7 @@
         "id": "c42e2f46a9a6c9b4",
         "type": "inject",
         "z": "f1a3b7b3d9b27e01",
-        "name": "Arrêter",
+        "name": "Resume Recording",
         "props": [
             {
                 "p": "payload"
@@ -96,10 +96,10 @@
         "once": false,
         "onceDelay": "",
         "topic": "",
-        "payload": "stop",
+        "payload": "resume",
         "payloadType": "str",
         "x": 150,
-        "y": 200,
+        "y": 140,
         "wires": [
             [
                 "4b9023b7eb6a72c2"
@@ -110,7 +110,7 @@
         "id": "e3a67d2f1297a5b8",
         "type": "inject",
         "z": "f1a3b7b3d9b27e01",
-        "name": "Statut",
+        "name": "Status Record",
         "props": [
             {
                 "p": "payload"
@@ -121,10 +121,10 @@
         "once": false,
         "onceDelay": "",
         "topic": "",
-        "payload": "status",
+        "payload": "status_record",
         "payloadType": "str",
-        "x": 150,
-        "y": 260,
+        "x": 170,
+        "y": 180,
         "wires": [
             [
                 "4b9023b7eb6a72c2"
@@ -142,15 +142,15 @@
         "name": "Statut Python",
         "label": "État du script",
         "format": "{{msg.payload}}",
-        "x": 800,
-        "y": 220,
+        "x": 920,
+        "y": 280,
         "wires": []
     },
     {
         "id": "ef54502f3ea922f1",
         "type": "inject",
         "z": "f1a3b7b3d9b27e01",
-        "name": "Pause",
+        "name": "Pause Recording",
         "props": [
             {
                 "p": "payload"
@@ -163,8 +163,83 @@
         "topic": "",
         "payload": "pause",
         "payloadType": "str",
-        "x": 150,
-        "y": 140,
+        "x": 160,
+        "y": 100,
+        "wires": [
+            [
+                "4b9023b7eb6a72c2"
+            ]
+        ]
+    },
+    {
+        "id": "b55e095953ea94ad",
+        "type": "inject",
+        "z": "f1a3b7b3d9b27e01",
+        "name": "Start display ",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "start_display",
+        "payloadType": "str",
+        "x": 190,
+        "y": 340,
+        "wires": [
+            [
+                "4b9023b7eb6a72c2"
+            ]
+        ]
+    },
+    {
+        "id": "8c737d606e6ce0da",
+        "type": "inject",
+        "z": "f1a3b7b3d9b27e01",
+        "name": "Pause Display",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "pause_display",
+        "payloadType": "str",
+        "x": 190,
+        "y": 380,
+        "wires": [
+            [
+                "4b9023b7eb6a72c2"
+            ]
+        ]
+    },
+    {
+        "id": "1f0b34ba921123c5",
+        "type": "inject",
+        "z": "f1a3b7b3d9b27e01",
+        "name": "Status Display",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "status_display",
+        "payloadType": "str",
+        "x": 190,
+        "y": 300,
         "wires": [
             [
                 "4b9023b7eb6a72c2"
