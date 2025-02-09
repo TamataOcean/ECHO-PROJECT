@@ -13,7 +13,7 @@ MQTT_PORT = 1883
 # Configuration du pipeline dans gstd
 #pipeline_str = "rtspsrc location=rtsp://admin:JKFLFO@172.24.1.112/11 latency=100 ! watchdog timeout=200 ! queue ! rtph264depay ! h264parse ! queue ! h264parse ! splitmuxsink location=video%02d.mov max-size-time=10000000000 max-size-bytes=1000000"
 
-pipiline_name_record = "RECORD_VideoSalon"
+pipeline_name_record = "RECORD_VideoSalon"
 pipiline_name_display = "DISPLAY_VideoSalon"
 
 export_directory_file = "/home/bibi/code/ECHO-PROJECT/TEST_VIDEOS/Bassin_A/"
@@ -34,16 +34,16 @@ gstd_logger = CustomLogger('pygstc_example', loglevel='DEBUG')
 gstd_client = GstdClient(logger=gstd_logger)
 
 # Création du pipeline Display
-gstd_client.pipeline_create(pipiline_name_display, pipeline_display)
-print(f"✅ Pipeline {pipiline_name_record} créé avec succès")
-pipelines = gstd_client.read("pipelines")
-print(f"📜 Liste des pipelines actifs : {pipelines}")
+# gstd_client.pipeline_create(pipiline_name_display, pipeline_display)
+# print(f"✅ Pipeline {pipeline_name_record} créé avec succès")
+# pipelines = gstd_client.read("pipelines")
+# print(f"📜 Liste des pipelines actifs : {pipelines}")
 
-# Création du pipeline Record
-gstd_client.pipeline_create(pipiline_name_record, pipeline_record)
-print(f"✅ Pipeline {pipiline_name_record} créé avec succès")
-pipelines = gstd_client.read("pipelines")
-print(f"📜 Liste des pipelines actifs : {pipelines}")
+# # Création du pipeline Record
+# gstd_client.pipeline_create(pipeline_name_record, pipeline_record)
+# print(f"✅ Pipeline {pipeline_name_record} créé avec succès")
+# pipelines = gstd_client.read("pipelines")
+# print(f"📜 Liste des pipelines actifs : {pipelines}")
 
 # Callback : Connexion au broker MQTT
 def on_connect(client, userdata, flags, rc):
@@ -59,31 +59,45 @@ def on_message(client, userdata, msg):
         camera_ID = payload.get("camera_ID")
         print(f"📩 Commande MQTT reçue : {command} / camera_ID : {camera_ID}")
 
-        if command == "start":
-            print("▶️ Démarrage du pipeline...")
-            gstd_client.pipeline_play(pipiline_name_record)
+        if command == "create_pipeline":
+            # Recupération des parametres de création 
+            pipe_Name = payload.get("pipeline_name")
+            pipe_Location = payload.get("location")
+
+            print(f"▶️ Creation du pipeline : {pipe_Name} / location : {pipe_Location} ")
+            # Création du pipeline
+            pipe_Record = f"rtspsrc location={pipe_Location} latency=1000 ! queue ! rtph264depay ! h264parse ! queue ! h264parse ! splitmuxsink location={export_directory_file}{pipe_Name}%02d.mov max-size-time=10000000000 max-size-bytes=1000000"
+            try:
+                gstd_client.pipeline_create(pipe_Name, pipe_Record)
+                print(f"✅ Pipeline {pipe_Name} créé avec succès")
+            except(e):
+                print(f"Error on Pipeline {pipe_Name} Error : {e}")
+
+        elif command == "start":
+            pipe_Name = payload.get("pipeline_name")
+            print(f"▶️ Démarrage du pipeline : {pipe_Name}")
+            gstd_client.pipeline_play(pipe_Name)
             # Vérifier l'état du pipeline
-            state = gstd_client.read(f'pipelines/{pipiline_name_record}/state')
+            state = gstd_client.read(f'pipelines/{pipe_Name}/state')
             print(f"🚦 État du pipeline après start : {state}")
 
         elif command == "pause":
-            print("⏸️ Pause du pipeline...")
-            gstd_client.pipeline_pause(pipiline_name_record)
+            pipe_Name = payload.get("pipeline_name")
+            print(f"⏸️ Pause du pipeline : {pipe_Name}")
+            gstd_client.pipeline_pause(pipe_Name)
 
         elif command == "resume":
-            print("▶️ Reprise du pipeline...")
-            gstd_client.pipeline_play(pipiline_name_record)
+            pipe_Name = payload.get("pipeline_name")
+            print(f"▶️ Reprise du pipeline : {pipe_Name}")
+            gstd_client.pipeline_play(pipe_Name)
 
         elif command == "stop":
-            print("🛑 Arrêt du pipeline...")
-            gstd_client.pipeline_stop(pipiline_name_record)
+            pipe_Name = payload.get("pipeline_name")
+            print(f"🛑 Arrêt du pipeline : {pipe_Name}")
+            gstd_client.pipeline_stop(pipe_Name)
 
         elif command == "status_record":
-            print(gstd_client.read(f'pipelines/{pipiline_name_record}/state')['value'])
-
-        elif command == "status_display":
-            state = gstd_client.read(f'pipelines/{pipiline_name_display}/state')
-            print(f"🚦 État du pipeline display : {state}")
+            print(gstd_client.read(f'pipelines/{pipe_Name}/state')['value'])
 
         elif command == "start_display":
             gstd_client.pipeline_play(pipiline_name_display)
@@ -110,7 +124,7 @@ try:
 
 except KeyboardInterrupt:
     print("\n🔴 Arrêt du programme.")
-    gstd_client.pipeline_stop(pipiline_name_record)
-    gstd_client.pipeline_delete(pipiline_name_record)
+    gstd_client.pipeline_stop(pipeline_name_record)
+    gstd_client.pipeline_delete(pipeline_name_record)
     gstd_client.pipeline_stop(pipiline_name_display)
     gstd_client.pipeline_delete(pipiline_name_display)
