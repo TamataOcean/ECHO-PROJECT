@@ -17,8 +17,8 @@ pipiline_name_display = "DISPLAY_VideoSalon"
 
 # PARAMETRE pour GSTD 
 # defautl
-max_size_file = 1000000 # 1 Mo (1 000 000 octets).
-max_size_time = 10000000000 # 10 secondes = 10 × 60 × 1 000 000 000 ns
+max_size_file = 10000000 # 10 Mo (1 000 000 octets).
+max_size_time = 60000000000 # 60 secondes = 10 × 60 × 1 000 000 000 ns
 
 # Custom
 # max_size_file = 10000000 # 10 Mo (10 000 000 octets).
@@ -150,6 +150,28 @@ try:
     client.loop_forever()
 
 except KeyboardInterrupt:
-    print("\n🔴 Arrêt du programme.")
+    print("\n🔴 Arrêt du programme et fermeture propre des pipelines existantes dans Gstd")
+
+    pipelines = gstd_client.list_pipelines()  # Liste des pipelines
+    for pipeline in pipelines:
+        pipe_name = pipeline['name']  # Ou pipeline.name, selon la structure de votre pipeline
+        # Lire l'état du pipeline en utilisant la méthode read
+        state = gstd_client.read(f'pipelines/{pipe_name}/state')['value']
+        print(f"Pipeline: {pipe_name} - State: {state}")
+
+        # Envoi du signal EOS avant l'arrêt
+        try:
+            gstd_client.event_eos(pipe_name)
+            print(f"📩 EOS envoyé au pipeline {pipe_name}")
+        except (GstcError, GstdError) as e:
+            print(f"❌ Erreur lors de l'envoi de EOS : {e}")
+
+        # Attendre un peu pour laisser le pipeline finaliser l'écriture
+        time.sleep(1)  # Pause de 1 secondes (ajuster si nécessaire)
+        print(f"🛑 Arrêt du pipeline : {pipe_name} terminé")
+        # Stopper et supprimer le pipeline
+        gstd_client.pipeline_stop(pipe_name)
+        gstd_client.pipeline_delete(pipe_name)
+
     # gstd_client.pipeline_stop(pipiline_name_display)
     # gstd_client.pipeline_delete(pipiline_name_display)
