@@ -4,6 +4,7 @@ from pygstc.gstc import *
 from pygstc.logger import *
 import paho.mqtt.client as mqtt
 import os
+import time
 
 # Configurations MQTT
 MQTT_BROKER = "localhost"  # Remplace par ton broker MQTT
@@ -15,9 +16,13 @@ MQTT_PORT = 1883
 pipiline_name_display = "DISPLAY_VideoSalon"
 
 # PARAMETRE pour GSTD 
-max_size_file = 10000000 # 10 Mo (10 000 000 octets).
-# max_size_time = 600000000000 # 10 minutes = 10 × 60 × 1 000 000 000 ns
+# defautl
+max_size_file = 1000000 # 1 Mo (1 000 000 octets).
 max_size_time = 10000000000 # 10 secondes = 10 × 60 × 1 000 000 000 ns
+
+# Custom
+# max_size_file = 10000000 # 10 Mo (10 000 000 octets).
+# max_size_time = 10000000000 # 10 secondes = 10 × 60 × 1 000 000 000 ns
 export_directory_file = "/home/bibi/code/ECHO-PROJECT/TEST_VIDEOS/Bassin_A/"
 camera_location = "rtsp://admin:JKFLFO@172.24.1.112/11"
 
@@ -30,6 +35,7 @@ else:
 
 pipeline_display = "rtspsrc location=rtsp://admin:JKFLFO@172.24.1.112/11 latency=1000 ! queue ! rtph264depay ! h264parse ! avdec_h264 ! queue ! videoconvert ! fpsdisplaysink sync=false"
 pipeline_record = f"rtspsrc location={camera_location} latency=1000 ! queue ! rtph264depay ! h264parse ! queue ! h264parse ! splitmuxsink location={export_directory_file}video%02d.mov max-size-time=10000000000 max-size-bytes=1000000"
+pipeline_webcam = f"v4l2src ! videoconvert ! autovideosink ! splitmuxsink location={export_directory_file}video%02d.mov max-size-time=10000000000 max-size-bytes=1000000"
 
 # Création du client gstd
 gstd_logger = CustomLogger('pygstc_example', loglevel='DEBUG')
@@ -64,17 +70,7 @@ def on_message(client, userdata, msg):
 
             print(f"▶️ Creation du pipeline : {pipe_Name} / location : {pipe_Location} ")
             # Création du pipeline
-            #pipe_Record = f"rtspsrc location={pipe_Location} latency=1000 ! queue ! rtph264depay ! h264parse ! queue ! h264parse ! splitmuxsink location={export_directory_file}{pipe_Name}%03d.mov max-size-time={max_size_time} max-size-bytes={max_size_file} muxer=mp4mux"
-            pipe_Record = f"rtspsrc location={pipe_Location} latency=1000 \
-                ! queue \
-                ! rtph264depay \
-                ! h264parse \
-                ! queue \
-                ! h264parse \
-                ! splitmuxsink location={export_directory_file}{pipe_Name}%03d.mov \
-                max-size-time={max_size_time} \
-                max-size-bytes={max_size_file} \
-                muxer=mp4mux"
+            pipe_Record = f"rtspsrc location={pipe_Location} latency=1000 ! queue ! rtph264depay ! h264parse ! queue ! h264parse ! splitmuxsink location={export_directory_file}{pipe_Name}%03d.mov max-size-time={max_size_time} max-size-bytes={max_size_file}"
             
             try:
                 gstd_client.pipeline_create(pipe_Name, pipe_Record)
@@ -99,6 +95,18 @@ def on_message(client, userdata, msg):
 
         elif command == "stop":
             print(f"🛑 Arrêt du pipeline : {pipe_Name}")
+            
+            # Envoi du signal EOS avant l'arrêt
+            try:
+                gstd_client.event_eos(pipe_Name)
+                print(f"📩 EOS envoyé au pipeline {pipe_Name}")
+            except (GstcError, GstdError) as e:
+                print(f"❌ Erreur lors de l'envoi de EOS : {e}")
+
+            # Attendre un peu pour laisser le pipeline finaliser l'écriture
+            time.sleep(1)  # Pause de 1 secondes (ajuster si nécessaire)
+            print(f"🛑 Arrêt du pipeline : {pipe_Name} terminé")
+            # Stopper et supprimer le pipeline
             gstd_client.pipeline_stop(pipe_Name)
             gstd_client.pipeline_delete(pipe_Name)
         
