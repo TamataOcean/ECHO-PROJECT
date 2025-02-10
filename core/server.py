@@ -57,20 +57,42 @@ def on_connect(client, userdata, flags, rc):
 # Callback : Réception d'un message MQTT
 def on_message(client, userdata, msg):
     try:
-        #command = msg.payload.decode()
-        payload = json.loads(msg.payload.decode())
+        raw_payload = msg.payload.decode()
+        print(f"Message MQTT reçu : {raw_payload}")
+
+        payload = json.loads(raw_payload)
+        if not isinstance(payload, dict):
+            print("❌ Erreur : Le payload MQTT n'est pas un dictionnaire JSON valide")
+            return
+        print(f"✅ Payload JSON décodé : {payload}")
+
         command = payload.get("order")
-        camera_ID = payload.get("camera_ID")
-        print(f"📩 Commande MQTT reçue : {command} / camera_ID : {camera_ID}")
         pipe_Name = payload.get("pipeline_name")
+        # video_name = payload.get("video_file_name")
+
+        print(f"📩 Commande MQTT reçue : {command} / pipe_Name : {pipe_Name}")
 
         if command == "create_pipeline":
-            # Recupération des parametres de création 
+            ID_Serie = payload.get("ID_Serie")
+            ID_Bassin = payload.get("ID_Bassin")
+            ID_Arene = payload.get("ID_Arene")
+            ID_Sequence = payload.get("ID_Sequence")
+            ID_Camera = payload.get("ID_Camera")
             pipe_Location = payload.get("location")
+            
+            video_name = f"{ID_Serie}_{ID_Bassin}_{ID_Arene}_{ID_Sequence}_"
+            
+            # Recupération des parametres de création 
 
             print(f"▶️ Creation du pipeline : {pipe_Name} / location : {pipe_Location} ")
             # Création du pipeline
-            pipe_Record = f"rtspsrc location={pipe_Location} latency=1000 ! queue ! rtph264depay ! h264parse ! queue ! h264parse ! splitmuxsink location={export_directory_file}{pipe_Name}%03d.mov max-size-time={max_size_time} max-size-bytes={max_size_file}"
+            pipe_Record = f"rtspsrc location={pipe_Location} latency=1000 \
+                ! queue ! rtph264depay ! h264parse \
+                ! queue ! h264parse \
+                ! splitmuxsink \
+                location={export_directory_file}{video_name}%03d.mov \
+                max-size-time={max_size_time} \
+                max-size-bytes={max_size_file}"
             
             try:
                 gstd_client.pipeline_create(pipe_Name, pipe_Record)
@@ -173,5 +195,4 @@ except KeyboardInterrupt:
         gstd_client.pipeline_stop(pipe_name)
         gstd_client.pipeline_delete(pipe_name)
 
-    # gstd_client.pipeline_stop(pipiline_name_display)
-    # gstd_client.pipeline_delete(pipiline_name_display)
+    print("\n🔴 Arrêt du programme terminé")
