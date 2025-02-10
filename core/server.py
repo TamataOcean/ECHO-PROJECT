@@ -12,10 +12,12 @@ MQTT_PORT = 1883
 
 # Configuration du pipeline dans gstd
 #pipeline_str = "rtspsrc location=rtsp://admin:JKFLFO@172.24.1.112/11 latency=100 ! watchdog timeout=200 ! queue ! rtph264depay ! h264parse ! queue ! h264parse ! splitmuxsink location=video%02d.mov max-size-time=10000000000 max-size-bytes=1000000"
-
-pipeline_name_record = "RECORD_VideoSalon"
 pipiline_name_display = "DISPLAY_VideoSalon"
 
+# PARAMETRE pour GSTD 
+max_size_file = 10000000 # 10 Mo (10 000 000 octets).
+# max_size_time = 600000000000 # 10 minutes = 10 × 60 × 1 000 000 000 ns
+max_size_time = 10000000000 # 10 secondes = 10 × 60 × 1 000 000 000 ns
 export_directory_file = "/home/bibi/code/ECHO-PROJECT/TEST_VIDEOS/Bassin_A/"
 camera_location = "rtsp://admin:JKFLFO@172.24.1.112/11"
 
@@ -31,16 +33,12 @@ pipeline_record = f"rtspsrc location={camera_location} latency=1000 ! queue ! rt
 
 # Création du client gstd
 gstd_logger = CustomLogger('pygstc_example', loglevel='DEBUG')
-gstd_client = GstdClient(logger=gstd_logger)
+#gstd_client = GstdClient(logger=gstd_logger)
+
+gstd_client = GstdClient()
 
 # Création du pipeline Display
 # gstd_client.pipeline_create(pipiline_name_display, pipeline_display)
-# print(f"✅ Pipeline {pipeline_name_record} créé avec succès")
-# pipelines = gstd_client.read("pipelines")
-# print(f"📜 Liste des pipelines actifs : {pipelines}")
-
-# # Création du pipeline Record
-# gstd_client.pipeline_create(pipeline_name_record, pipeline_record)
 # print(f"✅ Pipeline {pipeline_name_record} créé avec succès")
 # pipelines = gstd_client.read("pipelines")
 # print(f"📜 Liste des pipelines actifs : {pipelines}")
@@ -66,7 +64,18 @@ def on_message(client, userdata, msg):
 
             print(f"▶️ Creation du pipeline : {pipe_Name} / location : {pipe_Location} ")
             # Création du pipeline
-            pipe_Record = f"rtspsrc location={pipe_Location} latency=1000 ! queue ! rtph264depay ! h264parse ! queue ! h264parse ! splitmuxsink location={export_directory_file}{pipe_Name}%02d.mov max-size-time=10000000000 max-size-bytes=1000000"
+            #pipe_Record = f"rtspsrc location={pipe_Location} latency=1000 ! queue ! rtph264depay ! h264parse ! queue ! h264parse ! splitmuxsink location={export_directory_file}{pipe_Name}%03d.mov max-size-time={max_size_time} max-size-bytes={max_size_file} muxer=mp4mux"
+            pipe_Record = f"rtspsrc location={pipe_Location} latency=1000 \
+                ! queue \
+                ! rtph264depay \
+                ! h264parse \
+                ! queue \
+                ! h264parse \
+                ! splitmuxsink location={export_directory_file}{pipe_Name}%03d.mov \
+                max-size-time={max_size_time} \
+                max-size-bytes={max_size_file} \
+                muxer=mp4mux"
+            
             try:
                 gstd_client.pipeline_create(pipe_Name, pipe_Record)
                 print(f"✅ Pipeline {pipe_Name} créé avec succès")
@@ -91,6 +100,7 @@ def on_message(client, userdata, msg):
         elif command == "stop":
             print(f"🛑 Arrêt du pipeline : {pipe_Name}")
             gstd_client.pipeline_stop(pipe_Name)
+            gstd_client.pipeline_delete(pipe_Name)
         
         # Renvoie les "states" de tous les pipelines. 
         elif command == "status":
@@ -133,7 +143,5 @@ try:
 
 except KeyboardInterrupt:
     print("\n🔴 Arrêt du programme.")
-    gstd_client.pipeline_stop(pipeline_name_record)
-    gstd_client.pipeline_delete(pipeline_name_record)
-    gstd_client.pipeline_stop(pipiline_name_display)
-    gstd_client.pipeline_delete(pipiline_name_display)
+    # gstd_client.pipeline_stop(pipiline_name_display)
+    # gstd_client.pipeline_delete(pipiline_name_display)
