@@ -58,10 +58,10 @@ def on_message(client, userdata, msg):
         command = payload.get("order")
         camera_ID = payload.get("camera_ID")
         print(f"📩 Commande MQTT reçue : {command} / camera_ID : {camera_ID}")
+        pipe_Name = payload.get("pipeline_name")
 
         if command == "create_pipeline":
             # Recupération des parametres de création 
-            pipe_Name = payload.get("pipeline_name")
             pipe_Location = payload.get("location")
 
             print(f"▶️ Creation du pipeline : {pipe_Name} / location : {pipe_Location} ")
@@ -70,11 +70,10 @@ def on_message(client, userdata, msg):
             try:
                 gstd_client.pipeline_create(pipe_Name, pipe_Record)
                 print(f"✅ Pipeline {pipe_Name} créé avec succès")
-            except(e):
+            except(GstcError, GstdError) as e:
                 print(f"Error on Pipeline {pipe_Name} Error : {e}")
 
         elif command == "start":
-            pipe_Name = payload.get("pipeline_name")
             print(f"▶️ Démarrage du pipeline : {pipe_Name}")
             gstd_client.pipeline_play(pipe_Name)
             # Vérifier l'état du pipeline
@@ -82,19 +81,25 @@ def on_message(client, userdata, msg):
             print(f"🚦 État du pipeline après start : {state}")
 
         elif command == "pause":
-            pipe_Name = payload.get("pipeline_name")
             print(f"⏸️ Pause du pipeline : {pipe_Name}")
             gstd_client.pipeline_pause(pipe_Name)
 
         elif command == "resume":
-            pipe_Name = payload.get("pipeline_name")
             print(f"▶️ Reprise du pipeline : {pipe_Name}")
             gstd_client.pipeline_play(pipe_Name)
 
         elif command == "stop":
-            pipe_Name = payload.get("pipeline_name")
             print(f"🛑 Arrêt du pipeline : {pipe_Name}")
             gstd_client.pipeline_stop(pipe_Name)
+        
+        # Renvoie les "states" de tous les pipelines. 
+        elif command == "status":
+            pipelines = gstd_client.list_pipelines()  # Liste des pipelines
+            for pipeline in pipelines:
+                pipe_name = pipeline['name']  # Ou pipeline.name, selon la structure de votre pipeline
+                # Lire l'état du pipeline en utilisant la méthode read
+                state = gstd_client.read(f'pipelines/{pipe_name}/state')['value']
+                print(f"Pipeline: {pipe_name} - State: {state}")
 
         elif command == "status_record":
             print(gstd_client.read(f'pipelines/{pipe_Name}/state')['value'])
@@ -107,6 +112,10 @@ def on_message(client, userdata, msg):
 
         elif command == "stop_display":
             gstd_client.pipeline_stop(pipiline_name_display)
+        
+        # Erreur sur la commande
+        else:
+            print(f"Command : {command} inconnue côté server")
     
     except json.JSONDecodeError as e:
         print(f"Erreur lors du parsing du JSON: {e}")
