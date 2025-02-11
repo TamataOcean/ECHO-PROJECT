@@ -1,47 +1,186 @@
 [
     {
-        "id": "f1a3b7b3d9b27e01",
+        "id": "9437544a0f6eb7b6",
         "type": "tab",
-        "label": "Contrôle Python via MQTT",
+        "label": "Lancement de la Série",
         "disabled": false,
-        "info": ""
+        "info": "",
+        "env": []
     },
     {
-        "id": "7c3e8a82c1f8b4d1",
-        "type": "mqtt in",
-        "z": "f1a3b7b3d9b27e01",
-        "name": "Réponse Python",
-        "topic": "video/response",
-        "qos": "0",
-        "datatype": "utf8",
-        "broker": "ba7648b8.35c9f8",
-        "nl": false,
-        "rap": false,
-        "inputs": 0,
-        "x": 680,
-        "y": 240,
+        "id": "e12252ea94371888",
+        "type": "ui_form",
+        "z": "9437544a0f6eb7b6",
+        "name": "Formulaire de Configuration",
+        "label": "",
+        "group": "4402a57f897c8600",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "options": [
+            {
+                "label": "ID Série",
+                "value": "ID_Serie",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "ID Bassin",
+                "value": "ID_Bassin",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "ID Arène",
+                "value": "ID_Arene",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "ID Séquence",
+                "value": "ID_Sequence",
+                "type": "text",
+                "required": true,
+                "rows": null
+            },
+            {
+                "label": "ID Caméra",
+                "value": "ID_Camera",
+                "type": "text",
+                "required": true,
+                "rows": null
+            }
+        ],
+        "formValue": {
+            "ID_Serie": "",
+            "ID_Bassin": "",
+            "ID_Arene": "",
+            "ID_Sequence": "",
+            "ID_Camera": ""
+        },
+        "payload": "",
+        "submit": "Envoyer",
+        "cancel": "Annuler",
+        "topic": "",
+        "topicType": "str",
+        "splitLayout": true,
+        "className": "",
+        "x": 180,
+        "y": 440,
         "wires": [
             [
-                "cf2e93f32c5b4b8b",
-                "c3d1e7c7efb8b6c5"
+                "148ae76bb7b0f6e0"
+            ]
+        ],
+        "inputLabels": [
+            "Coucou"
+        ],
+        "outputLabels": [
+            "Yoyo"
+        ]
+    },
+    {
+        "id": "148ae76bb7b0f6e0",
+        "type": "function",
+        "z": "9437544a0f6eb7b6",
+        "name": "Générer JSON",
+        "func": "msg.payload = {\n    \"ID_Serie\": msg.payload.ID_Serie,\n    \"ID_Bassin\": msg.payload.ID_Bassin,\n    \"ID_Arene\": msg.payload.ID_Arene,\n    \"ID_Sequence\": msg.payload.ID_Sequence,\n    \"ID_Camera\": msg.payload.ID_Camera,\n    \"location\": \"rtsp://admin:JKFLFO@172.24.1.112/11\",\n    \"video_file_name\": \"Camera_TEST1\",\n    \"pipeline_name\": \"Camera_TEST1\",\n    \"orders\": [\n        {\"order\": \"create_pipeline\"},\n        {\"order\": \"start\", \"duration\": 20, \"pipeline_name\": \"Camera_TEST1\"},\n        {\"order\": \"stop\", \"pipeline_name\": \"Camera_TEST1\"}\n    ]\n};\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 420,
+        "y": 440,
+        "wires": [
+            [
+                "67f3905c5da6a927"
             ]
         ]
     },
     {
-        "id": "cf2e93f32c5b4b8b",
+        "id": "67f3905c5da6a927",
+        "type": "file",
+        "z": "9437544a0f6eb7b6",
+        "name": "Enregistrer JSON",
+        "filename": "/home/bibi/code/ECHO-PROJECT/core/config.json",
+        "filenameType": "str",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "true",
+        "encoding": "utf8",
+        "x": 630,
+        "y": 440,
+        "wires": [
+            [
+                "21334833f91cee3a"
+            ]
+        ]
+    },
+    {
+        "id": "21334833f91cee3a",
+        "type": "exec",
+        "z": "9437544a0f6eb7b6",
+        "command": "python3 /home/bibi/code/ECHO-PROJECT/core/pControler-from-JSON.py /home/bibi/code/ECHO-PROJECT/core/config.json",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Exécuter Script",
+        "x": 840,
+        "y": 440,
+        "wires": [
+            [
+                "2148d11b43d6b642"
+            ],
+            [],
+            [
+                "1cff7aef6b5c1bac"
+            ]
+        ]
+    },
+    {
+        "id": "2148d11b43d6b642",
         "type": "debug",
-        "z": "f1a3b7b3d9b27e01",
-        "name": "Affichage Debug",
+        "z": "9437544a0f6eb7b6",
+        "name": "Résultat",
         "active": true,
         "tosidebar": true,
-        "x": 920,
-        "y": 200,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1040,
+        "y": 400,
         "wires": []
     },
     {
-        "id": "4b9023b7eb6a72c2",
+        "id": "1cff7aef6b5c1bac",
+        "type": "debug",
+        "z": "9437544a0f6eb7b6",
+        "name": "Erreur",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 1030,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "09585d3fda80deca",
         "type": "mqtt out",
-        "z": "f1a3b7b3d9b27e01",
+        "z": "9437544a0f6eb7b6",
         "name": "Envoyer Commande",
         "topic": "gstreamer/control",
         "qos": "0",
@@ -52,14 +191,14 @@
         "correl": "",
         "expiry": "",
         "broker": "ba7648b8.35c9f8",
-        "x": 480,
-        "y": 240,
+        "x": 420,
+        "y": 180,
         "wires": []
     },
     {
-        "id": "b6c9e5fbd3e74a21",
+        "id": "cf01a76215ca7652",
         "type": "inject",
-        "z": "f1a3b7b3d9b27e01",
+        "z": "9437544a0f6eb7b6",
         "name": "Start Recording",
         "props": [
             {
@@ -71,21 +210,21 @@
         "once": false,
         "onceDelay": "",
         "topic": "",
-        "payload": "start",
+        "payload": "{\"order\":\"start\"}",
         "payloadType": "str",
-        "x": 160,
+        "x": 140,
         "y": 60,
         "wires": [
             [
-                "4b9023b7eb6a72c2"
+                "09585d3fda80deca"
             ]
         ]
     },
     {
-        "id": "c42e2f46a9a6c9b4",
+        "id": "1220de5d52e75b03",
         "type": "inject",
-        "z": "f1a3b7b3d9b27e01",
-        "name": "Resume Recording",
+        "z": "9437544a0f6eb7b6",
+        "name": "Status",
         "props": [
             {
                 "p": "payload"
@@ -96,60 +235,20 @@
         "once": false,
         "onceDelay": "",
         "topic": "",
-        "payload": "resume",
+        "payload": "{\"order\":\"status\"}",
         "payloadType": "str",
-        "x": 150,
+        "x": 170,
         "y": 140,
         "wires": [
             [
-                "4b9023b7eb6a72c2"
+                "09585d3fda80deca"
             ]
         ]
     },
     {
-        "id": "e3a67d2f1297a5b8",
+        "id": "a781b85afa9e39db",
         "type": "inject",
-        "z": "f1a3b7b3d9b27e01",
-        "name": "Status Record",
-        "props": [
-            {
-                "p": "payload"
-            }
-        ],
-        "repeat": "",
-        "crontab": "",
-        "once": false,
-        "onceDelay": "",
-        "topic": "",
-        "payload": "status_record",
-        "payloadType": "str",
-        "x": 170,
-        "y": 180,
-        "wires": [
-            [
-                "4b9023b7eb6a72c2"
-            ]
-        ]
-    },
-    {
-        "id": "c3d1e7c7efb8b6c5",
-        "type": "ui_text",
-        "z": "f1a3b7b3d9b27e01",
-        "group": "a2d5f3e7c4b9a8d6",
-        "order": 1,
-        "width": "6",
-        "height": "1",
-        "name": "Statut Python",
-        "label": "État du script",
-        "format": "{{msg.payload}}",
-        "x": 920,
-        "y": 280,
-        "wires": []
-    },
-    {
-        "id": "ef54502f3ea922f1",
-        "type": "inject",
-        "z": "f1a3b7b3d9b27e01",
+        "z": "9437544a0f6eb7b6",
         "name": "Pause Recording",
         "props": [
             {
@@ -161,20 +260,20 @@
         "once": false,
         "onceDelay": "",
         "topic": "",
-        "payload": "pause",
+        "payload": "{\"order\":\"pause\"}",
         "payloadType": "str",
-        "x": 160,
+        "x": 140,
         "y": 100,
         "wires": [
             [
-                "4b9023b7eb6a72c2"
+                "09585d3fda80deca"
             ]
         ]
     },
     {
-        "id": "b55e095953ea94ad",
+        "id": "095ce910ec9163e5",
         "type": "inject",
-        "z": "f1a3b7b3d9b27e01",
+        "z": "9437544a0f6eb7b6",
         "name": "Start display ",
         "props": [
             {
@@ -188,18 +287,18 @@
         "topic": "",
         "payload": "start_display",
         "payloadType": "str",
-        "x": 190,
-        "y": 340,
+        "x": 150,
+        "y": 240,
         "wires": [
             [
-                "4b9023b7eb6a72c2"
+                "09585d3fda80deca"
             ]
         ]
     },
     {
-        "id": "8c737d606e6ce0da",
+        "id": "a7dcaa489c761c3b",
         "type": "inject",
-        "z": "f1a3b7b3d9b27e01",
+        "z": "9437544a0f6eb7b6",
         "name": "Pause Display",
         "props": [
             {
@@ -213,18 +312,18 @@
         "topic": "",
         "payload": "pause_display",
         "payloadType": "str",
-        "x": 190,
-        "y": 380,
+        "x": 150,
+        "y": 280,
         "wires": [
             [
-                "4b9023b7eb6a72c2"
+                "09585d3fda80deca"
             ]
         ]
     },
     {
-        "id": "1f0b34ba921123c5",
+        "id": "83c0f41c11a79503",
         "type": "inject",
-        "z": "f1a3b7b3d9b27e01",
+        "z": "9437544a0f6eb7b6",
         "name": "Status Display",
         "props": [
             {
@@ -238,13 +337,55 @@
         "topic": "",
         "payload": "status_display",
         "payloadType": "str",
-        "x": 190,
-        "y": 300,
+        "x": 150,
+        "y": 200,
         "wires": [
             [
-                "4b9023b7eb6a72c2"
+                "09585d3fda80deca"
             ]
         ]
+    },
+    {
+        "id": "28822724f9c0bd75",
+        "type": "mqtt in",
+        "z": "9437544a0f6eb7b6",
+        "name": "Réponse Python",
+        "topic": "video/response",
+        "qos": "0",
+        "datatype": "utf8",
+        "broker": "ba7648b8.35c9f8",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 620,
+        "y": 180,
+        "wires": [
+            [
+                "fb2c561e5fecb0af"
+            ]
+        ]
+    },
+    {
+        "id": "fb2c561e5fecb0af",
+        "type": "debug",
+        "z": "9437544a0f6eb7b6",
+        "name": "Affichage Debug",
+        "active": true,
+        "tosidebar": true,
+        "x": 820,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "4402a57f897c8600",
+        "type": "ui_group",
+        "name": "Config Série",
+        "tab": "564a9cba19c2bc96",
+        "order": 1,
+        "disp": true,
+        "width": "8",
+        "collapse": true,
+        "className": ""
     },
     {
         "id": "ba7648b8.35c9f8",
@@ -267,21 +408,10 @@
         "willPayload": ""
     },
     {
-        "id": "a2d5f3e7c4b9a8d6",
-        "type": "ui_group",
-        "name": "Contrôle",
-        "tab": "f2d3a5c6b4e7d8f9",
-        "order": 1,
-        "disp": true,
-        "width": "6",
-        "collapse": false
-    },
-    {
-        "id": "f2d3a5c6b4e7d8f9",
+        "id": "564a9cba19c2bc96",
         "type": "ui_tab",
-        "name": "Dashboard",
+        "name": "Echo-Project",
         "icon": "dashboard",
-        "order": 1,
         "disabled": false,
         "hidden": false
     }

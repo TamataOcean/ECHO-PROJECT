@@ -80,7 +80,7 @@ def on_message(client, userdata, msg):
             ID_Camera = payload.get("ID_Camera")
             pipe_Location = payload.get("location")
             
-            video_name = f"{ID_Serie}_{ID_Bassin}_{ID_Arene}_{ID_Sequence}_"
+            video_name = f"{ID_Serie}_{ID_Bassin}_{ID_Arene}_{ID_Sequence}_{ID_Camera}_"
             
             # Recupération des parametres de création 
 
@@ -126,7 +126,7 @@ def on_message(client, userdata, msg):
                 print(f"❌ Erreur lors de l'envoi de EOS : {e}")
 
             # Attendre un peu pour laisser le pipeline finaliser l'écriture
-            time.sleep(1)  # Pause de 1 secondes (ajuster si nécessaire)
+            time.sleep(2)  # Pause de 1 secondes (ajuster si nécessaire)
             print(f"🛑 Arrêt du pipeline : {pipe_Name} terminé")
             # Stopper et supprimer le pipeline
             gstd_client.pipeline_stop(pipe_Name)
