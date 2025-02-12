@@ -52,6 +52,13 @@
                 "type": "text",
                 "required": true,
                 "rows": null
+            },
+            {
+                "label": "PipeLine",
+                "value": "PL_Name",
+                "type": "text",
+                "required": true,
+                "rows": null
             }
         ],
         "formValue": {
@@ -59,7 +66,8 @@
             "ID_Bassin": "",
             "ID_Arene": "",
             "ID_Sequence": "",
-            "ID_Camera": ""
+            "ID_Camera": "",
+            "PL_Name": ""
         },
         "payload": "",
         "submit": "Envoyer",
@@ -69,7 +77,7 @@
         "splitLayout": true,
         "className": "",
         "x": 180,
-        "y": 440,
+        "y": 360,
         "wires": [
             [
                 "148ae76bb7b0f6e0"
@@ -87,7 +95,7 @@
         "type": "function",
         "z": "9437544a0f6eb7b6",
         "name": "Générer JSON",
-        "func": "msg.payload = {\n    \"ID_Serie\": msg.payload.ID_Serie,\n    \"ID_Bassin\": msg.payload.ID_Bassin,\n    \"ID_Arene\": msg.payload.ID_Arene,\n    \"ID_Sequence\": msg.payload.ID_Sequence,\n    \"ID_Camera\": msg.payload.ID_Camera,\n    \"location\": \"rtsp://admin:JKFLFO@172.24.1.112/11\",\n    \"video_file_name\": \"Camera_TEST1\",\n    \"pipeline_name\": \"Camera_TEST1\",\n    \"orders\": [\n        {\"order\": \"create_pipeline\"},\n        {\"order\": \"start\", \"duration\": 20, \"pipeline_name\": \"Camera_TEST1\"},\n        {\"order\": \"stop\", \"pipeline_name\": \"Camera_TEST1\"}\n    ]\n};\nreturn msg;",
+        "func": "msg.payload = {\n    \"ID_Serie\": msg.payload.ID_Serie,\n    \"ID_Bassin\": msg.payload.ID_Bassin,\n    \"ID_Arene\": msg.payload.ID_Arene,\n    \"ID_Sequence\": msg.payload.ID_Sequence,\n    \"ID_Camera\": msg.payload.ID_Camera,\n    \"location\": \"rtsp://admin:JKFLFO@172.24.1.112/11\",\n    \"video_file_name\": \"Camera_TEST1\",\n    \"pipeline_name\": msg.payload.PL_Name\n};\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -95,10 +103,11 @@
         "finalize": "",
         "libs": [],
         "x": 420,
-        "y": 440,
+        "y": 360,
         "wires": [
             [
-                "67f3905c5da6a927"
+                "67f3905c5da6a927",
+                "4e573ff46b1ef73c"
             ]
         ]
     },
@@ -106,7 +115,7 @@
         "id": "67f3905c5da6a927",
         "type": "file",
         "z": "9437544a0f6eb7b6",
-        "name": "Enregistrer JSON",
+        "name": "Record Config.json",
         "filename": "/home/bibi/code/ECHO-PROJECT/core/config.json",
         "filenameType": "str",
         "appendNewline": false,
@@ -114,18 +123,16 @@
         "overwriteFile": "true",
         "encoding": "utf8",
         "x": 630,
-        "y": 440,
+        "y": 360,
         "wires": [
-            [
-                "21334833f91cee3a"
-            ]
+            []
         ]
     },
     {
         "id": "21334833f91cee3a",
         "type": "exec",
         "z": "9437544a0f6eb7b6",
-        "command": "python3 /home/bibi/code/ECHO-PROJECT/core/pControler-from-JSON.py /home/bibi/code/ECHO-PROJECT/core/config.json",
+        "command": "python3 /home/bibi/code/ECHO-PROJECT/core/pControler-from-JSON.py /home/bibi/code/ECHO-PROJECT/core/merged.json",
         "addpay": "",
         "append": "",
         "useSpawn": "true",
@@ -133,8 +140,8 @@
         "winHide": false,
         "oldrc": false,
         "name": "Exécuter Script",
-        "x": 840,
-        "y": 440,
+        "x": 340,
+        "y": 760,
         "wires": [
             [
                 "2148d11b43d6b642"
@@ -158,8 +165,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1040,
-        "y": 400,
+        "x": 520,
+        "y": 720,
         "wires": []
     },
     {
@@ -173,8 +180,8 @@
         "tostatus": false,
         "complete": "payload",
         "targetType": "msg",
-        "x": 1030,
-        "y": 480,
+        "x": 510,
+        "y": 800,
         "wires": []
     },
     {
@@ -191,8 +198,8 @@
         "correl": "",
         "expiry": "",
         "broker": "ba7648b8.35c9f8",
-        "x": 420,
-        "y": 180,
+        "x": 400,
+        "y": 60,
         "wires": []
     },
     {
@@ -358,7 +365,7 @@
         "rap": false,
         "inputs": 0,
         "x": 620,
-        "y": 180,
+        "y": 60,
         "wires": [
             [
                 "fb2c561e5fecb0af"
@@ -373,8 +380,118 @@
         "active": true,
         "tosidebar": true,
         "x": 820,
-        "y": 180,
+        "y": 60,
         "wires": []
+    },
+    {
+        "id": "4e573ff46b1ef73c",
+        "type": "debug",
+        "z": "9437544a0f6eb7b6",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 600,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "5b32e33e6b3fcfdd",
+        "type": "ui_button",
+        "z": "9437544a0f6eb7b6",
+        "name": "",
+        "group": "bbd3e3f3bc9b",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Merged Json",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 130,
+        "y": 600,
+        "wires": [
+            [
+                "a2d4a579d4744da7"
+            ]
+        ]
+    },
+    {
+        "id": "a2d4a579d4744da7",
+        "type": "exec",
+        "z": "9437544a0f6eb7b6",
+        "command": "python3 /home/bibi/code/ECHO-PROJECT/core/merge_json.py /home/bibi/code/ECHO-PROJECT/core/config.json /home/bibi/code/ECHO-PROJECT/core/orders.json",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "true",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Merged JSON Config + Orders",
+        "x": 430,
+        "y": 600,
+        "wires": [
+            [
+                "04831fba5347d5ec"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "04831fba5347d5ec",
+        "type": "debug",
+        "z": "9437544a0f6eb7b6",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 680,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "10b219895072d63f",
+        "type": "ui_button",
+        "z": "9437544a0f6eb7b6",
+        "name": "",
+        "group": "bbd3e3f3bc9b",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Launch Record",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "topic",
+        "topicType": "msg",
+        "x": 140,
+        "y": 760,
+        "wires": [
+            [
+                "21334833f91cee3a"
+            ]
+        ]
     },
     {
         "id": "4402a57f897c8600",
@@ -408,11 +525,28 @@
         "willPayload": ""
     },
     {
+        "id": "bbd3e3f3bc9b",
+        "type": "ui_group",
+        "name": "Commandes",
+        "tab": "a5f6c3d7b9e4",
+        "order": 1,
+        "disp": true,
+        "width": "6",
+        "collapse": false
+    },
+    {
         "id": "564a9cba19c2bc96",
         "type": "ui_tab",
         "name": "Echo-Project",
         "icon": "dashboard",
         "disabled": false,
         "hidden": false
+    },
+    {
+        "id": "a5f6c3d7b9e4",
+        "type": "ui_tab",
+        "name": "Contrôle",
+        "icon": "dashboard",
+        "order": 1
     }
 ]

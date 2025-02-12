@@ -65,11 +65,28 @@ time gst-launch-1.0 -e -q rtspsrc location=rtsp://${IP_CAMERA}/live/mainstream l
 
 ### COMMANDE VALIDE via terminal !!!
 ####################################
-# AFFICHAGE
-# time gst-launch-1.0 -q rtspsrc location=rtsp://admin:JKFLFO@172.24.1.112/11 latency=1000 ! queue ! rtph264depay ! h264parse ! avdec_h264 ! queue ! videoconvert ! textoverlay text="$(date)" valignment=top halignment=left font-desc="Sans, 24" ! fpsdisplaysink sync=false
-# ENREGISTREMENT DANS UN FICHER SEGMENTE
-# time gst-launch-1.0 -e -q rtspsrc location=rtsp://admin:JKFLFO@172.24.1.112/11 latency=1000 ! queue ! rtph264depay ! h264parse ! queue ! h264parse ! splitmuxsink location=/home/bibi/code/ECHO-PROJECT/TEST_VIDEOS/video%02d.mov max-size-time=10000000000 max-size-bytes=1000000
+# AFFICHAGE ( ajouter GST_DEBUG=3 devant la commande pour avoir un Debug précis )
+# GST_DEBUG=3 time gst-launch-1.0 -q rtspsrc location=rtsp://admin:JKFLFO@172.24.1.112/11 latency=1000 ! queue ! rtph264depay ! h264parse ! avdec_h264 ! queue ! videoconvert ! textoverlay text="$(date)" valignment=top halignment=left font-desc="Sans, 24" ! fpsdisplaysink sync=false
+
+# ENREGISTREMENT DANS UN FICHER SEGMENTE 
+# GST_DEBUG=3 time gst-launch-1.0 -e -q rtspsrc location=rtsp://admin:JKFLFO@172.24.1.112/11 latency=1000 ! queue ! rtph264depay ! h264parse ! queue ! h264parse ! splitmuxsink location=/home/bibi/code/ECHO-PROJECT/TEST_VIDEOS/video%02d.mov max-size-time=10000000000 max-size-bytes=1000000
+
 
 #Pipeline de T  EST pour afficher une vidéo "mire"
 #pipiline_name_record = "test"
 #pipeline_str = 'videotestsrc ! videoconvert ! autovideosink'
+
+# AFFICHAGE DE LA WEBCAM
+gst-launch-1.0 v4l2src ! videoconvert ! autovideosink
+
+# COMMANDE UTILE 
+nmap -p 554,8554 172.24.1.112 # Permet de voir si la caméra avec @IP diffuse bien le RTSP
+
+Résultat attendu : 
+--> Starting Nmap 7.80 ( https://nmap.org ) at 2025-02-12 10:30 CET
+--> Nmap scan report for H6c_BD8258435_EZVIZ (172.24.1.112)
+--> Host is up (0.0070s latency).
+
+--> PORT     STATE  SERVICE
+--> 554/tcp  open   rtsp
+--> 8554/tcp closed rtsp-alt

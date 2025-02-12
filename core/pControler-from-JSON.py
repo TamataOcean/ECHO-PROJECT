@@ -40,12 +40,7 @@ def process_orders(json_file):
 
         client = mqtt.Client()
         client.connect(MQTT_BROKER, 1883, 60)
-
-        for order in data.get("orders", []):
-            command = order.get("order")
-
-            if command == "create_pipeline":
-                message = {
+        message = {
                     "order": "create_pipeline",
                     "ID_Serie": ID_Serie,
                     "ID_Bassin": ID_Bassin,
@@ -56,26 +51,26 @@ def process_orders(json_file):
                     "video_file_name": pipeline_name,
                     "pipeline_name": pipeline_name
                 }
-                client.publish(MQTT_TOPIC, json.dumps(message))
-                print(f"📩 Commande MQTT envoyée : {message}")
-                time.sleep(2)
+        
+        client.publish(MQTT_TOPIC, json.dumps(message))
+        print(f"📩 Commande Create_Pipeline envoyée : {message}")
+        time.sleep(2)
 
-            elif command == "stop":
-                message = {"order": "stop", "pipeline_name": order.get("pipeline_name")}
-                client.publish(MQTT_TOPIC, json.dumps(message))
-                print(f"📩 Commande MQTT envoyée : {message}")
-                print("🛑 Fin de l'enregistrement")
-                sys.exit(0)
+        for order in data.get("orders", []):
+            command = order.get("order")            
+            duration = order.get("duration", None) 
+            send_mqtt_command(client, command, pipeline_name)
 
-            else:  # Ordres "start" ou "pause"
-                duration = order.get("duration", None)  # Certains ordres ont une durée
-                pipe_name = order.get("pipeline_name", pipeline_name)
-                send_mqtt_command(client, command, pipe_name)
-
-                if duration is not None:
-                    print(f"⏳ Attente de {duration} secondes avant la prochaine commande...")
-                    time.sleep(duration)
-
+            if duration is not None:
+                print(f"⏳ Attente de {duration} secondes avant la prochaine commande...")
+                time.sleep(duration)
+        
+        # Fin de la boucle des ordres, on arrete le pipeline
+        message = {"order": "stop", "pipeline_name": pipeline_name }
+        client.publish(MQTT_TOPIC, json.dumps(message))
+        print(f"📩 Commande MQTT envoyée : {message}")
+        print("🛑 Fin de l'enregistrement")
+        sys.exit(0)
         client.disconnect()
 
     except json.JSONDecodeError as e:
@@ -84,7 +79,7 @@ def process_orders(json_file):
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
-        print("Usage: python3 process_controler.py <fichier_json>")
+        print("Usage: python3 pControler-from-JSON.py <fichier_json>")
         sys.exit(1)
 
     json_file = sys.argv[1]  # Récupérer le fichier JSON en argument

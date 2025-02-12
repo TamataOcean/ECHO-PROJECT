@@ -35,7 +35,8 @@ else:
 
 pipeline_display = "rtspsrc location=rtsp://admin:JKFLFO@172.24.1.112/11 latency=1000 ! queue ! rtph264depay ! h264parse ! avdec_h264 ! queue ! videoconvert ! fpsdisplaysink sync=false"
 pipeline_record = f"rtspsrc location={camera_location} latency=1000 ! queue ! rtph264depay ! h264parse ! queue ! h264parse ! splitmuxsink location={export_directory_file}video%02d.mov max-size-time=10000000000 max-size-bytes=1000000"
-pipeline_webcam = f"v4l2src ! videoconvert ! autovideosink ! splitmuxsink location={export_directory_file}video%02d.mov max-size-time=10000000000 max-size-bytes=1000000"
+
+# pipeline_webcam = f"v4l2src ! videoconvert ! autovideosink ! splitmuxsink location={export_directory_file}video%02d.mov max-size-time=10000000000 max-size-bytes=1000000"
 
 # Création du client gstd
 gstd_logger = CustomLogger('pygstc_example', loglevel='DEBUG')
@@ -86,6 +87,7 @@ def on_message(client, userdata, msg):
 
             print(f"▶️ Creation du pipeline : {pipe_Name} / location : {pipe_Location} ")
             # Création du pipeline
+
             pipe_Record = f"rtspsrc location={pipe_Location} latency=1000 \
                 ! queue ! rtph264depay ! h264parse \
                 ! queue ! h264parse \
@@ -93,14 +95,15 @@ def on_message(client, userdata, msg):
                 location={export_directory_file}{video_name}%03d.mov \
                 max-size-time={max_size_time} \
                 max-size-bytes={max_size_file}"
-            
+            # DEBUG print(f"pipe_Record : {pipe_Record}")
+
             try:
                 gstd_client.pipeline_create(pipe_Name, pipe_Record)
                 print(f"✅ Pipeline {pipe_Name} créé avec succès")
             except(GstcError, GstdError) as e:
                 print(f"Error on Pipeline {pipe_Name} Error : {e}")
 
-        elif command == "start":
+        elif command == "play":
             print(f"▶️ Démarrage du pipeline : {pipe_Name}")
             gstd_client.pipeline_play(pipe_Name)
             # Vérifier l'état du pipeline
@@ -117,7 +120,6 @@ def on_message(client, userdata, msg):
 
         elif command == "stop":
             print(f"🛑 Arrêt du pipeline : {pipe_Name}")
-            
             # Envoi du signal EOS avant l'arrêt
             try:
                 gstd_client.event_eos(pipe_Name)
@@ -126,9 +128,8 @@ def on_message(client, userdata, msg):
                 print(f"❌ Erreur lors de l'envoi de EOS : {e}")
 
             # Attendre un peu pour laisser le pipeline finaliser l'écriture
-            time.sleep(2)  # Pause de 1 secondes (ajuster si nécessaire)
+            time.sleep(5)
             print(f"🛑 Arrêt du pipeline : {pipe_Name} terminé")
-            # Stopper et supprimer le pipeline
             gstd_client.pipeline_stop(pipe_Name)
             gstd_client.pipeline_delete(pipe_Name)
         
