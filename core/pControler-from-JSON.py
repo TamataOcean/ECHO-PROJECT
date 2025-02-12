@@ -27,14 +27,20 @@ def process_orders(json_file):
         with open(json_file, 'r', encoding='utf-8') as file:
             data = json.load(file)  # Charger le JSON depuis le fichier
 
+        # Vérifier si "conf" est présent
+        conf = data.get("conf")
+        if conf is None:
+            print("❌ Erreur : La section 'conf' est absente du JSON.")
+            sys.exit(1)
+
         # Extraction des paramètres principaux
-        ID_Serie = data.get('ID_Serie', 'N/A')
-        ID_Bassin = data.get('ID_Bassin', 'N/A')
-        ID_Arene = data.get('ID_Arene', 'N/A')
-        ID_Sequence = data.get('ID_Sequence', 'N/A')
-        ID_Camera = data.get('ID_Camera', 'N/A')
-        pipeline_name = data.get('pipeline_name', 'default_pipeline')
-        location = data.get('location', 'N/A')
+        ID_Serie = conf.get('ID_Serie', 'N/A')
+        ID_Bassin = conf.get('ID_Bassin', 'N/A')
+        ID_Arene = conf.get('ID_Arene', 'N/A')
+        ID_Sequence = conf.get('ID_Sequence', 'N/A')
+        ID_Camera = conf.get('ID_Camera', 'N/A')
+        pipeline_name = conf.get('pipeline_name', 'default_pipeline')
+        location = conf.get('location', 'N/A')
 
         print(f"📌 Bassin: {ID_Bassin}, Arène: {ID_Arene}, Caméra: {ID_Camera}")
 
@@ -58,10 +64,10 @@ def process_orders(json_file):
 
         for order in data.get("orders", []):
             command = order.get("order")            
-            duration = order.get("duration", None) 
+            duration = order.get("duration", 0) # par défaut, pas de délai
             send_mqtt_command(client, command, pipeline_name)
 
-            if duration is not None:
+            if duration > 0:
                 print(f"⏳ Attente de {duration} secondes avant la prochaine commande...")
                 time.sleep(duration)
         
