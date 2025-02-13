@@ -47,6 +47,35 @@ gstd_logger = CustomLogger('pygstc_example', loglevel='DEBUG')
 
 gstd_client = GstdClient()
 
+# Controle permettant d'éviter la création d'un pipeline du meme nom
+def checkCreationPipeline(pipe_Name):
+    pipelines = gstd_client.list_pipelines()  # Liste des pipelines
+    for pipeline in pipelines:
+        pName = pipeline['name']  # Ou pipeline.name, selon la structure de votre pipeline
+        # Lire l'état du pipeline en utilisant la méthode read
+        state = gstd_client.read(f'pipelines/{pName}/state')['value']
+        print(f"Pipeline: {pName} - State: {state}")
+        if (pipe_Name == pName ):
+            print(f"Pipeline {pName} existe déja avec le state = {state}. Commande de creation refusé ")
+            return False
+    # Si pas de correspondance trouvé, on retourne vrai
+    return True
+
+# Vérifie si une commande peut être envoyée ( par exemple aprés un pipeline delete )
+def checkCommandOnPipeline(pipe_Name):
+    pipelines = gstd_client.list_pipelines()  # Liste des pipelines
+    for pipeline in pipelines:
+        pName = pipeline['name']  # Ou pipeline.name, selon la structure de votre pipeline
+        # Lire l'état du pipeline en utilisant la méthode read
+        state = gstd_client.read(f'pipelines/{pName}/state')['value']
+        print(f"Pipeline: {pName} - State: {state}")
+        if (pipe_Name == pName ):
+            print(f"Pipeline {pipe_Name} existe et peut recevoir une commande ")
+            return True
+    # Si pas de correspondance trouvé, on retourne vrai
+    print(f"Pipeline {pipe_Name} a été deleted et ne peut recevoir une commande, lancer une commande create_pipeline ")
+    return False
+
 # Création du pipeline Display
 # gstd_client.pipeline_create(pipiline_name_display, pipeline_display)
 # print(f"✅ Pipeline {pipeline_name_record} créé avec succès")
@@ -73,8 +102,8 @@ def on_message(client, userdata, msg):
         command = payload.get("order")
         pipe_Name = payload.get("pipeline_name")
         print(f"📩 Commande MQTT reçue : {command} / pipe_Name : {pipe_Name}")
-
-        if command == "create_pipeline":
+        
+        if command == "create_pipeline" and checkCreationPipeline(pipe_Name):
             ID_Serie = payload.get("ID_Serie")
             ID_Bassin = payload.get("ID_Bassin")
             ID_Arene = payload.get("ID_Arene")
@@ -112,7 +141,7 @@ def on_message(client, userdata, msg):
             except(GstcError, GstdError) as e:
                 print(f"Error on Pipeline {pipe_Name} Error : {e}")
 
-        elif command == "play":
+        elif command == "play" and checkCommandOnPipeline(pipe_Name):
             print(f"▶️ Démarrage du pipeline : {pipe_Name}")
             gstd_client.pipeline_play(pipe_Name)
             # Vérifier l'état du pipeline
@@ -125,7 +154,7 @@ def on_message(client, userdata, msg):
             json_message = json.dumps(message)
             client.publish(MQTT_LOG_SERVER, json_message)
 
-        elif command == "pause":
+        elif command == "pause" and checkCommandOnPipeline(pipe_Name):
             print(f"⏸️ Pause du pipeline : {pipe_Name}")
             gstd_client.pipeline_pause(pipe_Name)
             state = "paused"
@@ -134,11 +163,11 @@ def on_message(client, userdata, msg):
             json_message = json.dumps(message)
             client.publish(MQTT_LOG_SERVER, json_message)
 
-        elif command == "resume":
+        elif command == "resume" and checkCommandOnPipeline(pipe_Name):
             print(f"▶️ Reprise du pipeline : {pipe_Name}")
             gstd_client.pipeline_play(pipe_Name)
 
-        elif command == "stop":
+        elif command == "stop" and checkCommandOnPipeline(pipe_Name):
             print(f"🛑 Arrêt du pipeline : {pipe_Name}")
             state = "suppression"
             message = {"state": state, "pipeline_name": pipe_Name}
