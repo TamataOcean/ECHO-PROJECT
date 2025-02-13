@@ -1,0 +1,229 @@
+[
+    {
+        "id": "9437544a0f6eb7b6",
+        "type": "tab",
+        "label": "DEBUG",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "09585d3fda80deca",
+        "type": "mqtt out",
+        "z": "9437544a0f6eb7b6",
+        "name": "Envoyer Commande",
+        "topic": "gstreamer/control",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "ba7648b8.35c9f8",
+        "x": 400,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "cf01a76215ca7652",
+        "type": "inject",
+        "z": "9437544a0f6eb7b6",
+        "name": "Start Recording",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "{\"order\":\"start\"}",
+        "payloadType": "str",
+        "x": 140,
+        "y": 60,
+        "wires": [
+            [
+                "09585d3fda80deca"
+            ]
+        ]
+    },
+    {
+        "id": "1220de5d52e75b03",
+        "type": "inject",
+        "z": "9437544a0f6eb7b6",
+        "name": "Status",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "{\"order\":\"status\"}",
+        "payloadType": "str",
+        "x": 170,
+        "y": 140,
+        "wires": [
+            [
+                "09585d3fda80deca"
+            ]
+        ]
+    },
+    {
+        "id": "a781b85afa9e39db",
+        "type": "inject",
+        "z": "9437544a0f6eb7b6",
+        "name": "Pause Recording",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "{\"order\":\"pause\"}",
+        "payloadType": "str",
+        "x": 140,
+        "y": 100,
+        "wires": [
+            [
+                "09585d3fda80deca"
+            ]
+        ]
+    },
+    {
+        "id": "095ce910ec9163e5",
+        "type": "inject",
+        "z": "9437544a0f6eb7b6",
+        "name": "Start display ",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "start_display",
+        "payloadType": "str",
+        "x": 150,
+        "y": 240,
+        "wires": [
+            [
+                "09585d3fda80deca"
+            ]
+        ]
+    },
+    {
+        "id": "a7dcaa489c761c3b",
+        "type": "inject",
+        "z": "9437544a0f6eb7b6",
+        "name": "Pause Display",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "pause_display",
+        "payloadType": "str",
+        "x": 150,
+        "y": 280,
+        "wires": [
+            [
+                "09585d3fda80deca"
+            ]
+        ]
+    },
+    {
+        "id": "83c0f41c11a79503",
+        "type": "inject",
+        "z": "9437544a0f6eb7b6",
+        "name": "Status Display",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "status_display",
+        "payloadType": "str",
+        "x": 150,
+        "y": 200,
+        "wires": [
+            [
+                "09585d3fda80deca"
+            ]
+        ]
+    },
+    {
+        "id": "28822724f9c0bd75",
+        "type": "mqtt in",
+        "z": "9437544a0f6eb7b6",
+        "name": "Réponse Python",
+        "topic": "video/response",
+        "qos": "0",
+        "datatype": "utf8",
+        "broker": "ba7648b8.35c9f8",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 620,
+        "y": 60,
+        "wires": [
+            [
+                "fb2c561e5fecb0af"
+            ]
+        ]
+    },
+    {
+        "id": "fb2c561e5fecb0af",
+        "type": "debug",
+        "z": "9437544a0f6eb7b6",
+        "name": "Affichage Debug",
+        "active": true,
+        "tosidebar": true,
+        "x": 820,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "ba7648b8.35c9f8",
+        "type": "mqtt-broker",
+        "name": "MQTT Local",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    }
+]
