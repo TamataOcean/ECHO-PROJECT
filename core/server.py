@@ -9,6 +9,8 @@ import time
 # Configurations MQTT
 MQTT_BROKER = "localhost"  # Remplace par ton broker MQTT
 MQTT_TOPIC = "gstreamer/control"  # Le topic auquel tu t'abonnes
+MQTT_LOG_SERVER = "server/log"
+
 MQTT_PORT = 1883
 
 # Configuration du pipeline dans gstd
@@ -86,8 +88,8 @@ def on_message(client, userdata, msg):
             # Recupération des parametres de création 
 
             print(f"▶️ Creation du pipeline : {pipe_Name} / location : {pipe_Location} ")
+            
             # Création du pipeline
-
             pipe_Record = f"rtspsrc location={pipe_Location} latency=1000 \
                 ! queue ! rtph264depay ! h264parse \
                 ! queue ! h264parse \
@@ -100,6 +102,14 @@ def on_message(client, userdata, msg):
             try:
                 gstd_client.pipeline_create(pipe_Name, pipe_Record)
                 print(f"✅ Pipeline {pipe_Name} créé avec succès")
+                
+                # CREATION REUSSI, ENVOI INFO EN MQTT
+                state = "created"
+                message = {"state": state, "pipeline_name": pipe_Name}
+
+                json_message = json.dumps(message)
+                client.publish(MQTT_LOG_SERVER, json_message)
+
             except(GstcError, GstdError) as e:
                 print(f"Error on Pipeline {pipe_Name} Error : {e}")
 
@@ -109,10 +119,21 @@ def on_message(client, userdata, msg):
             # Vérifier l'état du pipeline
             state = gstd_client.read(f'pipelines/{pipe_Name}/state')
             print(f"🚦 État du pipeline après start : {state}")
+            # CREATION REUSSI, ENVOI INFO EN MQTT
+            state = "playing"
+            message = {"state": state, "pipeline_name": pipe_Name}
+
+            json_message = json.dumps(message)
+            client.publish(MQTT_LOG_SERVER, json_message)
 
         elif command == "pause":
             print(f"⏸️ Pause du pipeline : {pipe_Name}")
             gstd_client.pipeline_pause(pipe_Name)
+            state = "paused"
+            message = {"state": state, "pipeline_name": pipe_Name}
+
+            json_message = json.dumps(message)
+            client.publish(MQTT_LOG_SERVER, json_message)
 
         elif command == "resume":
             print(f"▶️ Reprise du pipeline : {pipe_Name}")
@@ -120,6 +141,11 @@ def on_message(client, userdata, msg):
 
         elif command == "stop":
             print(f"🛑 Arrêt du pipeline : {pipe_Name}")
+            state = "suppression"
+            message = {"state": state, "pipeline_name": pipe_Name}
+
+            json_message = json.dumps(message)
+            client.publish(MQTT_LOG_SERVER, json_message)
             # Envoi du signal EOS avant l'arrêt
             try:
                 gstd_client.event_eos(pipe_Name)
@@ -129,9 +155,21 @@ def on_message(client, userdata, msg):
 
             # Attendre un peu pour laisser le pipeline finaliser l'écriture
             time.sleep(5)
-            print(f"🛑 Arrêt du pipeline : {pipe_Name} terminé")
             gstd_client.pipeline_stop(pipe_Name)
             gstd_client.pipeline_delete(pipe_Name)
+            state = "deleted"
+            message = {"state": state, "pipeline_name": pipe_Name}
+            json_message = json.dumps(message)
+            client.publish(MQTT_LOG_SERVER, json_message)
+
+            print(f"🛑 Arrêt du pipeline : {pipe_Name} terminé")
+            # CREATION REUSSI, ENVOI INFO EN MQTT
+            txt_to_show = f"{pipe_Name} deleted "
+            message = {"log_message": txt_to_show }
+            print(f"message MQtt envoyé : {txt_to_show}")
+            
+            json_message = json.dumps(message)
+            client.publish(MQTT_TOPIC, json_message)
         
         # Renvoie les "states" de tous les pipelines. 
         elif command == "status":
