@@ -5,6 +5,7 @@ from pygstc.logger import *
 import paho.mqtt.client as mqtt
 import os
 import time
+import datetime
 
 # Configurations MQTT
 MQTT_BROKER = "localhost"  # Remplace par ton broker MQTT
@@ -25,7 +26,7 @@ max_size_time = 60000000000 # 60 secondes = 10 × 60 × 1 000 000 000 ns
 # Custom
 # max_size_file = 10000000 # 10 Mo (10 000 000 octets).
 # max_size_time = 10000000000 # 10 secondes = 10 × 60 × 1 000 000 000 ns
-export_directory_file = "/home/bibi/code/ECHO-PROJECT/TEST_VIDEOS/Bassin_A/"
+export_directory_file = "/home/bibi/code/ECHO-PROJECT/EXPORT_VIDEOS/"
 camera_location = "rtsp://admin:JKFLFO@172.24.1.112/11"
 
 # Vérifier et créer le répertoire de destination (export_directory_file) si nécessaire
@@ -71,8 +72,6 @@ def on_message(client, userdata, msg):
 
         command = payload.get("order")
         pipe_Name = payload.get("pipeline_name")
-        # video_name = payload.get("video_file_name")
-
         print(f"📩 Commande MQTT reçue : {command} / pipe_Name : {pipe_Name}")
 
         if command == "create_pipeline":
@@ -82,8 +81,8 @@ def on_message(client, userdata, msg):
             ID_Sequence = payload.get("ID_Sequence")
             ID_Camera = payload.get("ID_Camera")
             pipe_Location = payload.get("location")
-            
-            video_name = f"{ID_Serie}_{ID_Bassin}_{ID_Arene}_{ID_Sequence}_{ID_Camera}_"
+            timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+            video_name = f"{timestamp}_{ID_Serie}_{ID_Bassin}_{ID_Arene}_{ID_Sequence}_{ID_Camera}_"
             
             # Recupération des parametres de création 
 
@@ -161,15 +160,7 @@ def on_message(client, userdata, msg):
             message = {"state": state, "pipeline_name": pipe_Name}
             json_message = json.dumps(message)
             client.publish(MQTT_LOG_SERVER, json_message)
-
             print(f"🛑 Arrêt du pipeline : {pipe_Name} terminé")
-            # CREATION REUSSI, ENVOI INFO EN MQTT
-            txt_to_show = f"{pipe_Name} deleted "
-            message = {"log_message": txt_to_show }
-            print(f"message MQtt envoyé : {txt_to_show}")
-            
-            json_message = json.dumps(message)
-            client.publish(MQTT_TOPIC, json_message)
         
         # Renvoie les "states" de tous les pipelines. 
         elif command == "status":
