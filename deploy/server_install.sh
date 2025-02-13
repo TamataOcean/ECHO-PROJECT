@@ -30,7 +30,9 @@ echo "######### Installation Node-Red"
 bash <(curl -sL https://raw.githubusercontent.com/node-red/linux-installers/master/deb/update-nodejs-and-nodered)
 echo "Adding Node-Red as a service"
 sudo systemctl enable nodered.service
+# Composant Ui 
 npm install node-red-dashboard
+# Composant pour accés aux fichiers du système
 npm install node-red-contrib-fs-ops
 
 echo "######### Installation GStreamer client"
