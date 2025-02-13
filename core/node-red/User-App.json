@@ -1,293 +1,86 @@
 [
     {
-        "id": "7186afdc565c372d",
+        "id": "1c01547a0468f5c0",
         "type": "tab",
-        "label": "Creation Séquence",
+        "label": "EXECUTION",
         "disabled": false,
         "info": "",
         "env": []
     },
     {
-        "id": "e32cbf0f69b3b140",
-        "type": "ui_dropdown",
-        "z": "7186afdc565c372d",
-        "name": "Choisir Ordre",
-        "label": "Type d'Ordre",
-        "tooltip": "",
-        "place": "1",
-        "group": "f899a08a0af76d49",
-        "order": 1,
-        "width": "6",
-        "height": "1",
-        "passthru": true,
-        "multiple": false,
-        "options": [
-            {
-                "label": "Play",
-                "value": "play",
-                "type": "str"
-            },
-            {
-                "label": "Pause",
-                "value": "pause",
-                "type": "str"
-            }
-        ],
-        "payload": "",
-        "topic": "",
-        "topicType": "str",
-        "className": "",
-        "x": 110,
-        "y": 340,
-        "wires": [
-            [
-                "d32a96511155b041"
-            ]
-        ]
-    },
-    {
-        "id": "d32a96511155b041",
-        "type": "function",
-        "z": "7186afdc565c372d",
-        "name": "Stocker Ordre",
-        "func": "var orderType = msg.payload;\nflow.set('orderType', orderType);\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 380,
-        "y": 340,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "7214c583cf2ee792",
-        "type": "ui_button",
-        "z": "7186afdc565c372d",
-        "name": "Ajouter Ordre",
-        "group": "f899a08a0af76d49",
-        "order": 3,
-        "width": "6",
-        "height": "1",
-        "passthru": false,
-        "label": "+",
-        "tooltip": "",
-        "color": "#fff",
-        "bgcolor": "#007bff",
-        "className": "",
-        "icon": "",
-        "payload": "",
-        "payloadType": "str",
-        "topic": "add-order",
-        "topicType": "str",
+        "id": "0bb39875df1f9d62",
+        "type": "mqtt in",
+        "z": "1c01547a0468f5c0",
+        "name": "Réponse Python",
+        "topic": "gstreamer/control",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "ba7648b8.35c9f8",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
         "x": 120,
-        "y": 460,
+        "y": 120,
         "wires": [
             [
-                "745a35811f557b2e"
+                "a859e1b7c15620f2",
+                "ab47cd4658d2b2db"
             ]
         ]
     },
     {
-        "id": "745a35811f557b2e",
-        "type": "function",
-        "z": "7186afdc565c372d",
-        "name": "Ajouter Ordre à Liste",
-        "func": "var orderType = flow.get('orderType');\nvar orderDuration = flow.get('duree');\n\n// Vérification de la durée\nnode.warn('Valeur de la durée : ' + orderDuration);\n\nvar orders = flow.get('orders') || [];\n\nvar newOrder = {\n    \"order\": orderType,\n    \"duration\": orderDuration\n};\n\norders.push(newOrder);\nflow.set('orders', orders);\n\nmsg.payload = orders;\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 400,
-        "y": 460,
-        "wires": [
-            [
-                "149cc5b6808d57bd"
-            ]
-        ]
-    },
-    {
-        "id": "149cc5b6808d57bd",
-        "type": "ui_text",
-        "z": "7186afdc565c372d",
-        "group": "f899a08a0af76d49",
-        "order": 4,
-        "width": "6",
-        "height": "6",
-        "name": "Afficher Ordres",
-        "label": "Ordres ajoutés",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": "",
-        "color": "#000000",
-        "x": 660,
-        "y": 460,
+        "id": "a859e1b7c15620f2",
+        "type": "debug",
+        "z": "1c01547a0468f5c0",
+        "name": "Affichage Debug",
+        "active": false,
+        "tosidebar": true,
+        "x": 380,
+        "y": 120,
         "wires": []
     },
     {
-        "id": "08b6fa4e1dc75342",
-        "type": "ui_button",
-        "z": "7186afdc565c372d",
-        "name": "Générer Fichier JSON",
-        "group": "f899a08a0af76d49",
-        "order": 5,
-        "width": "6",
-        "height": "1",
-        "passthru": false,
-        "label": "Générer Fichier JSON",
-        "tooltip": "",
-        "color": "#fff",
-        "bgcolor": "#28a745",
-        "className": "",
-        "icon": "",
-        "payload": "",
-        "payloadType": "str",
-        "topic": "generate-json",
-        "topicType": "str",
-        "x": 140,
-        "y": 540,
-        "wires": [
-            [
-                "ef6f80831e62a0c5"
-            ]
-        ]
-    },
-    {
-        "id": "ef6f80831e62a0c5",
+        "id": "ab47cd4658d2b2db",
         "type": "function",
-        "z": "7186afdc565c372d",
-        "name": "Générer et Sauvegarder le JSON",
-        "func": "var ID_Serie = flow.get(\"ID_Serie\");\nvar ID_Bassin = flow.get(\"ID_Bassin\");\nvar ID_Arene = flow.get(\"ID_Arene\");\nvar ID_Sequence = flow.get(\"ID_Sequence\");\nvar ID_Camera = flow.get(\"ID_Camera\");\nvar location = flow.get(\"location\");\nvar video_file_name = flow.get(\"video_file_name\");\nvar PL_Name = flow.get(\"PL_Name\");\n\nvar conf = {\n    \"pipeline_name\": PL_Name,\n    \"ID_Serie\": ID_Serie,\n    \"ID_Bassin\": ID_Bassin,\n    \"ID_Arene\": ID_Arene,\n    \"ID_Sequence\": ID_Sequence,\n    \"ID_Camera\": ID_Camera,\n    \"location\": location,\n    \"video_file_name\": video_file_name\n};\n\n// Récupérer les ordres enregistrés dans le flow\nvar orders = flow.get('orders') || [];\n\n// Créer un objet avec \"conf\" et \"orders\"\nvar finalPayload = {\n    \"conf\": conf,\n    \"orders\": orders\n};\n\n// Formater le JSON avec des sauts de ligne\nmsg.payload = JSON.stringify(finalPayload, null, 2);\n\n// Retourner le message\nreturn msg;\n",
+        "z": "1c01547a0468f5c0",
+        "name": "function 1",
+        "func": "var payload = msg.payload;\n\nif (payload.order === \"play\") {\n    msg.payload = {\n        \"state\": \"playing\",\n        \"pipeline_name\": payload.pipeline_name\n    };\n} else if (payload.order === \"pause\") {\n    msg.payload = {\n        \"state\": \"paused\",\n        \"pipeline_name\": payload.pipeline_name\n    };\n} else if (payload.order === \"stop\") {\n    msg.payload = {\n        \"state\": \"stopped\",\n        \"pipeline_name\": payload.pipeline_name\n    };\n}\n\nreturn msg;\n",
         "outputs": 1,
-        "timeout": "",
+        "timeout": 0,
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 440,
-        "y": 540,
+        "x": 360,
+        "y": 180,
         "wires": [
             [
-                "1e8e1e65f932f152"
+                "3a8920c3afe3fc7e"
             ]
         ]
     },
     {
-        "id": "02987d95a2d4ec93",
-        "type": "function",
-        "z": "7186afdc565c372d",
-        "name": "Stocker Durée",
-        "func": "var duree = msg.payload;\nflow.set('duree', duree);\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 380,
-        "y": 380,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "12074f34c3d5bf2f",
-        "type": "ui_numeric",
-        "z": "7186afdc565c372d",
-        "name": "",
-        "label": "numeric",
-        "tooltip": "",
-        "group": "f899a08a0af76d49",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "wrap": false,
-        "passthru": true,
-        "topic": "duration",
-        "topicType": "msg",
-        "format": "{{value}}",
-        "min": 0,
-        "max": "3600",
-        "step": "10",
-        "className": "",
-        "x": 100,
-        "y": 380,
-        "wires": [
-            [
-                "02987d95a2d4ec93"
-            ]
-        ]
-    },
-    {
-        "id": "1e8e1e65f932f152",
-        "type": "file",
-        "z": "7186afdc565c372d",
-        "name": "-> config.json",
-        "filename": "/home/bibi/code/ECHO-PROJECT/core/config.json",
-        "filenameType": "str",
-        "appendNewline": false,
-        "createDir": true,
-        "overwriteFile": "true",
-        "encoding": "utf8",
-        "x": 700,
-        "y": 540,
-        "wires": [
-            [
-                "59f35f09fb1c6b2f"
-            ]
-        ]
-    },
-    {
-        "id": "59f35f09fb1c6b2f",
+        "id": "3a8920c3afe3fc7e",
         "type": "debug",
-        "z": "7186afdc565c372d",
-        "name": "Résultat",
-        "active": true,
+        "z": "1c01547a0468f5c0",
+        "name": "debug 2",
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
+        "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 880,
-        "y": 540,
+        "x": 540,
+        "y": 180,
         "wires": []
     },
     {
-        "id": "d2ea7ca70a4ca5e4",
-        "type": "function",
-        "z": "7186afdc565c372d",
-        "name": "Vider Cache Ordres",
-        "func": "flow.set('orders', []);\nmsg.payload = 'Cache vidé, prêt pour le prochain ajout!';\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 390,
-        "y": 500,
-        "wires": [
-            [
-                "149cc5b6808d57bd"
-            ]
-        ]
-    },
-    {
-        "id": "c31201cad52723d0",
+        "id": "473725454020cd5b",
         "type": "ui_button",
-        "z": "7186afdc565c372d",
+        "z": "1c01547a0468f5c0",
         "name": "Clear",
-        "group": "f899a08a0af76d49",
+        "group": "bbd3e3f3bc9b",
         "order": 5,
         "width": "6",
         "height": "1",
@@ -295,466 +88,367 @@
         "label": "Clear",
         "tooltip": "",
         "color": "#fff",
-        "bgcolor": "#28a745",
+        "bgcolor": "gray",
         "className": "",
         "icon": "",
         "payload": "",
         "payloadType": "str",
         "topic": "generate-json",
         "topicType": "str",
-        "x": 90,
-        "y": 500,
-        "wires": [
-            [
-                "d2ea7ca70a4ca5e4"
-            ]
-        ]
-    },
-    {
-        "id": "f8e4f0b2d1899bb4",
-        "type": "ui_dropdown",
-        "z": "7186afdc565c372d",
-        "name": "Choisir Série",
-        "label": "ID_Serie",
-        "tooltip": "",
-        "place": "1",
-        "group": "4402a57f897c8600",
-        "order": 1,
-        "width": "6",
-        "height": "1",
-        "passthru": true,
-        "multiple": false,
-        "options": [
-            {
-                "label": "1",
-                "value": "Serie1",
-                "type": "str"
-            },
-            {
-                "label": "2",
-                "value": "Serie2",
-                "type": "str"
-            }
-        ],
-        "payload": "",
-        "topic": "",
-        "topicType": "str",
-        "className": "",
         "x": 110,
-        "y": 40,
+        "y": 520,
         "wires": [
             [
-                "6c04228fe90287c9"
+                "451288a93ba16dd8"
             ]
         ]
     },
     {
-        "id": "6c04228fe90287c9",
+        "id": "451288a93ba16dd8",
         "type": "function",
-        "z": "7186afdc565c372d",
-        "name": "Stocker Série",
-        "func": "flow.set('ID_Serie', msg.payload);\nreturn msg;",
+        "z": "1c01547a0468f5c0",
+        "name": "Vider Cache Ordres",
+        "func": "var pipelinesStates = Array(6).fill(null);  // Tableau avec 6 éléments vides\nflow.set('pipelinesStates', pipelinesStates);\nflow.set('log_message', []);",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
-        "y": 40,
+        "x": 330,
+        "y": 520,
         "wires": [
             []
         ]
     },
     {
-        "id": "ddd0c007398b9d76",
-        "type": "function",
-        "z": "7186afdc565c372d",
-        "name": "Stocker Bassin",
-        "func": "flow.set('ID_Bassin', msg.payload);\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 380,
-        "y": 80,
-        "wires": [
-            []
-        ]
+        "id": "37478c959577533d",
+        "type": "debug",
+        "z": "1c01547a0468f5c0",
+        "name": "MQTT server/log",
+        "active": true,
+        "tosidebar": false,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 290,
+        "y": 320,
+        "wires": []
     },
     {
-        "id": "57104468b72cccb6",
-        "type": "ui_dropdown",
-        "z": "7186afdc565c372d",
-        "name": "Choisir Bassin",
-        "label": "ID_Bassin",
-        "tooltip": "",
-        "place": "1",
-        "group": "4402a57f897c8600",
-        "order": 1,
-        "width": "6",
-        "height": "1",
-        "passthru": true,
-        "multiple": false,
-        "options": [
-            {
-                "label": "Bassin 1",
-                "value": "Bassin_1",
-                "type": "str"
-            },
-            {
-                "label": "Bassin 2",
-                "value": "Bassin_2",
-                "type": "str"
-            }
-        ],
-        "payload": "",
-        "topic": "",
-        "topicType": "str",
-        "className": "",
-        "x": 120,
-        "y": 80,
-        "wires": [
-            [
-                "ddd0c007398b9d76"
-            ]
-        ]
-    },
-    {
-        "id": "ad1cea7695965296",
-        "type": "function",
-        "z": "7186afdc565c372d",
-        "name": "Stocker Arene",
-        "func": "flow.set('ID_Arene', msg.payload);\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 380,
-        "y": 120,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "93053b9b64559921",
-        "type": "ui_dropdown",
-        "z": "7186afdc565c372d",
-        "name": "Choisir Arene",
-        "label": "ID_Arene",
-        "tooltip": "",
-        "place": "1",
-        "group": "4402a57f897c8600",
-        "order": 1,
-        "width": "6",
-        "height": "1",
-        "passthru": true,
-        "multiple": false,
-        "options": [
-            {
-                "label": "Arene 1",
-                "value": "Arene_1",
-                "type": "str"
-            },
-            {
-                "label": "Arene 2",
-                "value": "Arene_2",
-                "type": "str"
-            },
-            {
-                "label": "Arene 3",
-                "value": "Arene_3",
-                "type": "str"
-            }
-        ],
-        "payload": "",
-        "topic": "",
-        "topicType": "str",
-        "className": "",
-        "x": 120,
-        "y": 120,
-        "wires": [
-            [
-                "ad1cea7695965296"
-            ]
-        ]
-    },
-    {
-        "id": "1d5b42929f6aa94d",
-        "type": "ui_dropdown",
-        "z": "7186afdc565c372d",
-        "name": "Choisir Séquence",
-        "label": "ID_Sequence",
-        "tooltip": "",
-        "place": "1",
-        "group": "4402a57f897c8600",
-        "order": 1,
-        "width": "6",
-        "height": "1",
-        "passthru": true,
-        "multiple": false,
-        "options": [
-            {
-                "label": "Séquence 1",
-                "value": "Seq1",
-                "type": "str"
-            },
-            {
-                "label": "Séquence 2",
-                "value": "Seq2",
-                "type": "str"
-            },
-            {
-                "label": "Séquence 3",
-                "value": "Seq3",
-                "type": "str"
-            }
-        ],
-        "payload": "",
-        "topic": "",
-        "topicType": "str",
-        "className": "",
-        "x": 130,
-        "y": 160,
-        "wires": [
-            [
-                "70a999474410c6a3"
-            ]
-        ]
-    },
-    {
-        "id": "70a999474410c6a3",
-        "type": "function",
-        "z": "7186afdc565c372d",
-        "name": "Stocker Série",
-        "func": "flow.set('ID_Sequence', msg.payload);\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 380,
-        "y": 160,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "baa93473b5367e03",
-        "type": "function",
-        "z": "7186afdc565c372d",
-        "name": "Stocker Pipeline",
-        "func": "flow.set('PL_Name', msg.payload);\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 380,
-        "y": 200,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "1eff70500a78b365",
-        "type": "ui_dropdown",
-        "z": "7186afdc565c372d",
-        "name": "Choisir Séquence",
-        "label": "PL_Name",
-        "tooltip": "",
-        "place": "1",
-        "group": "4402a57f897c8600",
-        "order": 1,
-        "width": "6",
-        "height": "1",
-        "passthru": true,
-        "multiple": false,
-        "options": [
-            {
-                "label": "pipeline1",
-                "value": "pipeline1",
-                "type": "str"
-            },
-            {
-                "label": "pipeline2",
-                "value": "pipeline2",
-                "type": "str"
-            },
-            {
-                "label": "pipeline3",
-                "value": "pipeline3",
-                "type": "str"
-            }
-        ],
-        "payload": "",
-        "topic": "",
-        "topicType": "str",
-        "className": "",
-        "x": 130,
-        "y": 200,
-        "wires": [
-            [
-                "baa93473b5367e03"
-            ]
-        ]
-    },
-    {
-        "id": "4ba1cb483dfd2076",
-        "type": "ui_dropdown",
-        "z": "7186afdc565c372d",
-        "name": "Choisir Caméra ",
-        "label": "ID_Camera",
-        "tooltip": "",
-        "place": "1",
-        "group": "4402a57f897c8600",
-        "order": 1,
-        "width": "6",
-        "height": "1",
-        "passthru": true,
-        "multiple": false,
-        "options": [
-            {
-                "label": "Caméra 1",
-                "value": "Cam1",
-                "type": "str"
-            },
-            {
-                "label": "Caméra 2",
-                "value": "Cam2",
-                "type": "str"
-            }
-        ],
-        "payload": "",
-        "topic": "topic",
-        "topicType": "msg",
-        "className": "",
-        "x": 120,
-        "y": 240,
-        "wires": [
-            [
-                "267a2f21d4e5fbc5"
-            ]
-        ]
-    },
-    {
-        "id": "267a2f21d4e5fbc5",
-        "type": "function",
-        "z": "7186afdc565c372d",
-        "name": "Stocker Pipeline",
-        "func": "flow.set('ID_Camera', msg.payload);\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 380,
-        "y": 240,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "4e8edb3044588a92",
-        "type": "ui_dropdown",
-        "z": "7186afdc565c372d",
-        "name": "Choisir location ",
-        "label": "Location",
-        "tooltip": "",
-        "place": "1",
-        "group": "4402a57f897c8600",
-        "order": 1,
-        "width": "6",
-        "height": "1",
-        "passthru": true,
-        "multiple": false,
-        "options": [
-            {
-                "label": "Location 1 ( 172.24.1.112 )",
-                "value": "rtsp://admin:JKFLFO@172.24.1.112/11",
-                "type": "str"
-            },
-            {
-                "label": "Location 2 ( 172.24.1.113 )",
-                "value": "rtsp://admin:JKFLFO@172.24.1.113/11",
-                "type": "str"
-            }
-        ],
-        "payload": "",
-        "topic": "topic",
-        "topicType": "msg",
-        "className": "",
-        "x": 120,
-        "y": 280,
-        "wires": [
-            [
-                "55e0a75a84439261"
-            ]
-        ]
-    },
-    {
-        "id": "55e0a75a84439261",
-        "type": "function",
-        "z": "7186afdc565c372d",
-        "name": "Stocker Pipeline",
-        "func": "flow.set('location', msg.payload);\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 380,
-        "y": 280,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "601ff0cbebb0f1cd",
-        "type": "ui_spacer",
-        "z": "7186afdc565c372d",
-        "name": "spacer",
-        "group": "4402a57f897c8600",
+        "id": "9d2ebf10aaaf18bd",
+        "type": "ui_button",
+        "z": "1c01547a0468f5c0",
+        "name": "Launch Record Multi Thread",
+        "group": "bbd3e3f3bc9b",
         "order": 2,
-        "width": "8",
-        "height": "2"
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Launch Record X Threads",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "start",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 160,
+        "y": 60,
+        "wires": [
+            [
+                "c7142bda3aaaafe4"
+            ]
+        ]
     },
     {
-        "id": "f899a08a0af76d49",
+        "id": "c7142bda3aaaafe4",
+        "type": "function",
+        "z": "1c01547a0468f5c0",
+        "name": "X THread / Config file selected",
+        "func": "var selectedFiles = global.get('fileListSelected') || [];\nvar dirConf = global.get('dirConf');\n\nvar pipelinesStates = Array(6).fill(null);  // Tableau avec 6 éléments vides\nflow.set('pipelinesStates', pipelinesStates);\n\nnode.warn(dirConf);\n\nif (selectedFiles.length === 0) {\n    node.warn(\"Aucun fichier sélectionné.\");\n    return null;\n}\n\nvar threads = selectedFiles.map(file => {\n    return {\n        topic: \"start_thread\",\n        payload: dirConf + file\n    };\n});\n\nreturn [threads];",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 60,
+        "wires": [
+            [
+                "d99c529bf5d3da2f"
+            ]
+        ]
+    },
+    {
+        "id": "d99c529bf5d3da2f",
+        "type": "exec",
+        "z": "1c01547a0468f5c0",
+        "command": "python3 /home/bibi/code/ECHO-PROJECT/core/pControler-from-JSON.py",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Exécuter le thread",
+        "x": 730,
+        "y": 60,
+        "wires": [
+            [
+                "de563346f705b37f"
+            ],
+            [],
+            [
+                "8202072c5c42e9da"
+            ]
+        ]
+    },
+    {
+        "id": "de563346f705b37f",
+        "type": "debug",
+        "z": "1c01547a0468f5c0",
+        "name": "Thread lancé",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 930,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "8202072c5c42e9da",
+        "type": "debug",
+        "z": "1c01547a0468f5c0",
+        "name": "Erreur",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 910,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "mqtt_in",
+        "type": "mqtt in",
+        "z": "1c01547a0468f5c0",
+        "name": "Réponse du serveur",
+        "topic": "server/log",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "ba7648b8.35c9f8",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 90,
+        "y": 360,
+        "wires": [
+            [
+                "function_process_state",
+                "37478c959577533d"
+            ]
+        ]
+    },
+    {
+        "id": "function_process_state",
+        "type": "function",
+        "z": "1c01547a0468f5c0",
+        "name": "Process State",
+        "func": "var payload = msg.payload;\n\n// Vérifier que les informations nécessaires sont présentes dans le message\nif (!payload || !payload.pipeline_name || !payload.state) {\n    node.error(\"Message MQTT invalide: \" + JSON.stringify(payload));\n    return null;\n}\n\n// Initialiser ou récupérer le tableau des états des pipelines (taille fixe de 6 éléments)\nvar pipelinesStates = flow.get('pipelinesStates') || Array(6).fill(null);  // Tableau avec 6 éléments vides\n\n// Identifier l'index de pipeline_name (par exemple: pipeline1 correspond à index 0, pipeline2 à index 1, etc.)\nvar index = parseInt(payload.pipeline_name.replace('pipeline', '')) - 1;\n\n// Si l'index est valide (entre 0 et 5), on met à jour l'état du pipeline correspondant\nif (index >= 0 && index < 6) {\n    pipelinesStates[index] = {\n        label: payload.pipeline_name,\n        state: payload.state,\n        timestamp: new Date().toLocaleString()\n    };\n} else {\n    node.error(\"Nom de pipeline invalide: \" + payload.pipeline_name);\n    return null;\n}\n\n// Sauvegarder le tableau mis à jour dans le flow\nflow.set('pipelinesStates', pipelinesStates);\n\n// Passer le tableau mis à jour au message pour l'utiliser dans les UI ou autres nœuds\nmsg.payload = pipelinesStates;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 360,
+        "wires": [
+            [
+                "ui_text_pipeline1",
+                "ui_text_pipeline2",
+                "ui_text_pipeline3",
+                "ui_text_pipeline4",
+                "ui_text_pipeline5",
+                "ui_text_pipeline6"
+            ]
+        ]
+    },
+    {
+        "id": "ui_text_pipeline1",
+        "type": "ui_text",
+        "z": "1c01547a0468f5c0",
+        "group": "bbd3e3f3bc9b",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "name": "Pipeline1",
+        "label": "Pipe L1",
+        "format": "{{msg.payload[0].timestamp}} - {{msg.payload[0].state}}",
+        "layout": "row-left",
+        "className": "",
+        "style": true,
+        "font": "",
+        "fontSize": 16,
+        "color": "#1a5fb4",
+        "x": 560,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "ui_text_pipeline2",
+        "type": "ui_text",
+        "z": "1c01547a0468f5c0",
+        "group": "bbd3e3f3bc9b",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "name": "Pipeline 2",
+        "label": "Pipe L2",
+        "format": "{{msg.payload[1].timestamp}} - {{msg.payload[1].state}}",
+        "layout": "row-center",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "16",
+        "color": "#1a5fb4",
+        "x": 560,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "ui_text_pipeline3",
+        "type": "ui_text",
+        "z": "1c01547a0468f5c0",
+        "group": "bbd3e3f3bc9b",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "name": "Pipeline 3",
+        "label": "Pipe L3",
+        "format": "{{msg.payload[2].timestamp}} - {{msg.payload[2].state}}",
+        "layout": "row-left",
+        "className": "",
+        "style": true,
+        "font": "",
+        "fontSize": 16,
+        "color": "#1a5fb4",
+        "x": 560,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "ui_text_pipeline4",
+        "type": "ui_text",
+        "z": "1c01547a0468f5c0",
+        "group": "bbd3e3f3bc9b",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "name": "Pipeline 4",
+        "label": "Pipe L4",
+        "format": "{{msg.payload[3].timestamp}} - {{msg.payload[3].state}}",
+        "layout": "row-left",
+        "className": "",
+        "style": true,
+        "font": "",
+        "fontSize": 16,
+        "color": "#1a5fb4",
+        "x": 560,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "ui_text_pipeline5",
+        "type": "ui_text",
+        "z": "1c01547a0468f5c0",
+        "group": "bbd3e3f3bc9b",
+        "order": 10,
+        "width": 0,
+        "height": 0,
+        "name": "Pipeline 5",
+        "label": "Pipe L5",
+        "format": "{{msg.payload[4].timestamp}} - {{msg.payload[4].state}}",
+        "layout": "row-left",
+        "className": "",
+        "style": true,
+        "font": "",
+        "fontSize": 16,
+        "color": "#1a5fb4",
+        "x": 560,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "ui_text_pipeline6",
+        "type": "ui_text",
+        "z": "1c01547a0468f5c0",
+        "group": "bbd3e3f3bc9b",
+        "order": 11,
+        "width": 0,
+        "height": 0,
+        "name": "Pipeline 6",
+        "label": "Pipe L6",
+        "format": "{{msg.payload[5].timestamp}} - {{msg.payload[5].state}}",
+        "layout": "row-left",
+        "className": "",
+        "style": true,
+        "font": "",
+        "fontSize": 16,
+        "color": "#1a5fb4",
+        "x": 560,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "ba7648b8.35c9f8",
+        "type": "mqtt-broker",
+        "name": "MQTT Local",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "bbd3e3f3bc9b",
         "type": "ui_group",
-        "name": "Partition Play / Pause / Durée",
-        "tab": "564a9cba19c2bc96",
-        "order": 2,
+        "name": "Execute",
+        "tab": "a5f6c3d7b9e4",
+        "order": 1,
         "disp": true,
-        "width": 6,
-        "collapse": true,
+        "width": "6",
+        "collapse": false,
         "className": ""
     },
     {
-        "id": "4402a57f897c8600",
-        "type": "ui_group",
-        "name": "Configuration",
-        "tab": "564a9cba19c2bc96",
-        "order": 1,
-        "disp": true,
-        "width": "8",
-        "collapse": true,
-        "className": ""
-    },
-    {
-        "id": "564a9cba19c2bc96",
+        "id": "a5f6c3d7b9e4",
         "type": "ui_tab",
-        "name": "Configuration",
+        "name": "Execution",
         "icon": "dashboard",
-        "order": 1,
+        "order": 2,
         "disabled": false,
         "hidden": false
     }
