@@ -64,7 +64,7 @@ def process_orders(json_file):
 
         for order in data.get("orders", []):
             command = order.get("order")            
-            duration = order.get("duration", 0) # par défaut, pas de délai
+            duration = int(order.get("duration", 0)) # par défaut, pas de délai
             send_mqtt_command(client, command, pipeline_name)
 
             if duration > 0:

@@ -96,7 +96,7 @@
         "type": "function",
         "z": "7186afdc565c372d",
         "name": "Ajouter Ordre à Liste",
-        "func": "var orderType = flow.get('orderType');\nvar orderDuration = flow.get('duree');\n\n// Vérification de la durée\nnode.warn('Valeur de la durée : ' + orderDuration);\n\nvar orders = flow.get('orders') || [];\n\nvar newOrder = {\n    \"order\": orderType,\n    \"duration\": orderDuration\n};\n\norders.push(newOrder);\nflow.set('orders', orders);\n\nmsg.payload = orders;\nreturn msg;",
+        "func": "var orderType = flow.get('orderType');\nvar orderDuration = flow.get('duration');\n\n// Vérification de la durée\nnode.warn('Valeur de la durée : ' + orderDuration);\n\nvar orders = flow.get('orders') || [];\n\nvar newOrder = {\n    \"order\": orderType,\n    \"duration\": orderDuration\n};\n\norders.push(newOrder);\nflow.set('orders', orders);\n\nmsg.payload = orders;\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -152,8 +152,8 @@
         "payloadType": "date",
         "topic": "generate-json",
         "topicType": "str",
-        "x": 140,
-        "y": 720,
+        "x": 130,
+        "y": 750,
         "wires": [
             [
                 "ef6f80831e62a0c5"
@@ -172,8 +172,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 440,
-        "y": 720,
+        "x": 430,
+        "y": 750,
         "wires": [
             [
                 "1e8e1e65f932f152",
@@ -187,7 +187,7 @@
         "type": "function",
         "z": "7186afdc565c372d",
         "name": "Stocker Durée",
-        "func": "var duree = msg.payload;\nflow.set('duree', duree);\nreturn msg;",
+        "func": "var duree = msg.payload;\nflow.set('duration', duree);\nreturn msg;",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -201,34 +201,6 @@
         ]
     },
     {
-        "id": "12074f34c3d5bf2f",
-        "type": "ui_numeric",
-        "z": "7186afdc565c372d",
-        "name": "",
-        "label": "numeric",
-        "tooltip": "",
-        "group": "f899a08a0af76d49",
-        "order": 2,
-        "width": 0,
-        "height": 0,
-        "wrap": false,
-        "passthru": true,
-        "topic": "duration",
-        "topicType": "msg",
-        "format": "{{value}}",
-        "min": 0,
-        "max": "3600",
-        "step": "10",
-        "className": "",
-        "x": 100,
-        "y": 540,
-        "wires": [
-            [
-                "02987d95a2d4ec93"
-            ]
-        ]
-    },
-    {
         "id": "1e8e1e65f932f152",
         "type": "file",
         "z": "7186afdc565c372d",
@@ -239,8 +211,8 @@
         "createDir": true,
         "overwriteFile": "true",
         "encoding": "utf8",
-        "x": 700,
-        "y": 700,
+        "x": 680,
+        "y": 720,
         "wires": [
             [
                 "59f35f09fb1c6b2f"
@@ -260,8 +232,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 860,
-        "y": 700,
+        "x": 840,
+        "y": 720,
         "wires": []
     },
     {
@@ -328,13 +300,18 @@
         "multiple": false,
         "options": [
             {
-                "label": "1",
+                "label": "S1",
                 "value": "Serie1",
                 "type": "str"
             },
             {
-                "label": "2",
+                "label": "S2",
                 "value": "Serie2",
+                "type": "str"
+            },
+            {
+                "label": "S3",
+                "value": "Serie3",
                 "type": "str"
             }
         ],
@@ -694,12 +671,12 @@
         "multiple": false,
         "options": [
             {
-                "label": "Location 1 ( 172.24.1.112 )",
+                "label": "Caméra 1 ( 172.24.1.112 ) / FULL",
                 "value": "rtsp://admin:JKFLFO@172.24.1.112/11",
                 "type": "str"
             },
             {
-                "label": "Location 2 ( 172.24.1.113 )",
+                "label": "Caméra 1 ( 172.24.1.112 ) / SMALL",
                 "value": "rtsp://admin:JKFLFO@172.24.1.113/11",
                 "type": "str"
             }
@@ -751,8 +728,8 @@
         "font": "",
         "fontSize": "",
         "color": "#000000",
-        "x": 730,
-        "y": 740,
+        "x": 720,
+        "y": 800,
         "wires": []
     },
     {
@@ -766,8 +743,8 @@
         "filterType": "str",
         "dir": "files",
         "dirType": "flow",
-        "x": 520,
-        "y": 780,
+        "x": 510,
+        "y": 840,
         "wires": [
             [
                 "1913cada.05b895",
@@ -794,8 +771,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 700,
-        "y": 780,
+        "x": 690,
+        "y": 840,
         "wires": [
             [
                 "a5c61d584bbce634"
@@ -827,8 +804,8 @@
         "topic": "",
         "topicType": "str",
         "className": "",
-        "x": 930,
-        "y": 780,
+        "x": 920,
+        "y": 840,
         "wires": [
             [
                 "9a4b2ae79726dccf"
@@ -848,8 +825,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 700,
-        "y": 840,
+        "x": 690,
+        "y": 900,
         "wires": []
     },
     {
@@ -871,8 +848,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 360,
-        "y": 780,
+        "x": 350,
+        "y": 840,
         "wires": [
             [
                 "e86ac5ba9cc0444d"
@@ -905,8 +882,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1180,
-        "y": 780,
+        "x": 1170,
+        "y": 840,
         "wires": [
             [
                 "fbf18e8914e99b1d"
@@ -926,8 +903,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1160,
-        "y": 840,
+        "x": 1150,
+        "y": 900,
         "wires": []
     },
     {
@@ -951,11 +928,37 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 140,
-        "y": 780,
+        "x": 130,
+        "y": 840,
         "wires": [
             [
                 "e373a1f0f5e28201"
+            ]
+        ]
+    },
+    {
+        "id": "35d9ac1e0162fd48",
+        "type": "ui_text_input",
+        "z": "7186afdc565c372d",
+        "name": "",
+        "label": "Durée",
+        "tooltip": "",
+        "group": "f899a08a0af76d49",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "topic",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 100,
+        "y": 540,
+        "wires": [
+            [
+                "02987d95a2d4ec93"
             ]
         ]
     },
