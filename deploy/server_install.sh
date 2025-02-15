@@ -68,8 +68,8 @@ sudo ./setup.py install --user
 # Ajout du service GSTD
 sudo cp ~/ECHO-PROJECT/deploy/gstd.service /etc/systemd/system/
 sudo systemctl daemon-reload
-sudo systemctl enable gtsd.service
-sudo systemctl start gtsd.service
+sudo systemctl enable gstd.service
+sudo systemctl start gstd.service
 
 echo "Server ECHO-PROJECT Installation"
 
