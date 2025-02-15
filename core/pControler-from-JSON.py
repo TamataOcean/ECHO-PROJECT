@@ -84,16 +84,15 @@ def process_orders(json_file):
                 time.sleep(duration)
         
         # Fin de la boucle des ordres, on arrete le pipeline
-        delay_before_stop = random.uniform(0.5, 2.0)  # Valeur aléatoire entre 0.5 et 2 secondes
+        delay_before_stop = random.uniform(0.5, 10.0)  # Valeur aléatoire entre 0.5 et 2 secondes
         print(f"⏳ {pipeline_name} Attente aléatoire de {delay_before_stop:.2f} secondes avant le stop...")
         time.sleep(delay_before_stop)
-        if not client.is_connected():
-            print(f"connection rompue au serveur MQTT pipe : {pipeline_name}")
-            client.connect(MQTT_BROKER, 1883, 60)
 
-        message = {"order": "stop", "pipeline_name": pipeline_name }
-        client.publish(MQTT_TOPIC, json.dumps(message), qos=1)
-        print(f"📩 Commande MQTT envoyée : {message}")
+        send_mqtt_command(client, "stop", pipeline_name)
+        # client.publish(MQTT_TOPIC, json.dumps(message))
+        # print(f"📩 Commande MQTT envoyée : {message}")
+        time.sleep(1)
+
         print("🛑 Fin de l'enregistrement")
         client.disconnect()
         sys.exit(0)
