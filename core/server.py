@@ -200,6 +200,10 @@ def on_message(client, userdata, msg):
                 # Lire l'état du pipeline en utilisant la méthode read
                 state = gstd_client.read(f'pipelines/{pipe_name}/state')['value']
                 print(f"Pipeline: {pipe_name} - State: {state}")
+                message = f"Status command Pipeline: {pipe_name} - State: {state}"
+                json_message = json.dumps(message)
+                client.publish(MQTT_LOG_SERVER, json_message)
+
 
         elif command == "status_record":
             print(gstd_client.read(f'pipelines/{pipe_Name}/state')['value'])

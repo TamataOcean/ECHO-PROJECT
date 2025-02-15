@@ -49,6 +49,7 @@ def process_orders(json_file):
 
         client = mqtt.Client()
         client.connect(MQTT_BROKER, 1883, 60)
+        client.loop_start()  # Démarre le loop MQTT en arrière-plan
         message = {
                     "order": "create_pipeline",
                     "ID_Serie": ID_Serie,
@@ -82,8 +83,8 @@ def process_orders(json_file):
         client.publish(MQTT_TOPIC, json.dumps(message))
         print(f"📩 Commande MQTT envoyée : {message}")
         print("🛑 Fin de l'enregistrement")
-        sys.exit(0)
         client.disconnect()
+        sys.exit(0)
 
     except json.JSONDecodeError as e:
         print(f"❌ Erreur JSON : {e}")
