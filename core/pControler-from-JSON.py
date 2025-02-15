@@ -88,7 +88,7 @@ def process_orders(json_file):
             client.connect(MQTT_BROKER, 1883, 60)
 
         message = {"order": "stop", "pipeline_name": pipeline_name }
-        client.publish(MQTT_TOPIC, json.dumps(message))
+        client.publish(MQTT_TOPIC, json.dumps(message), qos=2)
         print(f"📩 Commande MQTT envoyée : {message}")
         print("🛑 Fin de l'enregistrement")
         client.disconnect()
