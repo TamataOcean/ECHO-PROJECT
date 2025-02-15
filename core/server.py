@@ -104,7 +104,7 @@ def on_message(client, userdata, msg):
             ID_Camera = payload.get("ID_Camera")
             pipe_Location = payload.get("location")
             timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-            video_name = f"{timestamp}_{ID_Serie}_{ID_Bassin}_{ID_Arene}_{ID_Sequence}_{ID_Camera}_"
+            video_name = f"{timestamp}_{ID_Serie}_{pipe_Name}_{ID_Bassin}_{ID_Arene}_{ID_Sequence}_{ID_Camera}_"
             video_Path = payload.get("video_Path")
 
             # Vérifier et créer le répertoire de destination (export_directory_file) si nécessaire
