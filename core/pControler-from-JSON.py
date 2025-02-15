@@ -1,5 +1,5 @@
 # Evolution du process controler pour executé à partir d'un fichier Json en entré
-
+import random
 import json
 import sys
 import time
@@ -84,7 +84,9 @@ def process_orders(json_file):
                 time.sleep(duration)
         
         # Fin de la boucle des ordres, on arrete le pipeline
-        time.sleep(0.5)
+        delay_before_stop = random.uniform(0.5, 2.0)  # Valeur aléatoire entre 0.5 et 2 secondes
+        print(f"⏳ {pipeline_name} Attente aléatoire de {delay_before_stop:.2f} secondes avant le stop...")
+        time.sleep(delay_before_stop)
         if not client.is_connected():
             print(f"connection rompue au serveur MQTT pipe : {pipeline_name}")
             client.connect(MQTT_BROKER, 1883, 60)
