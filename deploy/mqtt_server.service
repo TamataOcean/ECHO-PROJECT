@@ -1,0 +1,14 @@
+[Unit]
+Description=echo-Project Service
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/python3 server.py
+Restart=always
+User=pi
+WorkingDirectory=/home/pi/code/ECHO-PROJECT/core/
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

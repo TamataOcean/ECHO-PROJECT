@@ -20,16 +20,6 @@ sudo apt-get -y install python3-pip
 # pip3 install paho-mqtt > propduit une erreur
 sudo pip3 install paho-mqtt --break-system-packages
 
-
-# echo "######### Installation NodeJS"
-# sudo apt install -y ca-certificates curl gnupg
-# curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key | sudo gpg --dearmor -o /usr/share/keyrings/nodesource.gpg
-# NODE_MAJOR=22
-# echo "deb [signed-by=/usr/share/keyrings/nodesource.gpg] https://deb.nodesource.com/node_$NODE_MAJOR.x nodistro main" | sudo tee /etc/apt/sources.list.d/nodesource.list
-# sudo apt update
-# sudo apt install nodejs
-# node -v
-
 # Process > https://nodered.org/docs/getting-started/raspberrypi
 cd
 echo "######### Installation Node-Red"
@@ -66,10 +56,15 @@ pushd libgstc/python
 sudo ./setup.py install --user
 
 # Ajout du service GSTD
-sudo cp ~/ECHO-PROJECT/deploy/gstd.service /etc/systemd/system/
+sudo cp ~/code/ECHO-PROJECT/deploy/gstd.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable gstd.service
 sudo systemctl start gstd.service
 
 echo "Server ECHO-PROJECT Installation"
 
+# Ajout du service python server.py
+sudo cp ~/code/ECHO-PROJECT/deploy/mqtt_server.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable mqtt_server.service
+sudo systemctl start mqtt_server.service
