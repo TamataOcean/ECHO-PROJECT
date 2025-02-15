@@ -1,6 +1,6 @@
 [Unit]
 Description=echo-Project Server
-After=network.target
+After=gstd.service
 
 [Service]
 ExecStart=/usr/bin/python3 server.py
