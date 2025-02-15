@@ -1,9 +1,9 @@
 [Unit]
-Description=echo-Project Service
+Description=echo-Project Server
 After=network.target
 
 [Service]
-ExecStart=/usr/local/bin/python3 server.py
+ExecStart=/usr/bin/python3 server.py
 Restart=always
 User=pi
 WorkingDirectory=/home/pi/code/ECHO-PROJECT/core/
