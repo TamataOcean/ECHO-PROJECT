@@ -11,6 +11,10 @@ MQTT_BROKER = "localhost"  # Remplace par ton broker MQTT
 MQTT_TOPIC = "gstreamer/control"  # Le topic auquel publier
 
 def send_mqtt_command(client, command, pipe_name):
+    if not client.is_connected():
+        print(f"connection rompue au serveur MQTT pipe : {pipe_name}")
+        client.connect(MQTT_BROKER, 1883, 60)
+
     """ Envoie une commande MQTT """
     message = {"order": command, "pipeline_name": pipe_name}
     json_message = json.dumps(message)
@@ -79,6 +83,10 @@ def process_orders(json_file):
                 time.sleep(duration)
         
         # Fin de la boucle des ordres, on arrete le pipeline
+        if not client.is_connected():
+            print(f"connection rompue au serveur MQTT pipe : {pipeline_name}")
+            client.connect(MQTT_BROKER, 1883, 60)
+
         message = {"order": "stop", "pipeline_name": pipeline_name }
         client.publish(MQTT_TOPIC, json.dumps(message))
         print(f"📩 Commande MQTT envoyée : {message}")
