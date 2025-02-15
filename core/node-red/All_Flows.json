@@ -1,0 +1,1792 @@
+[
+    {
+        "id": "9437544a0f6eb7b6",
+        "type": "tab",
+        "label": "DEBUG",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "797d6b58d40f9429",
+        "type": "tab",
+        "label": "CONFIGURATION",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "38ca37d8e26c9239",
+        "type": "tab",
+        "label": "EXECUTION",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "564a9cba19c2bc96",
+        "type": "ui_tab",
+        "name": "Configuration",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "a5f6c3d7b9e4",
+        "type": "ui_tab",
+        "name": "Execution",
+        "icon": "dashboard",
+        "order": 2,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "f899a08a0af76d49",
+        "type": "ui_group",
+        "name": "Partition Play / Pause / Durée",
+        "tab": "564a9cba19c2bc96",
+        "order": 2,
+        "disp": true,
+        "width": 6,
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "4402a57f897c8600",
+        "type": "ui_group",
+        "name": "Configuration",
+        "tab": "564a9cba19c2bc96",
+        "order": 1,
+        "disp": true,
+        "width": "8",
+        "collapse": true,
+        "className": ""
+    },
+    {
+        "id": "bbd3e3f3bc9b",
+        "type": "ui_group",
+        "name": "Execute",
+        "tab": "a5f6c3d7b9e4",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "57d43aab7004fac7",
+        "type": "ui_base",
+        "theme": {
+            "name": "theme-light",
+            "lightTheme": {
+                "default": "#0094CE",
+                "baseColor": "#0094CE",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": true,
+                "reset": false
+            },
+            "darkTheme": {
+                "default": "#097479",
+                "baseColor": "#097479",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif",
+                "edited": false
+            },
+            "customTheme": {
+                "name": "Untitled Theme 1",
+                "default": "#4B7930",
+                "baseColor": "#4B7930",
+                "baseFont": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+            },
+            "themeState": {
+                "base-color": {
+                    "default": "#0094CE",
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-titlebar-backgroundColor": {
+                    "value": "#0094CE",
+                    "edited": false
+                },
+                "page-backgroundColor": {
+                    "value": "#fafafa",
+                    "edited": false
+                },
+                "page-sidebar-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-textColor": {
+                    "value": "#1bbfff",
+                    "edited": false
+                },
+                "group-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "group-backgroundColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "widget-textColor": {
+                    "value": "#111111",
+                    "edited": false
+                },
+                "widget-backgroundColor": {
+                    "value": "#0094ce",
+                    "edited": false
+                },
+                "widget-borderColor": {
+                    "value": "#ffffff",
+                    "edited": false
+                },
+                "base-font": {
+                    "value": "-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen-Sans,Ubuntu,Cantarell,Helvetica Neue,sans-serif"
+                }
+            },
+            "angularTheme": {
+                "primary": "indigo",
+                "accents": "blue",
+                "warn": "red",
+                "background": "grey",
+                "palette": "light"
+            }
+        },
+        "site": {
+            "name": "Echo Project",
+            "hideToolbar": "false",
+            "allowSwipe": "false",
+            "lockMenu": "true",
+            "allowTempTheme": "true",
+            "dateFormat": "DD/MM/YYYY",
+            "sizes": {
+                "sx": 48,
+                "sy": 48,
+                "gx": 6,
+                "gy": 6,
+                "cx": 6,
+                "cy": 6,
+                "px": 0,
+                "py": 0
+            }
+        }
+    },
+    {
+        "id": "8e239b0d5cb9746b",
+        "type": "mqtt-broker",
+        "name": "MQTT Local",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "ba7648b8.35c9f8",
+        "type": "mqtt-broker",
+        "name": "MQTT Local",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "d45992b9debd876e",
+        "type": "ui_spacer",
+        "z": "797d6b58d40f9429",
+        "name": "spacer",
+        "group": "4402a57f897c8600",
+        "order": 9,
+        "width": "8",
+        "height": "2"
+    },
+    {
+        "id": "09585d3fda80deca",
+        "type": "mqtt out",
+        "z": "9437544a0f6eb7b6",
+        "name": "Envoyer Commande",
+        "topic": "gstreamer/control",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "ba7648b8.35c9f8",
+        "x": 400,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "cf01a76215ca7652",
+        "type": "inject",
+        "z": "9437544a0f6eb7b6",
+        "name": "Start Recording",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "{\"order\":\"start\"}",
+        "payloadType": "str",
+        "x": 140,
+        "y": 60,
+        "wires": [
+            [
+                "09585d3fda80deca"
+            ]
+        ]
+    },
+    {
+        "id": "1220de5d52e75b03",
+        "type": "inject",
+        "z": "9437544a0f6eb7b6",
+        "name": "Status",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "{\"order\":\"status\"}",
+        "payloadType": "str",
+        "x": 170,
+        "y": 140,
+        "wires": [
+            [
+                "09585d3fda80deca"
+            ]
+        ]
+    },
+    {
+        "id": "a781b85afa9e39db",
+        "type": "inject",
+        "z": "9437544a0f6eb7b6",
+        "name": "Pause Recording",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "{\"order\":\"pause\"}",
+        "payloadType": "str",
+        "x": 140,
+        "y": 100,
+        "wires": [
+            [
+                "09585d3fda80deca"
+            ]
+        ]
+    },
+    {
+        "id": "095ce910ec9163e5",
+        "type": "inject",
+        "z": "9437544a0f6eb7b6",
+        "name": "Start display ",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "start_display",
+        "payloadType": "str",
+        "x": 150,
+        "y": 240,
+        "wires": [
+            [
+                "09585d3fda80deca"
+            ]
+        ]
+    },
+    {
+        "id": "a7dcaa489c761c3b",
+        "type": "inject",
+        "z": "9437544a0f6eb7b6",
+        "name": "Pause Display",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "pause_display",
+        "payloadType": "str",
+        "x": 150,
+        "y": 280,
+        "wires": [
+            [
+                "09585d3fda80deca"
+            ]
+        ]
+    },
+    {
+        "id": "83c0f41c11a79503",
+        "type": "inject",
+        "z": "9437544a0f6eb7b6",
+        "name": "Status Display",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "status_display",
+        "payloadType": "str",
+        "x": 150,
+        "y": 200,
+        "wires": [
+            [
+                "09585d3fda80deca"
+            ]
+        ]
+    },
+    {
+        "id": "28822724f9c0bd75",
+        "type": "mqtt in",
+        "z": "9437544a0f6eb7b6",
+        "name": "Réponse Python",
+        "topic": "video/response",
+        "qos": "0",
+        "datatype": "utf8",
+        "broker": "ba7648b8.35c9f8",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 620,
+        "y": 60,
+        "wires": [
+            [
+                "fb2c561e5fecb0af"
+            ]
+        ]
+    },
+    {
+        "id": "fb2c561e5fecb0af",
+        "type": "debug",
+        "z": "9437544a0f6eb7b6",
+        "name": "Affichage Debug",
+        "active": true,
+        "tosidebar": true,
+        "x": 820,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "cca33e2388101194",
+        "type": "ui_dropdown",
+        "z": "797d6b58d40f9429",
+        "name": "Choisir Ordre",
+        "label": "Type d'Ordre",
+        "tooltip": "",
+        "place": "1",
+        "group": "f899a08a0af76d49",
+        "order": 1,
+        "width": "6",
+        "height": "1",
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Play",
+                "value": "play",
+                "type": "str"
+            },
+            {
+                "label": "Pause",
+                "value": "pause",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "",
+        "topicType": "str",
+        "className": "",
+        "x": 110,
+        "y": 480,
+        "wires": [
+            [
+                "f95f19f58f79f54d"
+            ]
+        ]
+    },
+    {
+        "id": "f95f19f58f79f54d",
+        "type": "function",
+        "z": "797d6b58d40f9429",
+        "name": "Stocker Ordre",
+        "func": "var orderType = msg.payload;\nflow.set('orderType', orderType);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 480,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "60a594f05e57525d",
+        "type": "ui_button",
+        "z": "797d6b58d40f9429",
+        "name": "Ajouter Ordre",
+        "group": "f899a08a0af76d49",
+        "order": 3,
+        "width": "6",
+        "height": "1",
+        "passthru": false,
+        "label": "+",
+        "tooltip": "",
+        "color": "#fff",
+        "bgcolor": "#007bff",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "add-order",
+        "topicType": "str",
+        "x": 120,
+        "y": 640,
+        "wires": [
+            [
+                "1f97fa4448f96085"
+            ]
+        ]
+    },
+    {
+        "id": "1f97fa4448f96085",
+        "type": "function",
+        "z": "797d6b58d40f9429",
+        "name": "Ajouter Ordre à Liste",
+        "func": "var orderType = flow.get('orderType');\nvar orderDuration = flow.get('duration');\n\n// Vérification de la durée\nnode.warn('Valeur de la durée : ' + orderDuration);\n\nvar orders = flow.get('orders') || [];\n\nvar newOrder = {\n    \"order\": orderType,\n    \"duration\": orderDuration\n};\n\norders.push(newOrder);\nflow.set('orders', orders);\n\nmsg.payload = orders;\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 640,
+        "wires": [
+            [
+                "c61e18b32af9f17f"
+            ]
+        ]
+    },
+    {
+        "id": "c61e18b32af9f17f",
+        "type": "ui_text",
+        "z": "797d6b58d40f9429",
+        "group": "f899a08a0af76d49",
+        "order": 4,
+        "width": "6",
+        "height": "6",
+        "name": "Afficher Ordres",
+        "label": "Ordres ajoutés",
+        "format": "{{msg.payload}}",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 660,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "b76cbcd4da8233f3",
+        "type": "ui_button",
+        "z": "797d6b58d40f9429",
+        "name": "Générer Fichier JSON",
+        "group": "f899a08a0af76d49",
+        "order": 6,
+        "width": "6",
+        "height": "1",
+        "passthru": false,
+        "label": "Générer Fichier JSON",
+        "tooltip": "",
+        "color": "#fff",
+        "bgcolor": "#28a745",
+        "className": "",
+        "icon": "",
+        "payload": "iso",
+        "payloadType": "date",
+        "topic": "generate-json",
+        "topicType": "str",
+        "x": 130,
+        "y": 750,
+        "wires": [
+            [
+                "d7dccf609438f680"
+            ]
+        ]
+    },
+    {
+        "id": "d7dccf609438f680",
+        "type": "function",
+        "z": "797d6b58d40f9429",
+        "name": "Générer et Sauvegarder le JSON",
+        "func": "var ID_Serie = flow.get(\"ID_Serie\");\nvar ID_Bassin = flow.get(\"ID_Bassin\");\nvar ID_Arene = flow.get(\"ID_Arene\");\nvar ID_Sequence = flow.get(\"ID_Sequence\");\nvar ID_Camera = flow.get(\"ID_Camera\");\nvar location = flow.get(\"location\");\nvar video_file_name = flow.get(\"video_file_name\");\nvar PL_Name = flow.get(\"PL_Name\");\nvar Config_Name = flow.get('Config_Name');\n\nvar conf = {\n    \"pipeline_name\": PL_Name,\n    \"ID_Serie\": ID_Serie,\n    \"ID_Bassin\": ID_Bassin,\n    \"ID_Arene\": ID_Arene,\n    \"ID_Sequence\": ID_Sequence,\n    \"ID_Camera\": ID_Camera,\n    \"location\": location,\n    \"video_file_name\": video_file_name\n};\n\n// Récupérer les ordres enregistrés dans le flow\nvar orders = flow.get('orders') || [];\n\n// Créer un objet avec \"conf\" et \"orders\"\nvar finalPayload = {\n    \"conf\": conf,\n    \"orders\": orders\n};\n\n// Formater le JSON avec des sauts de ligne\nmsg.payload = JSON.stringify(finalPayload, null, 2);\n\n// Générer le nom du fichier à partir du Config_Name\nvar fileName = PL_Name + \".json\";\nvar configPath = global.get(\"CONFIG_PATH\");\n\nmsg.filename = configPath + fileName; // Chemin du fichier\n\nnode.warn(msg.filename);\n// Retourner le message\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 430,
+        "y": 750,
+        "wires": [
+            [
+                "c01f51c0378507b6",
+                "a6735dd456a2b851",
+                "f4acd8dc6ae26070"
+            ]
+        ]
+    },
+    {
+        "id": "8ab4e2b028681339",
+        "type": "function",
+        "z": "797d6b58d40f9429",
+        "name": "Stocker Durée",
+        "func": "var duree = msg.payload;\nflow.set('duration', duree);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c01f51c0378507b6",
+        "type": "file",
+        "z": "797d6b58d40f9429",
+        "name": "-> config.json",
+        "filename": "filename",
+        "filenameType": "msg",
+        "appendNewline": false,
+        "createDir": true,
+        "overwriteFile": "true",
+        "encoding": "utf8",
+        "x": 680,
+        "y": 720,
+        "wires": [
+            [
+                "0f20c83b9aaf3a9b"
+            ]
+        ]
+    },
+    {
+        "id": "0f20c83b9aaf3a9b",
+        "type": "debug",
+        "z": "797d6b58d40f9429",
+        "name": "Résultat",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 720,
+        "wires": []
+    },
+    {
+        "id": "c8fca8e3d40ab5bc",
+        "type": "function",
+        "z": "797d6b58d40f9429",
+        "name": "Vider Cache Ordres",
+        "func": "flow.set('orders', []);\nmsg.payload = 'Cache vidé, prêt pour le prochain ajout!';\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 390,
+        "y": 600,
+        "wires": [
+            [
+                "c61e18b32af9f17f"
+            ]
+        ]
+    },
+    {
+        "id": "09b3ba7d688c05ec",
+        "type": "ui_button",
+        "z": "797d6b58d40f9429",
+        "name": "Clear",
+        "group": "f899a08a0af76d49",
+        "order": 5,
+        "width": "6",
+        "height": "1",
+        "passthru": false,
+        "label": "Clear",
+        "tooltip": "",
+        "color": "#fff",
+        "bgcolor": "gray",
+        "className": "",
+        "icon": "",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "generate-json",
+        "topicType": "str",
+        "x": 90,
+        "y": 600,
+        "wires": [
+            [
+                "c8fca8e3d40ab5bc"
+            ]
+        ]
+    },
+    {
+        "id": "72ac3c22367e7a1f",
+        "type": "ui_dropdown",
+        "z": "797d6b58d40f9429",
+        "name": "Choisir Série",
+        "label": "ID_Serie",
+        "tooltip": "",
+        "place": "1",
+        "group": "4402a57f897c8600",
+        "order": 3,
+        "width": "6",
+        "height": "1",
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "S1",
+                "value": "Serie1",
+                "type": "str"
+            },
+            {
+                "label": "S2",
+                "value": "Serie2",
+                "type": "str"
+            },
+            {
+                "label": "S3",
+                "value": "Serie3",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "",
+        "topicType": "str",
+        "className": "",
+        "x": 110,
+        "y": 60,
+        "wires": [
+            [
+                "3d80e96dae81a2bb"
+            ]
+        ]
+    },
+    {
+        "id": "3d80e96dae81a2bb",
+        "type": "function",
+        "z": "797d6b58d40f9429",
+        "name": "Stocker Série",
+        "func": "flow.set('ID_Serie', msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "e1860535c8a08327",
+        "type": "function",
+        "z": "797d6b58d40f9429",
+        "name": "Stocker Bassin",
+        "func": "flow.set('ID_Bassin', msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "f723ec053dc4dbc5",
+        "type": "ui_dropdown",
+        "z": "797d6b58d40f9429",
+        "name": "Choisir Bassin",
+        "label": "ID_Bassin",
+        "tooltip": "",
+        "place": "1",
+        "group": "4402a57f897c8600",
+        "order": 4,
+        "width": "6",
+        "height": "1",
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Bassin 1",
+                "value": "Bassin_1",
+                "type": "str"
+            },
+            {
+                "label": "Bassin 2",
+                "value": "Bassin_2",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "",
+        "topicType": "str",
+        "className": "",
+        "x": 120,
+        "y": 120,
+        "wires": [
+            [
+                "e1860535c8a08327"
+            ]
+        ]
+    },
+    {
+        "id": "7cf856a07f1c66fa",
+        "type": "function",
+        "z": "797d6b58d40f9429",
+        "name": "Stocker Arene",
+        "func": "flow.set('ID_Arene', msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c246dee6bbb2a121",
+        "type": "ui_dropdown",
+        "z": "797d6b58d40f9429",
+        "name": "Choisir Arene",
+        "label": "ID_Arene",
+        "tooltip": "",
+        "place": "1",
+        "group": "4402a57f897c8600",
+        "order": 5,
+        "width": "6",
+        "height": "1",
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Arene 1",
+                "value": "Arene_1",
+                "type": "str"
+            },
+            {
+                "label": "Arene 2",
+                "value": "Arene_2",
+                "type": "str"
+            },
+            {
+                "label": "Arene 3",
+                "value": "Arene_3",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "",
+        "topicType": "str",
+        "className": "",
+        "x": 120,
+        "y": 180,
+        "wires": [
+            [
+                "7cf856a07f1c66fa"
+            ]
+        ]
+    },
+    {
+        "id": "1e721c0833c25ece",
+        "type": "ui_dropdown",
+        "z": "797d6b58d40f9429",
+        "name": "Choisir Séquence",
+        "label": "ID_Sequence",
+        "tooltip": "",
+        "place": "1",
+        "group": "4402a57f897c8600",
+        "order": 6,
+        "width": "6",
+        "height": "1",
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Séquence 1",
+                "value": "Seq1",
+                "type": "str"
+            },
+            {
+                "label": "Séquence 2",
+                "value": "Seq2",
+                "type": "str"
+            },
+            {
+                "label": "Séquence 3",
+                "value": "Seq3",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "",
+        "topicType": "str",
+        "className": "",
+        "x": 130,
+        "y": 240,
+        "wires": [
+            [
+                "9f51ccca4ee8b865"
+            ]
+        ]
+    },
+    {
+        "id": "9f51ccca4ee8b865",
+        "type": "function",
+        "z": "797d6b58d40f9429",
+        "name": "Stocker Série",
+        "func": "flow.set('ID_Sequence', msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6cfac5631772eccb",
+        "type": "function",
+        "z": "797d6b58d40f9429",
+        "name": "Stocker Pipeline",
+        "func": "flow.set('PL_Name', msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4e7031288c9bd66e",
+        "type": "ui_dropdown",
+        "z": "797d6b58d40f9429",
+        "name": "Pipeline Name",
+        "label": "PL_Name",
+        "tooltip": "",
+        "place": "1",
+        "group": "4402a57f897c8600",
+        "order": 1,
+        "width": "6",
+        "height": "1",
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "pipeline1",
+                "value": "pipeline1",
+                "type": "str"
+            },
+            {
+                "label": "pipeline2",
+                "value": "pipeline2",
+                "type": "str"
+            },
+            {
+                "label": "pipeline3",
+                "value": "pipeline3",
+                "type": "str"
+            },
+            {
+                "label": "pipeline4",
+                "value": "pipeline4",
+                "type": "str"
+            },
+            {
+                "label": "pipeline5",
+                "value": "pipeline5",
+                "type": "str"
+            },
+            {
+                "label": "pipeline6",
+                "value": "pipeline6",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "",
+        "topicType": "str",
+        "className": "",
+        "x": 120,
+        "y": 300,
+        "wires": [
+            [
+                "6cfac5631772eccb"
+            ]
+        ]
+    },
+    {
+        "id": "aadb924890c07e5a",
+        "type": "ui_dropdown",
+        "z": "797d6b58d40f9429",
+        "name": "Choisir Caméra ",
+        "label": "ID_Camera",
+        "tooltip": "",
+        "place": "1",
+        "group": "4402a57f897c8600",
+        "order": 7,
+        "width": "6",
+        "height": "1",
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Caméra 1",
+                "value": "Cam1",
+                "type": "str"
+            },
+            {
+                "label": "Caméra 2",
+                "value": "Cam2",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 120,
+        "y": 360,
+        "wires": [
+            [
+                "ad3ac3b2fcb21cb6"
+            ]
+        ]
+    },
+    {
+        "id": "ad3ac3b2fcb21cb6",
+        "type": "function",
+        "z": "797d6b58d40f9429",
+        "name": "Stocker Pipeline",
+        "func": "flow.set('ID_Camera', msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ad4a74df31908257",
+        "type": "ui_dropdown",
+        "z": "797d6b58d40f9429",
+        "name": "Choisir location ",
+        "label": "Location",
+        "tooltip": "",
+        "place": "1",
+        "group": "4402a57f897c8600",
+        "order": 8,
+        "width": "6",
+        "height": "1",
+        "passthru": true,
+        "multiple": false,
+        "options": [
+            {
+                "label": "Caméra 1 ( 172.24.1.112 ) / FULL",
+                "value": "rtsp://admin:JKFLFO@172.24.1.112/11",
+                "type": "str"
+            },
+            {
+                "label": "Caméra 1 ( 172.24.1.112 ) / SMALL",
+                "value": "rtsp://admin:JKFLFO@172.24.1.113/11",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "topic",
+        "topicType": "msg",
+        "className": "",
+        "x": 120,
+        "y": 420,
+        "wires": [
+            [
+                "b41ceee2da6c271e"
+            ]
+        ]
+    },
+    {
+        "id": "b41ceee2da6c271e",
+        "type": "function",
+        "z": "797d6b58d40f9429",
+        "name": "Stocker Pipeline",
+        "func": "flow.set('location', msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "a6735dd456a2b851",
+        "type": "ui_text",
+        "z": "797d6b58d40f9429",
+        "group": "4402a57f897c8600",
+        "order": 10,
+        "width": "7",
+        "height": "4",
+        "name": "Config",
+        "label": "Dernière config sauvegardée",
+        "format": "{{msg.payload}}",
+        "layout": "row-left",
+        "className": "",
+        "style": true,
+        "font": "",
+        "fontSize": "",
+        "color": "#000000",
+        "x": 720,
+        "y": 800,
+        "wires": []
+    },
+    {
+        "id": "1683421686e0f397",
+        "type": "fs-ops-dir",
+        "z": "797d6b58d40f9429",
+        "name": "",
+        "path": "payload",
+        "pathType": "msg",
+        "filter": "*",
+        "filterType": "str",
+        "dir": "files",
+        "dirType": "flow",
+        "x": 510,
+        "y": 840,
+        "wires": [
+            [
+                "fabcbdf149e193dd",
+                "68c272158d3a43ce"
+            ]
+        ]
+    },
+    {
+        "id": "fabcbdf149e193dd",
+        "type": "change",
+        "z": "797d6b58d40f9429",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "options",
+                "pt": "msg",
+                "to": "files",
+                "tot": "flow"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 690,
+        "y": 840,
+        "wires": [
+            [
+                "93cccdd47add1666"
+            ]
+        ]
+    },
+    {
+        "id": "93cccdd47add1666",
+        "type": "ui_dropdown",
+        "z": "797d6b58d40f9429",
+        "name": "",
+        "label": "Liste des configurations",
+        "tooltip": "",
+        "place": "Select option",
+        "group": "bbd3e3f3bc9b",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "multiple": true,
+        "options": [
+            {
+                "label": "",
+                "value": "",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "",
+        "topicType": "str",
+        "className": "",
+        "x": 920,
+        "y": 840,
+        "wires": [
+            [
+                "9f16796b5dbbfb15"
+            ]
+        ]
+    },
+    {
+        "id": "68c272158d3a43ce",
+        "type": "debug",
+        "z": "797d6b58d40f9429",
+        "name": "Directory LOG",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 690,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "f4acd8dc6ae26070",
+        "type": "change",
+        "z": "797d6b58d40f9429",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "CONFIG_PATH",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 350,
+        "y": 840,
+        "wires": [
+            [
+                "1683421686e0f397"
+            ]
+        ]
+    },
+    {
+        "id": "9f16796b5dbbfb15",
+        "type": "change",
+        "z": "797d6b58d40f9429",
+        "name": "List des config sélectionnées",
+        "rules": [
+            {
+                "t": "set",
+                "p": "fileListSelected",
+                "pt": "global",
+                "to": "payload",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "dirConf",
+                "pt": "global",
+                "to": "/home/pi/code/ECHO-PROJECT/core/configs/",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1170,
+        "y": 840,
+        "wires": [
+            [
+                "c4ef818f2c146c1d"
+            ]
+        ]
+    },
+    {
+        "id": "c4ef818f2c146c1d",
+        "type": "debug",
+        "z": "797d6b58d40f9429",
+        "name": "Conf selected",
+        "active": true,
+        "tosidebar": false,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1150,
+        "y": 900,
+        "wires": []
+    },
+    {
+        "id": "1cfe38a5d2ae2f1b",
+        "type": "inject",
+        "z": "797d6b58d40f9429",
+        "name": "MAJ Auto ",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.5",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 840,
+        "wires": [
+            [
+                "f4acd8dc6ae26070"
+            ]
+        ]
+    },
+    {
+        "id": "59c24fa37b200ab9",
+        "type": "ui_text_input",
+        "z": "797d6b58d40f9429",
+        "name": "",
+        "label": "Durée",
+        "tooltip": "",
+        "group": "f899a08a0af76d49",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "topic",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 100,
+        "y": 540,
+        "wires": [
+            [
+                "8ab4e2b028681339"
+            ]
+        ]
+    },
+    {
+        "id": "8ceaa32512946102",
+        "type": "change",
+        "z": "797d6b58d40f9429",
+        "name": "Variable Globale",
+        "rules": [
+            {
+                "t": "set",
+                "p": "VIDEO_PATH",
+                "pt": "global",
+                "to": "/home/pi/code/ECHO-PROJECT/EXPORT_VIDEOS/",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "CONFIG_PATH",
+                "pt": "global",
+                "to": "/home/pi/code/ECHO-PROJECT/core/configs/",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "pController",
+                "pt": "global",
+                "to": "python3 /home/pi/code/ECHO-PROJECT/core/pControler-from-JSON.py",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 740,
+        "y": 60,
+        "wires": [
+            [
+                "c9e79ca5273cf7db"
+            ]
+        ]
+    },
+    {
+        "id": "e8ece6ee4f3bc0b6",
+        "type": "inject",
+        "z": "797d6b58d40f9429",
+        "name": "MAJ Auto ",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 580,
+        "y": 60,
+        "wires": [
+            [
+                "8ceaa32512946102"
+            ]
+        ]
+    },
+    {
+        "id": "c9e79ca5273cf7db",
+        "type": "function",
+        "z": "797d6b58d40f9429",
+        "name": "function 1",
+        "func": "var exec_Path = global.get(\"pController\");\nvar config_Path = global.get(\"CONFIG_PATH\");\nvar video_Path = global.get(\"VIDEO_PATH\");\nmsg.payload = video_Path +\" - \\n \" + exec_Path + \" - \\n \" + config_Path;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 900,
+        "y": 60,
+        "wires": [
+            [
+                "2531eddb183f549d"
+            ]
+        ]
+    },
+    {
+        "id": "2531eddb183f549d",
+        "type": "debug",
+        "z": "797d6b58d40f9429",
+        "name": "debug 1",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1060,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "f8223f37dabc1cb2",
+        "type": "debug",
+        "z": "38ca37d8e26c9239",
+        "name": "MQTT server/log",
+        "active": true,
+        "tosidebar": false,
+        "console": true,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 410,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "357477761f3dc155",
+        "type": "ui_button",
+        "z": "38ca37d8e26c9239",
+        "name": "Launch Record Multi Thread",
+        "group": "bbd3e3f3bc9b",
+        "order": 2,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Launch Record X Threads",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "",
+        "className": "",
+        "icon": "",
+        "payload": "start",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 160,
+        "y": 200,
+        "wires": [
+            [
+                "48d0c1ca11bb803b"
+            ]
+        ]
+    },
+    {
+        "id": "48d0c1ca11bb803b",
+        "type": "function",
+        "z": "38ca37d8e26c9239",
+        "name": "X THread / Config file selected",
+        "func": "var selectedFiles = global.get('fileListSelected') || [];\nvar dirConf = global.get('CONFIG_PATH');\nvar pController = global.get('pController');\n\nvar pipelinesStates = Array(6).fill(null);  // Tableau avec 6 éléments vides\nflow.set('pipelinesStates', pipelinesStates);\n\nnode.warn(dirConf);\n\nif (selectedFiles.length === 0) {\n    node.warn(\"Aucun fichier sélectionné.\");\n    return null;\n}\n\nvar threads = selectedFiles.map(file => {\n    return {\n        topic: \"start_thread\",\n        payload: pController + \" \" + dirConf + file\n    };\n});\n\nreturn [threads];",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 450,
+        "y": 200,
+        "wires": [
+            [
+                "889c93ba519e85c8",
+                "4b1aeebb47cbfa86"
+            ]
+        ]
+    },
+    {
+        "id": "889c93ba519e85c8",
+        "type": "exec",
+        "z": "38ca37d8e26c9239",
+        "command": "",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Exécuter le thread",
+        "x": 730,
+        "y": 200,
+        "wires": [
+            [
+                "f4b4cb5ad3140ca2"
+            ],
+            [],
+            [
+                "e384ea56f4a8097e"
+            ]
+        ]
+    },
+    {
+        "id": "f4b4cb5ad3140ca2",
+        "type": "debug",
+        "z": "38ca37d8e26c9239",
+        "name": "Thread lancé",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 930,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "e384ea56f4a8097e",
+        "type": "debug",
+        "z": "38ca37d8e26c9239",
+        "name": "Erreur",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 910,
+        "y": 220,
+        "wires": []
+    },
+    {
+        "id": "885f4e1261c732c4",
+        "type": "mqtt in",
+        "z": "38ca37d8e26c9239",
+        "name": "Réponse du serveur",
+        "topic": "server/log",
+        "qos": "0",
+        "datatype": "json",
+        "broker": "8e239b0d5cb9746b",
+        "nl": false,
+        "rap": false,
+        "inputs": 0,
+        "x": 140,
+        "y": 400,
+        "wires": [
+            [
+                "fb6201eb3eac846b",
+                "f8223f37dabc1cb2"
+            ]
+        ]
+    },
+    {
+        "id": "fb6201eb3eac846b",
+        "type": "function",
+        "z": "38ca37d8e26c9239",
+        "name": "Process State",
+        "func": "var payload = msg.payload;\n\n// Vérifier que les informations nécessaires sont présentes dans le message\nif (!payload || !payload.pipeline_name || !payload.state) {\n    node.error(\"Message MQTT invalide: \" + JSON.stringify(payload));\n    return null;\n}\n\n// Initialiser ou récupérer le tableau des états des pipelines (taille fixe de 6 éléments)\nvar pipelinesStates = flow.get('pipelinesStates') || Array(6).fill(null);  // Tableau avec 6 éléments vides\n\n// Identifier l'index de pipeline_name (par exemple: pipeline1 correspond à index 0, pipeline2 à index 1, etc.)\nvar index = parseInt(payload.pipeline_name.replace('pipeline', '')) - 1;\n\n// Si l'index est valide (entre 0 et 5), on met à jour l'état du pipeline correspondant\nif (index >= 0 && index < 6) {\n    pipelinesStates[index] = {\n        label: payload.pipeline_name,\n        state: payload.state,\n        timestamp: new Date().toLocaleString()\n    };\n} else {\n    node.error(\"Nom de pipeline invalide: \" + payload.pipeline_name);\n    return null;\n}\n\n// Sauvegarder le tableau mis à jour dans le flow\nflow.set('pipelinesStates', pipelinesStates);\n\n// Passer le tableau mis à jour au message pour l'utiliser dans les UI ou autres nœuds\nmsg.payload = pipelinesStates;\n\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 400,
+        "wires": [
+            [
+                "a5f58e0d8c87ee96",
+                "2cae499725e50cf6",
+                "3e94b9495f7760a0",
+                "7a5bd9fd9dd44b7f",
+                "daa37f47d847da17",
+                "b2dd8e15f1fd9bc4"
+            ]
+        ]
+    },
+    {
+        "id": "a5f58e0d8c87ee96",
+        "type": "ui_text",
+        "z": "38ca37d8e26c9239",
+        "group": "bbd3e3f3bc9b",
+        "order": 6,
+        "width": 0,
+        "height": 0,
+        "name": "Pipeline1",
+        "label": "Pipe L1",
+        "format": "{{msg.payload[0].timestamp}} - {{msg.payload[0].state}}",
+        "layout": "col-center",
+        "className": "",
+        "style": true,
+        "font": "",
+        "fontSize": 16,
+        "color": "#1a5fb4",
+        "x": 700,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "2cae499725e50cf6",
+        "type": "ui_text",
+        "z": "38ca37d8e26c9239",
+        "group": "bbd3e3f3bc9b",
+        "order": 7,
+        "width": 0,
+        "height": 0,
+        "name": "Pipeline 2",
+        "label": "Pipe L2",
+        "format": "{{msg.payload[1].timestamp}} - {{msg.payload[1].state}}",
+        "layout": "col-center",
+        "className": "",
+        "style": true,
+        "font": "",
+        "fontSize": "16",
+        "color": "#1a5fb4",
+        "x": 700,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "3e94b9495f7760a0",
+        "type": "ui_text",
+        "z": "38ca37d8e26c9239",
+        "group": "bbd3e3f3bc9b",
+        "order": 8,
+        "width": 0,
+        "height": 0,
+        "name": "Pipeline 3",
+        "label": "Pipe L3",
+        "format": "{{msg.payload[2].timestamp}} - {{msg.payload[2].state}}",
+        "layout": "col-center",
+        "className": "",
+        "style": true,
+        "font": "",
+        "fontSize": 16,
+        "color": "#1a5fb4",
+        "x": 700,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "7a5bd9fd9dd44b7f",
+        "type": "ui_text",
+        "z": "38ca37d8e26c9239",
+        "group": "bbd3e3f3bc9b",
+        "order": 9,
+        "width": 0,
+        "height": 0,
+        "name": "Pipeline 4",
+        "label": "Pipe L4",
+        "format": "{{msg.payload[3].timestamp}} - {{msg.payload[3].state}}",
+        "layout": "col-center",
+        "className": "",
+        "style": true,
+        "font": "",
+        "fontSize": 16,
+        "color": "#1a5fb4",
+        "x": 700,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "daa37f47d847da17",
+        "type": "ui_text",
+        "z": "38ca37d8e26c9239",
+        "group": "bbd3e3f3bc9b",
+        "order": 10,
+        "width": 0,
+        "height": 0,
+        "name": "Pipeline 5",
+        "label": "Pipe L5",
+        "format": "{{msg.payload[4].timestamp}} - {{msg.payload[4].state}}",
+        "layout": "col-center",
+        "className": "",
+        "style": true,
+        "font": "",
+        "fontSize": 16,
+        "color": "#1a5fb4",
+        "x": 700,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "b2dd8e15f1fd9bc4",
+        "type": "ui_text",
+        "z": "38ca37d8e26c9239",
+        "group": "bbd3e3f3bc9b",
+        "order": 11,
+        "width": 0,
+        "height": 0,
+        "name": "Pipeline 6",
+        "label": "Pipe L6",
+        "format": "{{msg.payload[5].timestamp}} - {{msg.payload[5].state}}",
+        "layout": "col-center",
+        "className": "",
+        "style": true,
+        "font": "",
+        "fontSize": 16,
+        "color": "#1a5fb4",
+        "x": 700,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "4b1aeebb47cbfa86",
+        "type": "debug",
+        "z": "38ca37d8e26c9239",
+        "name": "debug 2",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 630,
+        "y": 120,
+        "wires": []
+    }
+]
