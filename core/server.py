@@ -46,7 +46,7 @@ def checkCreationPipeline(pipe_Name):
         state = gstd_client.read(f'pipelines/{pName}/state')['value']
         print(f"Pipeline: {pName} - State: {state}")
         if (pipe_Name == pName ):
-            print(f"Pipeline {pName} existe déja avec le state = {state}. Commande de creation refusé ")
+            print(f"Pipeline {pName} existe déja avec le state = {state}. Commande de creation refusée ")
             return False
     # Si pas de correspondance trouvé, on retourne vrai
     return True
@@ -135,7 +135,6 @@ def on_message(client, userdata, msg):
                 # CREATION REUSSI, ENVOI INFO EN MQTT
                 state = "created"
                 message = {"state": state, "pipeline_name": pipe_Name}
-
                 json_message = json.dumps(message)
                 client.publish(MQTT_LOG_SERVER, json_message)
 
@@ -158,9 +157,9 @@ def on_message(client, userdata, msg):
         elif command == "pause" and checkCommandOnPipeline(pipe_Name):
             print(f"⏸️ Pause du pipeline : {pipe_Name}")
             gstd_client.pipeline_pause(pipe_Name)
+
             state = "paused"
             message = {"state": state, "pipeline_name": pipe_Name}
-
             json_message = json.dumps(message)
             client.publish(MQTT_LOG_SERVER, json_message)
 
@@ -170,9 +169,9 @@ def on_message(client, userdata, msg):
 
         elif command == "stop" and checkCommandOnPipeline(pipe_Name):
             print(f"🛑 Arrêt du pipeline : {pipe_Name}")
+            
             state = "suppression"
             message = {"state": state, "pipeline_name": pipe_Name}
-
             json_message = json.dumps(message)
             client.publish(MQTT_LOG_SERVER, json_message)
             # Envoi du signal EOS avant l'arrêt
@@ -186,6 +185,7 @@ def on_message(client, userdata, msg):
             time.sleep(5)
             gstd_client.pipeline_stop(pipe_Name)
             gstd_client.pipeline_delete(pipe_Name)
+            
             state = "deleted"
             message = {"state": state, "pipeline_name": pipe_Name}
             json_message = json.dumps(message)
