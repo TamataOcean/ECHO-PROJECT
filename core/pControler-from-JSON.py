@@ -77,18 +77,20 @@ def process_orders(json_file):
             command = order.get("order")            
             duration = int(order.get("duration", 0)) # par défaut, pas de délai
             send_mqtt_command(client, command, pipeline_name)
+            time.sleep(0.5)
 
             if duration > 0:
                 print(f"⏳ Attente de {duration} secondes avant la prochaine commande...")
                 time.sleep(duration)
         
         # Fin de la boucle des ordres, on arrete le pipeline
+        time.sleep(0.5)
         if not client.is_connected():
             print(f"connection rompue au serveur MQTT pipe : {pipeline_name}")
             client.connect(MQTT_BROKER, 1883, 60)
 
         message = {"order": "stop", "pipeline_name": pipeline_name }
-        client.publish(MQTT_TOPIC, json.dumps(message), qos=2)
+        client.publish(MQTT_TOPIC, json.dumps(message), qos=1)
         print(f"📩 Commande MQTT envoyée : {message}")
         print("🛑 Fin de l'enregistrement")
         client.disconnect()
