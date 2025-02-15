@@ -26,15 +26,8 @@ max_size_time = 60000000000 # 60 secondes = 10 × 60 × 1 000 000 000 ns
 # Custom
 # max_size_file = 10000000 # 10 Mo (10 000 000 octets).
 # max_size_time = 10000000000 # 10 secondes = 10 × 60 × 1 000 000 000 ns
-export_directory_file = "/home/bibi/code/ECHO-PROJECT/EXPORT_VIDEOS/"
+export_directory_file = "/home/bibi/NAS/code/ECHO-PROJECT/EXPORT_VIDEOS/"
 camera_location = "rtsp://admin:JKFLFO@172.24.1.112/11"
-
-# Vérifier et créer le répertoire de destination (export_directory_file) si nécessaire
-if not os.path.exists(export_directory_file):
-    os.makedirs(export_directory_file)
-    print(f"📁 Répertoire créé : {export_directory_file}")
-else:
-    print(f"📂 Répertoire déjà existant : {export_directory_file}")
 
 pipeline_display = "rtspsrc location=rtsp://admin:JKFLFO@172.24.1.112/11 latency=1000 ! queue ! rtph264depay ! h264parse ! avdec_h264 ! queue ! videoconvert ! fpsdisplaysink sync=false"
 pipeline_record = f"rtspsrc location={camera_location} latency=1000 ! queue ! rtph264depay ! h264parse ! queue ! h264parse ! splitmuxsink location={export_directory_file}video%02d.mov max-size-time=10000000000 max-size-bytes=1000000"
@@ -112,7 +105,15 @@ def on_message(client, userdata, msg):
             pipe_Location = payload.get("location")
             timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
             video_name = f"{timestamp}_{ID_Serie}_{ID_Bassin}_{ID_Arene}_{ID_Sequence}_{ID_Camera}_"
-            
+            video_Path = payload.get("video_Path")
+
+            # Vérifier et créer le répertoire de destination (export_directory_file) si nécessaire
+            if not os.path.exists(video_Path):
+                os.makedirs(video_Path)
+                print(f"📁 Répertoire créé : {video_Path}")
+            else:
+                print(f"📂 Répertoire déjà existant : {video_Path}")
+                
             # Recupération des parametres de création 
 
             print(f"▶️ Creation du pipeline : {pipe_Name} / location : {pipe_Location} ")
@@ -122,7 +123,7 @@ def on_message(client, userdata, msg):
                 ! queue ! rtph264depay ! h264parse \
                 ! queue ! h264parse \
                 ! splitmuxsink \
-                location={export_directory_file}{video_name}%03d.mov \
+                location={video_Path}{video_name}%03d.mov \
                 max-size-time={max_size_time} \
                 max-size-bytes={max_size_file}"
             # DEBUG print(f"pipe_Record : {pipe_Record}")

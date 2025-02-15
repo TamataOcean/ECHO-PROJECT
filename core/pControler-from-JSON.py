@@ -41,6 +41,7 @@ def process_orders(json_file):
         ID_Camera = conf.get('ID_Camera', 'N/A')
         pipeline_name = conf.get('pipeline_name', 'default_pipeline')
         location = conf.get('location', 'N/A')
+        video_Path = conf.get('video_Path', 'N/A')
 
         print(f"📌 Bassin: {ID_Bassin}, Arène: {ID_Arene}, Caméra: {ID_Camera}")
 
@@ -55,7 +56,8 @@ def process_orders(json_file):
                     "ID_Camera": ID_Camera,
                     "location": location,
                     "video_file_name": pipeline_name,
-                    "pipeline_name": pipeline_name
+                    "pipeline_name": pipeline_name,
+                    "video_Path" : video_Path
                 }
         
         client.publish(MQTT_TOPIC, json.dumps(message))
