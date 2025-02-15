@@ -578,7 +578,7 @@
         "type": "function",
         "z": "797d6b58d40f9429",
         "name": "Générer et Sauvegarder le JSON",
-        "func": "var ID_Serie = flow.get(\"ID_Serie\");\nvar ID_Bassin = flow.get(\"ID_Bassin\");\nvar ID_Arene = flow.get(\"ID_Arene\");\nvar ID_Sequence = flow.get(\"ID_Sequence\");\nvar ID_Camera = flow.get(\"ID_Camera\");\nvar location = flow.get(\"location\");\nvar video_file_name = flow.get(\"video_file_name\");\nvar PL_Name = flow.get(\"PL_Name\");\nvar Config_Name = flow.get('Config_Name');\n\nvar conf = {\n    \"pipeline_name\": PL_Name,\n    \"ID_Serie\": ID_Serie,\n    \"ID_Bassin\": ID_Bassin,\n    \"ID_Arene\": ID_Arene,\n    \"ID_Sequence\": ID_Sequence,\n    \"ID_Camera\": ID_Camera,\n    \"location\": location,\n    \"video_file_name\": video_file_name\n};\n\n// Récupérer les ordres enregistrés dans le flow\nvar orders = flow.get('orders') || [];\n\n// Créer un objet avec \"conf\" et \"orders\"\nvar finalPayload = {\n    \"conf\": conf,\n    \"orders\": orders\n};\n\n// Formater le JSON avec des sauts de ligne\nmsg.payload = JSON.stringify(finalPayload, null, 2);\n\n// Générer le nom du fichier à partir du Config_Name\nvar fileName = PL_Name + \".json\";\nvar configPath = global.get(\"CONFIG_PATH\");\n\nmsg.filename = configPath + fileName; // Chemin du fichier\n\nnode.warn(msg.filename);\n// Retourner le message\nreturn msg;\n",
+        "func": "var ID_Serie = flow.get(\"ID_Serie\");\nvar ID_Bassin = flow.get(\"ID_Bassin\");\nvar ID_Arene = flow.get(\"ID_Arene\");\nvar ID_Sequence = flow.get(\"ID_Sequence\");\nvar ID_Camera = flow.get(\"ID_Camera\");\nvar location = flow.get(\"location\");\nvar video_file_name = flow.get(\"video_file_name\");\nvar PL_Name = flow.get(\"PL_Name\");\nvar Config_Name = flow.get('Config_Name');\nvar video_Path = global.get(\"VIDEO_PATH\");\nvar max_size_time = global.get(\"max_size_time\");\nvar max_size_file = global.get(\"max_size_file\");\n\nvar conf = {\n    \"pipeline_name\": PL_Name,\n    \"ID_Serie\": ID_Serie,\n    \"ID_Bassin\": ID_Bassin,\n    \"ID_Arene\": ID_Arene,\n    \"ID_Sequence\": ID_Sequence,\n    \"ID_Camera\": ID_Camera,\n    \"location\": location,\n    \"video_file_name\": video_file_name,\n    \"video_Path\": video_Path, \n    \"max_size_time\": max_size_time,\n    \"max_size_file\": max_size_file\n};\n\n// Récupérer les ordres enregistrés dans le flow\nvar orders = flow.get('orders') || [];\n\n// Créer un objet avec \"conf\" et \"orders\"\nvar finalPayload = {\n    \"conf\": conf,\n    \"orders\": orders\n};\n\n// Formater le JSON avec des sauts de ligne\nmsg.payload = JSON.stringify(finalPayload, null, 2);\n\n// Générer le nom du fichier à partir du Config_Name\nvar fileName = PL_Name + \".json\";\nvar configPath = global.get(\"CONFIG_PATH\");\n\nmsg.filename = configPath + fileName; // Chemin du fichier\n\nnode.warn(msg.filename);\n// Retourner le message\nreturn msg;\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -1141,8 +1141,8 @@
         "font": "",
         "fontSize": "",
         "color": "#000000",
-        "x": 720,
-        "y": 800,
+        "x": 710,
+        "y": 780,
         "wires": []
     },
     {
@@ -1401,6 +1401,20 @@
                 "pt": "global",
                 "to": "python3 /home/pi/code/ECHO-PROJECT/core/pControler-from-JSON.py",
                 "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "max_size_file",
+                "pt": "global",
+                "to": "10000000",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "max_size_time",
+                "pt": "global",
+                "to": "60000000000",
+                "tot": "str"
             }
         ],
         "action": "",
@@ -1487,7 +1501,7 @@
         "z": "38ca37d8e26c9239",
         "name": "MQTT server/log",
         "active": true,
-        "tosidebar": false,
+        "tosidebar": true,
         "console": true,
         "tostatus": false,
         "complete": "payload",
