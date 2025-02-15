@@ -20,12 +20,9 @@ pipiline_name_display = "DISPLAY_VideoSalon"
 
 # PARAMETRE pour GSTD 
 # defautl
-max_size_file = 10000000 # 10 Mo (1 000 000 octets).
-max_size_time = 60000000000 # 60 secondes = 10 × 60 × 1 000 000 000 ns
+# max_size_file = 10000000 # 10 Mo (1 000 000 octets).
+# max_size_time = 60000000000 # 60 secondes = 10 × 60 × 1 000 000 000 ns
 
-# Custom
-# max_size_file = 10000000 # 10 Mo (10 000 000 octets).
-# max_size_time = 10000000000 # 10 secondes = 10 × 60 × 1 000 000 000 ns
 export_directory_file = "/home/bibi/NAS/code/ECHO-PROJECT/EXPORT_VIDEOS/"
 camera_location = "rtsp://admin:JKFLFO@172.24.1.112/11"
 
@@ -103,11 +100,14 @@ def on_message(client, userdata, msg):
             ID_Sequence = payload.get("ID_Sequence")
             ID_Camera = payload.get("ID_Camera")
             pipe_Location = payload.get("location")
+            video_Path = payload.get("video_Path")
+            max_size_time = payload.get("max_size_time")
+            max_size_file = payload.get("max_size_file")
+
             timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
             video_name = f"{timestamp}_{ID_Serie}_{pipe_Name}_{ID_Bassin}_{ID_Arene}_{ID_Sequence}_{ID_Camera}_"
-            video_Path = payload.get("video_Path")
 
-            # Vérifier et créer le répertoire de destination (export_directory_file) si nécessaire
+            # Vérifier et créer le répertoire de destination (video_Path) si nécessaire
             if not os.path.exists(video_Path):
                 os.makedirs(video_Path)
                 print(f"📁 Répertoire créé : {video_Path}")

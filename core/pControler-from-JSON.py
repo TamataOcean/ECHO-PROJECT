@@ -42,6 +42,8 @@ def process_orders(json_file):
         pipeline_name = conf.get('pipeline_name', 'default_pipeline')
         location = conf.get('location', 'N/A')
         video_Path = conf.get('video_Path', 'N/A')
+        max_size_time = conf.get('max_size_time', 'N/A')
+        max_size_file = conf.get('max_size_file', 'N/A')
 
         print(f"📌 Bassin: {ID_Bassin}, Arène: {ID_Arene}, Caméra: {ID_Camera}")
 
@@ -57,7 +59,9 @@ def process_orders(json_file):
                     "location": location,
                     "video_file_name": pipeline_name,
                     "pipeline_name": pipeline_name,
-                    "video_Path" : video_Path
+                    "video_Path" : video_Path,
+                    "max_size_time" : int(max_size_time),
+                    "max_size_file" : int(max_size_file)
                 }
         
         client.publish(MQTT_TOPIC, json.dumps(message))
