@@ -68,3 +68,24 @@ sudo cp ~/code/ECHO-PROJECT/deploy/mqtt_server.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable mqtt_server.service
 sudo systemctl start mqtt_server.service
+
+
+# Partage sur le réseau ( en attendant le NAS )
+sudo apt install samba -y
+
+# a la fin du fichier /etc/samba/smb.conf ajouter : 
+
+[Videos-Echo]
+path = /home/pi/code/ECHO-PROJECT/EXPORT_VIDEOS
+browseable = yes
+writeable = yes
+create mask = 0777
+directory mask = 0777
+public = yes
+force user = pi
+
+# ajoute un client 
+sudo smbpasswd -a pi
+
+# redémarrer le service
+sudo systemctl restart smbd
