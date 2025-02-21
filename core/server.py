@@ -153,7 +153,21 @@ def on_message(client, userdata, msg):
                 message = f"Status command Pipeline: {pipe_name} - State: {state}"
                 json_message = json.dumps(message)
                 client.publish(MQTT_LOG_SERVER, json_message)
+        elif command == "stop_ALL":
+            print("Stop d'urgence envoyé, on coupe toutes les pipelines")
+            pipelines = gstd_client.list_pipelines()
+            for pipeline in pipelines:
+                pipe_name = pipeline['name']
+                state = gstd_client.read(f'pipelines/{pipe_name}/state')['value']
+                gstd_client.pipeline_stop(pipe_name)
+                gstd_client.pipeline_delete(pipe_name)
 
+                message = {"state": "stopped", "pipeline_name": pipe_name}
+                json_message = json.dumps(message)
+                client.publish(MQTT_LOG_SERVER, json_message)
+                print(f"Message MQTT envoyé : {message}")
+
+            print("\n🔴 Arrêt des pipelines terminés")
         else:
             print(f"Command : {command} inconnue côté serveur")
 
