@@ -26,7 +26,7 @@
     {
         "id": "564a9cba19c2bc96",
         "type": "ui_tab",
-        "name": "Configuration",
+        "name": "Paramétrage",
         "icon": "settings",
         "order": 1,
         "disabled": false,
@@ -35,38 +35,38 @@
     {
         "id": "a5f6c3d7b9e4",
         "type": "ui_tab",
-        "name": "Execution",
+        "name": "Lancement de l'enregistrement",
         "icon": "camera_roll",
-        "order": 2,
+        "order": 3,
         "disabled": false,
         "hidden": false
     },
     {
         "id": "f899a08a0af76d49",
         "type": "ui_group",
-        "name": "Partition Play / Pause / Durée",
+        "name": "Paramétrage (son)",
         "tab": "564a9cba19c2bc96",
         "order": 2,
         "disp": true,
-        "width": 6,
+        "width": "12",
         "collapse": true,
         "className": ""
     },
     {
         "id": "4402a57f897c8600",
         "type": "ui_group",
-        "name": "Configuration",
+        "name": "Paramétrage (caméra)",
         "tab": "564a9cba19c2bc96",
         "order": 1,
         "disp": true,
-        "width": "8",
+        "width": "12",
         "collapse": true,
         "className": ""
     },
     {
         "id": "bbd3e3f3bc9b",
         "type": "ui_group",
-        "name": "Execute",
+        "name": "Lancement de l'enregistrement",
         "tab": "a5f6c3d7b9e4",
         "order": 1,
         "disp": true,
@@ -153,7 +153,7 @@
             }
         },
         "site": {
-            "name": "Echo Project",
+            "name": " Project ECHO - Pilotage de caméras",
             "hideToolbar": "false",
             "allowSwipe": "false",
             "lockMenu": "true",
@@ -212,32 +212,22 @@
         "willPayload": ""
     },
     {
-        "id": "d45992b9debd876e",
-        "type": "ui_spacer",
-        "z": "797d6b58d40f9429",
-        "name": "spacer",
-        "group": "4402a57f897c8600",
-        "order": 9,
-        "width": "8",
-        "height": "2"
-    },
-    {
-        "id": "0449b3b1fea99d52",
-        "type": "ui_tab",
-        "name": "Demo",
-        "icon": "dashboard",
-        "disabled": false,
-        "hidden": false
-    },
-    {
         "id": "d783cb980c3979fc",
         "type": "ui_group",
-        "name": "Demo",
-        "tab": "0449b3b1fea99d52",
-        "order": 1,
+        "name": "Enregistrement du fichier de paramétrage (.json)",
+        "tab": "564a9cba19c2bc96",
+        "order": 3,
         "disp": true,
-        "width": "6",
-        "collapse": false
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "1899631ef10e7f34",
+        "type": "ui_tab",
+        "name": "Tab 4",
+        "icon": "dashboard",
+        "order": 4
     },
     {
         "id": "09585d3fda80deca",
@@ -253,8 +243,8 @@
         "correl": "",
         "expiry": "",
         "broker": "ba7648b8.35c9f8",
-        "x": 400,
-        "y": 60,
+        "x": 470,
+        "y": 270,
         "wires": []
     },
     {
@@ -439,11 +429,161 @@
         "wires": []
     },
     {
+        "id": "de823678b86287ce",
+        "type": "inject",
+        "z": "9437544a0f6eb7b6",
+        "name": "Stop pipeline1",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "{\"order\":\"stop\", \"pipeline_name\":\"pipeline1\"}",
+        "payloadType": "str",
+        "x": 190,
+        "y": 390,
+        "wires": [
+            [
+                "09585d3fda80deca"
+            ]
+        ]
+    },
+    {
+        "id": "eeb55c0a58522b4a",
+        "type": "inject",
+        "z": "9437544a0f6eb7b6",
+        "name": "Stop pipeline2",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "{\"order\":\"stop\", \"pipeline_name\":\"pipeline2\"}",
+        "payloadType": "str",
+        "x": 190,
+        "y": 450,
+        "wires": [
+            [
+                "09585d3fda80deca"
+            ]
+        ]
+    },
+    {
+        "id": "64cd7ab54638f8f3",
+        "type": "inject",
+        "z": "9437544a0f6eb7b6",
+        "name": "Stop pipeline3",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "{\"order\":\"stop\", \"pipeline_name\":\"pipeline3\"}",
+        "payloadType": "str",
+        "x": 190,
+        "y": 510,
+        "wires": [
+            [
+                "09585d3fda80deca"
+            ]
+        ]
+    },
+    {
+        "id": "4faf049b62a6f93a",
+        "type": "inject",
+        "z": "9437544a0f6eb7b6",
+        "name": "Stop pipeline4",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "{\"order\":\"stop\", \"pipeline_name\":\"pipeline4\"}",
+        "payloadType": "str",
+        "x": 190,
+        "y": 570,
+        "wires": [
+            [
+                "09585d3fda80deca"
+            ]
+        ]
+    },
+    {
+        "id": "81584f250179a5ea",
+        "type": "inject",
+        "z": "9437544a0f6eb7b6",
+        "name": "Stop pipeline5",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "{\"order\":\"stop\", \"pipeline_name\":\"pipeline5\"}",
+        "payloadType": "str",
+        "x": 190,
+        "y": 630,
+        "wires": [
+            [
+                "09585d3fda80deca"
+            ]
+        ]
+    },
+    {
+        "id": "44549a7a773bcfdc",
+        "type": "inject",
+        "z": "9437544a0f6eb7b6",
+        "name": "Stop pipeline6",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "",
+        "topic": "",
+        "payload": "{\"order\":\"stop\", \"pipeline_name\":\"pipeline6\"}",
+        "payloadType": "str",
+        "x": 190,
+        "y": 690,
+        "wires": [
+            [
+                "09585d3fda80deca"
+            ]
+        ]
+    },
+    {
         "id": "cca33e2388101194",
         "type": "ui_dropdown",
         "z": "797d6b58d40f9429",
         "name": "Choisir Ordre",
-        "label": "Type d'Ordre",
+        "label": "Ordre ( Play / Pause )",
         "tooltip": "",
         "place": "1",
         "group": "f899a08a0af76d49",
@@ -548,10 +688,10 @@
         "z": "797d6b58d40f9429",
         "group": "f899a08a0af76d49",
         "order": 4,
-        "width": "6",
-        "height": "6",
+        "width": "8",
+        "height": "8",
         "name": "Afficher Ordres",
-        "label": "Ordres ajoutés",
+        "label": "Ordres appliqués",
         "format": "{{msg.payload}}",
         "layout": "row-spread",
         "className": "",
@@ -573,7 +713,7 @@
         "width": "6",
         "height": "1",
         "passthru": false,
-        "label": "Générer Fichier JSON",
+        "label": "Générer un fichier de paramétrage ( .json )",
         "tooltip": "",
         "color": "#fff",
         "bgcolor": "#28a745",
@@ -625,7 +765,7 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
+        "x": 410,
         "y": 540,
         "wires": [
             []
@@ -697,7 +837,7 @@
         "width": "6",
         "height": "1",
         "passthru": false,
-        "label": "Clear all",
+        "label": "Réinitialiser",
         "tooltip": "",
         "color": "#fff",
         "bgcolor": "gray",
@@ -720,12 +860,12 @@
         "type": "ui_dropdown",
         "z": "797d6b58d40f9429",
         "name": "Choisir Série",
-        "label": "ID_Serie",
+        "label": "ID de la série",
         "tooltip": "",
         "place": "1",
         "group": "4402a57f897c8600",
         "order": 3,
-        "width": "6",
+        "width": "12",
         "height": "1",
         "passthru": true,
         "multiple": false,
@@ -799,12 +939,12 @@
         "type": "ui_dropdown",
         "z": "797d6b58d40f9429",
         "name": "Choisir Bassin",
-        "label": "ID_Bassin",
+        "label": "ID du bassin",
         "tooltip": "",
         "place": "1",
         "group": "4402a57f897c8600",
         "order": 4,
-        "width": "6",
+        "width": "12",
         "height": "1",
         "passthru": true,
         "multiple": false,
@@ -855,12 +995,12 @@
         "type": "ui_dropdown",
         "z": "797d6b58d40f9429",
         "name": "Choisir Arene",
-        "label": "ID_Arene",
+        "label": "ID de l'arène",
         "tooltip": "",
         "place": "1",
         "group": "4402a57f897c8600",
         "order": 5,
-        "width": "6",
+        "width": "12",
         "height": "1",
         "passthru": true,
         "multiple": false,
@@ -898,12 +1038,12 @@
         "type": "ui_dropdown",
         "z": "797d6b58d40f9429",
         "name": "Choisir Séquence",
-        "label": "ID_Sequence",
+        "label": "ID de la séquence",
         "tooltip": "",
         "place": "1",
         "group": "4402a57f897c8600",
         "order": 6,
-        "width": "6",
+        "width": "12",
         "height": "1",
         "passthru": true,
         "multiple": false,
@@ -982,7 +1122,7 @@
         "place": "1",
         "group": "4402a57f897c8600",
         "order": 1,
-        "width": "6",
+        "width": "12",
         "height": "1",
         "passthru": true,
         "multiple": false,
@@ -1091,12 +1231,12 @@
         "type": "ui_dropdown",
         "z": "797d6b58d40f9429",
         "name": "Choisir location ",
-        "label": "Location",
+        "label": "Adresse IP de la caméra",
         "tooltip": "",
         "place": "1",
         "group": "4402a57f897c8600",
         "order": 8,
-        "width": "6",
+        "width": "12",
         "height": "1",
         "passthru": true,
         "multiple": false,
@@ -1109,6 +1249,16 @@
             {
                 "label": "Caméra 1 ( 172.24.1.112 ) / SMALL",
                 "value": "rtsp://admin:JKFLFO@172.24.1.113/11",
+                "type": "str"
+            },
+            {
+                "label": "Ziwy Cam1 ( sub/av )",
+                "value": "rtsp://192.168.1.191:8554/sub/av",
+                "type": "str"
+            },
+            {
+                "label": "Ziwy Cam1 ( main/av )",
+                "value": "rtsp://192.168.1.191:8554/main/av",
                 "type": "str"
             }
         ],
@@ -1146,12 +1296,12 @@
         "id": "a6735dd456a2b851",
         "type": "ui_text",
         "z": "797d6b58d40f9429",
-        "group": "4402a57f897c8600",
+        "group": "d783cb980c3979fc",
         "order": 10,
-        "width": "7",
-        "height": "4",
+        "width": "12",
+        "height": "5",
         "name": "Config",
-        "label": "Dernière config sauvegardée",
+        "label": "Dernière paramétrage généré",
         "format": "{{msg.payload}}",
         "layout": "row-left",
         "className": "",
@@ -1215,7 +1365,7 @@
         "type": "ui_dropdown",
         "z": "797d6b58d40f9429",
         "name": "",
-        "label": "Liste des configurations",
+        "label": "Choix des fichiers de paramétrage ( .json )",
         "tooltip": "",
         "place": "Select option",
         "group": "bbd3e3f3bc9b",
@@ -1235,7 +1385,7 @@
         "topic": "",
         "topicType": "str",
         "className": "",
-        "x": 920,
+        "x": 980,
         "y": 840,
         "wires": [
             [
@@ -1372,7 +1522,7 @@
         "type": "ui_text_input",
         "z": "797d6b58d40f9429",
         "name": "",
-        "label": "Durée",
+        "label": "Durée de l'ordre ( en secondes )",
         "tooltip": "",
         "group": "f899a08a0af76d49",
         "order": 2,
@@ -1385,7 +1535,7 @@
         "sendOnBlur": true,
         "className": "",
         "topicType": "msg",
-        "x": 100,
+        "x": 160,
         "y": 540,
         "wires": [
             [
@@ -1519,7 +1669,7 @@
         "z": "797d6b58d40f9429",
         "group": "bbd3e3f3bc9b",
         "name": "",
-        "order": 8,
+        "order": 5,
         "width": 0,
         "height": 0,
         "format": "<style>\n    /* Appliquer une police moderne */\n    body,\n    .nr-dashboard-theme {\n        font-family: 'Poppins', sans-serif;\n        background-color: #f4f4f4;\n    }\n\n    /* Style général des cartes et widgets */\n    md-card {\n        background: white;\n        border-radius: 12px;\n        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);\n    }\n\n    /* Amélioration des boutons */\n    md-button {\n        background: linear-gradient(135deg, #4CAF50, #2E7D32);\n        color: white;\n        font-weight: bold;\n        border-radius: 8px;\n        transition: 0.3s ease;\n    }\n\n    md-button:hover {\n        background: linear-gradient(135deg, #66BB6A, #388E3C);\n        transform: scale(1.05);\n    }\n\n    /* Style des étiquettes de pipeline */\n    md-list-item {\n        border-left: 6px solid #1a5fb4;\n        padding: 12px;\n        margin: 8px 0;\n        border-radius: 8px;\n        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);\n    }\n\n    /* Texte des pipelines */\n    md-list-item p {\n        font-size: 16px;\n        font-weight: bold;\n        color: #333;\n    }\n\n    /* Effet sur les pipelines en fonctionnement */\n    .pipeline-active {\n        border-left-color: #4CAF50 !important;\n        background: rgba(76, 175, 80, 0.1);\n    }\n\n    /* Effet sur les pipelines en erreur */\n    .pipeline-error {\n        border-left-color: #E53935 !important;\n        background: rgba(229, 57, 53, 0.1);\n    }\n</style>",
@@ -1561,7 +1711,7 @@
         "width": 0,
         "height": 0,
         "passthru": false,
-        "label": "Launch Record X Threads",
+        "label": "Lancement de l'enregistrement",
         "tooltip": "",
         "color": "",
         "bgcolor": "",
@@ -1705,11 +1855,11 @@
         "type": "ui_text",
         "z": "38ca37d8e26c9239",
         "group": "bbd3e3f3bc9b",
-        "order": 6,
+        "order": 3,
         "width": 0,
         "height": 0,
         "name": "Pipeline1",
-        "label": "Pipe L1",
+        "label": "Pipeline 1",
         "format": "{{msg.payload[0].timestamp}} - {{msg.payload[0].state}} <i class='material-icons' style='color: {{msg.payload[0].color}};'>{{msg.payload[0].icon}}</i>",
         "layout": "col-center",
         "className": "",
@@ -1726,11 +1876,11 @@
         "type": "ui_text",
         "z": "38ca37d8e26c9239",
         "group": "bbd3e3f3bc9b",
-        "order": 7,
+        "order": 4,
         "width": 0,
         "height": 0,
         "name": "Pipeline 2",
-        "label": "Pipe L2",
+        "label": "Pipeline 2",
         "format": "{{msg.payload[1].timestamp}} - {{msg.payload[1].state}} <i class='material-icons' style='color: {{msg.payload[1].color}};'>{{msg.payload[1].icon}}</i>",
         "layout": "col-center",
         "className": "",
@@ -1747,11 +1897,11 @@
         "type": "ui_text",
         "z": "38ca37d8e26c9239",
         "group": "bbd3e3f3bc9b",
-        "order": 8,
+        "order": 6,
         "width": 0,
         "height": 0,
         "name": "Pipeline 3",
-        "label": "Pipe L3",
+        "label": "Pipeline 3",
         "format": "{{msg.payload[2].timestamp}} - {{msg.payload[2].state}} <i class='material-icons' style='color: {{msg.payload[2].color}};'>{{msg.payload[2].icon}}</i>",
         "layout": "col-center",
         "className": "",
@@ -1768,11 +1918,11 @@
         "type": "ui_text",
         "z": "38ca37d8e26c9239",
         "group": "bbd3e3f3bc9b",
-        "order": 9,
+        "order": 7,
         "width": 0,
         "height": 0,
         "name": "Pipeline 4",
-        "label": "Pipe L4",
+        "label": "Pipeline 4",
         "format": "{{msg.payload[3].timestamp}} - {{msg.payload[3].state}} <i class='material-icons' style='color: {{msg.payload[3].color}};'>{{msg.payload[3].icon}}</i>",
         "layout": "col-center",
         "className": "",
@@ -1789,11 +1939,11 @@
         "type": "ui_text",
         "z": "38ca37d8e26c9239",
         "group": "bbd3e3f3bc9b",
-        "order": 10,
+        "order": 8,
         "width": 0,
         "height": 0,
         "name": "Pipeline 5",
-        "label": "Pipe L5",
+        "label": "Pipeline 5",
         "format": "{{msg.payload[4].timestamp}} - {{msg.payload[4].state}} <i class='material-icons' style='color: {{msg.payload[4].color}};'>{{msg.payload[4].icon}}</i>",
         "layout": "col-center",
         "className": "",
@@ -1810,11 +1960,11 @@
         "type": "ui_text",
         "z": "38ca37d8e26c9239",
         "group": "bbd3e3f3bc9b",
-        "order": 11,
+        "order": 9,
         "width": 0,
         "height": 0,
         "name": "Pipeline 6",
-        "label": "Pipe L6",
+        "label": "Pipeline 6",
         "format": "{{msg.payload[5].timestamp}} - {{msg.payload[5].state}} <i class='material-icons' style='color: {{msg.payload[5].color}};'>{{msg.payload[5].icon}}</i>",
         "layout": "col-center",
         "className": "",
@@ -1840,6 +1990,52 @@
         "statusType": "auto",
         "x": 630,
         "y": 120,
+        "wires": []
+    },
+    {
+        "id": "0d79638b9d64dc7d",
+        "type": "ui_button",
+        "z": "38ca37d8e26c9239",
+        "name": "STOP URGENCE",
+        "group": "bbd3e3f3bc9b",
+        "order": 10,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "STOP URGENCE",
+        "tooltip": "",
+        "color": "white",
+        "bgcolor": "red",
+        "className": "",
+        "icon": "videocam",
+        "payload": "{\"order\":\"stop_ALL\"}",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 150,
+        "y": 690,
+        "wires": [
+            [
+                "d6d82320e62667b0"
+            ]
+        ]
+    },
+    {
+        "id": "d6d82320e62667b0",
+        "type": "mqtt out",
+        "z": "38ca37d8e26c9239",
+        "name": "Envoyer Commande",
+        "topic": "gstreamer/control",
+        "qos": "0",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "ba7648b8.35c9f8",
+        "x": 430,
+        "y": 690,
         "wires": []
     }
 ]
