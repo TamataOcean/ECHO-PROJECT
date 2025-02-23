@@ -1253,12 +1253,12 @@
             },
             {
                 "label": "Ziwy Cam1 ( sub/av )",
-                "value": "rtsp://192.168.1.191:8554/sub/av",
+                "value": "rtsp://192.168.1.26:8554/sub/av",
                 "type": "str"
             },
             {
                 "label": "Ziwy Cam1 ( main/av )",
-                "value": "rtsp://192.168.1.191:8554/main/av",
+                "value": "rtsp://192.168.1.26:8554/main/av",
                 "type": "str"
             }
         ],
@@ -1553,35 +1553,35 @@
                 "t": "set",
                 "p": "VIDEO_PATH",
                 "pt": "global",
-                "to": "/home/bibi/code/ECHO-PROJECT/EXPORT_VIDEOS/",
+                "to": "/home/pi/ECHO-PROJECT/EXPORT_VIDEOS/",
                 "tot": "str"
             },
             {
                 "t": "set",
                 "p": "CONFIG_PATH",
                 "pt": "global",
-                "to": "/home/bibi/code/ECHO-PROJECT/core/configs/",
+                "to": "/home/pi/ECHO-PROJECT/core/configs/",
                 "tot": "str"
             },
             {
                 "t": "set",
                 "p": "pController",
                 "pt": "global",
-                "to": "python3 /home/bibi/code/ECHO-PROJECT/core/pControler-from-JSON.py",
+                "to": "python3 /home/pi/ECHO-PROJECT/core/pControler-from-JSON.py",
                 "tot": "str"
             },
             {
                 "t": "set",
                 "p": "max_size_file",
                 "pt": "global",
-                "to": "10000000",
+                "to": "100000000",
                 "tot": "str"
             },
             {
                 "t": "set",
                 "p": "max_size_time",
                 "pt": "global",
-                "to": "60000000000",
+                "to": "600000000000",
                 "tot": "str"
             }
         ],
@@ -1669,17 +1669,17 @@
         "z": "797d6b58d40f9429",
         "group": "bbd3e3f3bc9b",
         "name": "",
-        "order": 5,
+        "order": 4,
         "width": 0,
         "height": 0,
-        "format": "<style>\n    /* Appliquer une police moderne */\n    body,\n    .nr-dashboard-theme {\n        font-family: 'Poppins', sans-serif;\n        background-color: #f4f4f4;\n    }\n\n    /* Style général des cartes et widgets */\n    md-card {\n        background: white;\n        border-radius: 12px;\n        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);\n    }\n\n    /* Amélioration des boutons */\n    md-button {\n        background: linear-gradient(135deg, #4CAF50, #2E7D32);\n        color: white;\n        font-weight: bold;\n        border-radius: 8px;\n        transition: 0.3s ease;\n    }\n\n    md-button:hover {\n        background: linear-gradient(135deg, #66BB6A, #388E3C);\n        transform: scale(1.05);\n    }\n\n    /* Style des étiquettes de pipeline */\n    md-list-item {\n        border-left: 6px solid #1a5fb4;\n        padding: 12px;\n        margin: 8px 0;\n        border-radius: 8px;\n        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);\n    }\n\n    /* Texte des pipelines */\n    md-list-item p {\n        font-size: 16px;\n        font-weight: bold;\n        color: #333;\n    }\n\n    /* Effet sur les pipelines en fonctionnement */\n    .pipeline-active {\n        border-left-color: #4CAF50 !important;\n        background: rgba(76, 175, 80, 0.1);\n    }\n\n    /* Effet sur les pipelines en erreur */\n    .pipeline-error {\n        border-left-color: #E53935 !important;\n        background: rgba(229, 57, 53, 0.1);\n    }\n</style>",
+        "format": "<style>\n    /* Appliquer une police moderne */\n    body,\n    .nr-dashboard-theme {\n        font-family: 'Poppins', sans-serif;\n        background-color: #f4f4f4;\n    }\n\n    /* Style général des cartes et widgets */\n    md-card {\n        background: white;\n        border-radius: 12px;\n        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);\n    }\n\n    /* Amélioration des boutons */\n    md-button {\n        background: linear-gradient(135deg, #4CAF50, #2E7D32);\n        color: white;\n        font-weight: bold;\n        border-radius: 8px;\n        transition: 0.3s ease;\n    }\n\n    md-button:hover {\n        background: linear-gradient(135deg, #66BB6A, #388E3C);\n        transform: scale(1.05);\n    }\n\n    /* Style des étiquettes de pipeline */\n    md-list-item {\n        border-left: 6px solid #1a5fb4;\n        padding: 12px;\n        margin: 8px 0;\n        border-radius: 8px;\n        box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);\n    }\n\n    /* Texte des pipelines */\n    md-list-item p {\n        font-size: 16px;\n        font-weight: bold;\n        color: #333;\n    }\n\n    /* Effet sur les pipelines en fonctionnement */\n    .pipeline-active {\n        border-left-color: #4CAF50 !important;\n        background: rgba(76, 175, 80, 0.1);\n    }\n\n    /* Effet sur les pipelines en erreur */\n    .pipeline-error {\n        border-left-color: #E53935 !important;\n        background: rgba(229, 57, 53, 0.1);\n    }\n</style>\n\n<a href=\"http://localhost:8090/#Live\" target=\"_blank\">iSpy console</a>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "resendOnRefresh": true,
         "templateScope": "global",
         "className": "",
-        "x": 680,
-        "y": 160,
+        "x": 640,
+        "y": 180,
         "wires": [
             []
         ]
@@ -1707,7 +1707,7 @@
         "z": "38ca37d8e26c9239",
         "name": "Launch Record Multi Thread",
         "group": "bbd3e3f3bc9b",
-        "order": 2,
+        "order": 9,
         "width": 0,
         "height": 0,
         "passthru": false,
@@ -1855,7 +1855,7 @@
         "type": "ui_text",
         "z": "38ca37d8e26c9239",
         "group": "bbd3e3f3bc9b",
-        "order": 3,
+        "order": 2,
         "width": 0,
         "height": 0,
         "name": "Pipeline1",
@@ -1876,7 +1876,7 @@
         "type": "ui_text",
         "z": "38ca37d8e26c9239",
         "group": "bbd3e3f3bc9b",
-        "order": 4,
+        "order": 3,
         "width": 0,
         "height": 0,
         "name": "Pipeline 2",
@@ -1897,7 +1897,7 @@
         "type": "ui_text",
         "z": "38ca37d8e26c9239",
         "group": "bbd3e3f3bc9b",
-        "order": 6,
+        "order": 5,
         "width": 0,
         "height": 0,
         "name": "Pipeline 3",
@@ -1918,7 +1918,7 @@
         "type": "ui_text",
         "z": "38ca37d8e26c9239",
         "group": "bbd3e3f3bc9b",
-        "order": 7,
+        "order": 6,
         "width": 0,
         "height": 0,
         "name": "Pipeline 4",
@@ -1939,7 +1939,7 @@
         "type": "ui_text",
         "z": "38ca37d8e26c9239",
         "group": "bbd3e3f3bc9b",
-        "order": 8,
+        "order": 7,
         "width": 0,
         "height": 0,
         "name": "Pipeline 5",
@@ -1960,7 +1960,7 @@
         "type": "ui_text",
         "z": "38ca37d8e26c9239",
         "group": "bbd3e3f3bc9b",
-        "order": 9,
+        "order": 8,
         "width": 0,
         "height": 0,
         "name": "Pipeline 6",
@@ -2036,6 +2036,45 @@
         "broker": "ba7648b8.35c9f8",
         "x": 430,
         "y": 690,
+        "wires": []
+    },
+    {
+        "id": "0fc6acac335b7959",
+        "type": "ui_iframe",
+        "z": "38ca37d8e26c9239",
+        "group": "bbd3e3f3bc9b",
+        "name": "Live View",
+        "order": 11,
+        "width": "12",
+        "height": "20",
+        "url": "http://localhost:8090/#Live",
+        "origin": "*",
+        "scale": 100,
+        "x": 120,
+        "y": 860,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d5480f02ade63c29",
+        "type": "ui_text",
+        "z": "38ca37d8e26c9239",
+        "group": "bbd3e3f3bc9b",
+        "order": 10,
+        "width": 0,
+        "height": 0,
+        "name": "",
+        "label": "---------------------------------------------------------------------------",
+        "format": "<a href=\"http://localhost:8090/#Live\" target=\"_blank\">iSpy console</a>",
+        "layout": "row-spread",
+        "className": "",
+        "style": false,
+        "font": "",
+        "fontSize": 16,
+        "color": "#000000",
+        "x": 270,
+        "y": 820,
         "wires": []
     }
 ]
