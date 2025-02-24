@@ -155,10 +155,9 @@ def retrieve_pipeline_payload(pipe_Name):
         nbPause = pipeline_params[pipe_Name]["nbPause"]
         nbPause += 1  # Incrémenter le compteur de pause
         pipeline_params[pipe_Name]["nbPause"] = nbPause  # Mettre à jour le compteur de pause
-        print(f"Retrive pipeline nbPause = {nbPause}")
         
         # Construire le record de la pipeline avec l'incrément
-        pipe_record = f"rtspsrc location={params['pipe_Location']} latency=1000 ! queue ! rtph264depay ! h264parse ! splitmuxsink location={params['video_Path']}{params['video_name']}-{nbPause}%03d.mov max-size-time={params['max_size_time']} max-size-bytes={params['max_size_file']}"
+        pipe_record = f"rtspsrc location={params['pipe_Location']} latency=1000 ! queue ! rtph264depay ! h264parse ! splitmuxsink location={params['video_Path']}{params['video_name']}{nbPause}%03d.mov max-size-time={params['max_size_time']} max-size-bytes={params['max_size_file']}"
 
         # Retourner le payload du pipeline à recréer
         return {
@@ -167,8 +166,6 @@ def retrieve_pipeline_payload(pipe_Name):
     except Exception as e:
         print(f"❌ Erreur lors de la récupération des paramètres du pipeline {pipe_Name}: {e}")
         return None
-
-
 
 def stop_pipeline(client, pipe_Name):
     try:
@@ -225,6 +222,7 @@ def on_message(client, userdata, msg):
                 message = f"Status command Pipeline: {pipe_name} - State: {state}"
                 json_message = json.dumps(message)
                 client.publish(MQTT_LOG_SERVER, json_message)
+                
         elif command == "stop_ALL":
             print("Stop d'urgence envoyé, on coupe toutes les pipelines")
             pipelines = gstd_client.list_pipelines()
