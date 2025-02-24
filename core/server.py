@@ -66,6 +66,10 @@ def create_pipeline(client, pipe_Name, payload):
             max-size-time={max_size_time} \
             max-size-bytes={max_size_file}"
         
+        # Enregistrer les paramètres pour ce pipeline
+        store_pipeline_params(pipe_Name, pipe_Location, video_Path, video_name, max_size_time, max_size_file)
+
+        # Creation de la pipeline 
         gstd_client.pipeline_create(pipe_Name, pipe_Record)
         print(f"✅ Pipeline {pipe_Name} créé avec succès")
         
@@ -90,20 +94,88 @@ def play_pipeline(client, pipe_Name):
         print(f"Error playing pipeline {pipe_Name}: {e}")
 
 def pause_pipeline(client, pipe_Name):
+    # """ Met le pipeline en pause proprement en envoyant un EOS """
     try:
-        gstd_client.pipeline_pause(pipe_Name)
-        state = "paused"
-        message = {"state": state, "pipeline_name": pipe_Name}
-        json_message = json.dumps(message)
-        client.publish(MQTT_LOG_SERVER, json_message)
+        print(f"🛑 Envoi EOS avant la pause pour {pipe_Name}")
+        gstd_client.event_eos(pipe_Name)
+        time.sleep(5)
+        gstd_client.pipeline_stop(pipe_Name)
+        time.sleep(2)
+        gstd_client.pipeline_delete(pipe_Name)
+        
+        # state = gstd_client.read(f'pipelines/{pipe_Name}/state')
+        # print(f"🚦 État du pipeline après démarrage : {state}")
+
+        print(f"⏸️ Pipeline {pipe_Name} mis en pause proprement.")
+
+        message = {"state": "paused", "pipeline_name": pipe_Name}
+        client.publish(MQTT_LOG_SERVER, json.dumps(message))
+
+        # on le recrée juste aprés pour faire play quand il faudra 
+        # Récupérer les paramètres du pipeline
+        payload = retrieve_pipeline_payload(pipe_Name)
+        if payload is None:
+            print(f"❌ Impossible de récupérer les paramètres pour {pipe_Name}")
+            return
+        print(f"PAUSE : payload : {payload}")
+        # Recréer le pipeline avec les paramètres récupérés
+        pipe_Record = payload.get("pipe_record")
+        gstd_client.pipeline_create(pipe_Name, pipe_Record)
+        time.sleep(2)
+        print(f"⏸️ Pipeline {pipe_Name} recrée avec pipeRecord = {pipe_Record}")
+
     except (GstcError, GstdError) as e:
-        print(f"Error pausing pipeline {pipe_Name}: {e}")
+        print(f"❌ Erreur pause pipeline {pipe_Name}: {e}")
+
+# Dictionnaire global pour stocker les paramètres des pipelines
+pipeline_params = {}
+
+def store_pipeline_params(pipe_Name, pipe_Location, video_Path, video_name, max_size_time, max_size_file):
+    """ Fonction pour stocker les paramètres du pipeline dans le dictionnaire """
+    pipeline_params[pipe_Name] = {
+        "pipe_Location": pipe_Location,
+        "video_Path": video_Path,
+        "video_name": video_name,
+        "max_size_time": max_size_time,
+        "max_size_file": max_size_file,
+        "nbPause":0
+    }
+    print(f"📦 Paramètres du pipeline {pipe_Name} enregistrés.\n {pipeline_params[pipe_Name]}")
+
+def retrieve_pipeline_payload(pipe_Name):
+    #""" Récupère les informations pour recréer un pipeline spécifique """
+    try:
+        # Vérifier si les paramètres du pipeline existent
+        if pipe_Name not in pipeline_params:
+            print(f"❌ Paramètres non trouvés pour le pipeline {pipe_Name}")
+            return None
+
+        # Récupérer les paramètres enregistrés pour ce pipeline
+        params = pipeline_params[pipe_Name]
+        nbPause = pipeline_params[pipe_Name]["nbPause"]
+        nbPause += 1  # Incrémenter le compteur de pause
+        pipeline_params[pipe_Name]["nbPause"] = nbPause  # Mettre à jour le compteur de pause
+        print(f"Retrive pipeline nbPause = {nbPause}")
+        
+        # Construire le record de la pipeline avec l'incrément
+        pipe_record = f"rtspsrc location={params['pipe_Location']} latency=1000 ! queue ! rtph264depay ! h264parse ! splitmuxsink location={params['video_Path']}{params['video_name']}-{nbPause}%03d.mov max-size-time={params['max_size_time']} max-size-bytes={params['max_size_file']}"
+
+        # Retourner le payload du pipeline à recréer
+        return {
+            "pipe_record": pipe_record
+        }
+    except Exception as e:
+        print(f"❌ Erreur lors de la récupération des paramètres du pipeline {pipe_Name}: {e}")
+        return None
+
+
 
 def stop_pipeline(client, pipe_Name):
     try:
         gstd_client.event_eos(pipe_Name)
         time.sleep(5)
         gstd_client.pipeline_stop(pipe_Name)
+        time.sleep(2)
         gstd_client.pipeline_delete(pipe_Name)
         state = "deleted"
         message = {"state": state, "pipeline_name": pipe_Name}
