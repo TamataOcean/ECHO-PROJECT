@@ -14,3 +14,6 @@ via le lien : http://localhost:1880/ui
 
 ## EXECUTION
 ![image](https://github.com/user-attachments/assets/a596f775-ed13-4532-bf34-eab7d3cd4b1f)
+
+### Ressources
+[Angular icons](https://klarsys.github.io/angular-material-icons/)
