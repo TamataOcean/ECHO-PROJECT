@@ -51,7 +51,9 @@ def create_pipeline(client, pipe_Name, payload):
         pipe_Location = payload.get("location")
         video_Path = payload.get("video_Path")
         max_size_time = payload.get("max_size_time")
+        max_size_time = max_size_time *  60000000000 # pour être en Minute
         max_size_file = payload.get("max_size_file")
+        max_size_file = max_size_file * 10000000 # pour être en Mo
         timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
         video_name = f"{timestamp}_{ID_Serie}_{pipe_Name}_{ID_Bassin}_{ID_Arene}_{ID_Sequence}_{ID_Camera}_"
 

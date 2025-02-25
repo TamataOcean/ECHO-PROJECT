@@ -46,7 +46,7 @@
         "type": "ui_group",
         "name": "Paramétrage (son)",
         "tab": "564a9cba19c2bc96",
-        "order": 2,
+        "order": 3,
         "disp": true,
         "width": "12",
         "collapse": true,
@@ -57,7 +57,7 @@
         "type": "ui_group",
         "name": "Paramétrage (caméra)",
         "tab": "564a9cba19c2bc96",
-        "order": 1,
+        "order": 2,
         "disp": true,
         "width": "12",
         "collapse": true,
@@ -216,7 +216,7 @@
         "type": "ui_group",
         "name": "Enregistrement du fichier de paramétrage (.json)",
         "tab": "564a9cba19c2bc96",
-        "order": 3,
+        "order": 4,
         "disp": true,
         "width": "12",
         "collapse": false,
@@ -228,6 +228,17 @@
         "name": "Tab 4",
         "icon": "dashboard",
         "order": 4
+    },
+    {
+        "id": "9a57f35f972f2fb2",
+        "type": "ui_group",
+        "name": "Paramétrage Général",
+        "tab": "564a9cba19c2bc96",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": true,
+        "className": ""
     },
     {
         "id": "09585d3fda80deca",
@@ -608,8 +619,8 @@
         "topic": "",
         "topicType": "str",
         "className": "",
-        "x": 110,
-        "y": 480,
+        "x": 130,
+        "y": 560,
         "wires": [
             [
                 "f95f19f58f79f54d"
@@ -628,8 +639,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
-        "y": 480,
+        "x": 400,
+        "y": 560,
         "wires": [
             []
         ]
@@ -654,8 +665,8 @@
         "payloadType": "str",
         "topic": "add-order",
         "topicType": "str",
-        "x": 120,
-        "y": 640,
+        "x": 140,
+        "y": 720,
         "wires": [
             [
                 "1f97fa4448f96085"
@@ -674,8 +685,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 400,
-        "y": 640,
+        "x": 420,
+        "y": 720,
         "wires": [
             [
                 "c61e18b32af9f17f"
@@ -699,8 +710,8 @@
         "font": "",
         "fontSize": "",
         "color": "#000000",
-        "x": 660,
-        "y": 640,
+        "x": 680,
+        "y": 720,
         "wires": []
     },
     {
@@ -723,8 +734,8 @@
         "payloadType": "date",
         "topic": "generate-json",
         "topicType": "str",
-        "x": 130,
-        "y": 750,
+        "x": 150,
+        "y": 830,
         "wires": [
             [
                 "d7dccf609438f680"
@@ -743,8 +754,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 430,
-        "y": 750,
+        "x": 450,
+        "y": 830,
         "wires": [
             [
                 "c01f51c0378507b6",
@@ -765,8 +776,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 410,
-        "y": 540,
+        "x": 430,
+        "y": 620,
         "wires": [
             []
         ]
@@ -782,8 +793,8 @@
         "createDir": true,
         "overwriteFile": "true",
         "encoding": "utf8",
-        "x": 680,
-        "y": 720,
+        "x": 700,
+        "y": 800,
         "wires": [
             [
                 "0f20c83b9aaf3a9b"
@@ -803,8 +814,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 840,
-        "y": 720,
+        "x": 860,
+        "y": 800,
         "wires": []
     },
     {
@@ -819,8 +830,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 390,
-        "y": 600,
+        "x": 410,
+        "y": 680,
         "wires": [
             [
                 "c61e18b32af9f17f"
@@ -847,8 +858,8 @@
         "payloadType": "str",
         "topic": "generate-json",
         "topicType": "str",
-        "x": 90,
-        "y": 600,
+        "x": 110,
+        "y": 680,
         "wires": [
             [
                 "c8fca8e3d40ab5bc"
@@ -890,8 +901,8 @@
         "topic": "",
         "topicType": "str",
         "className": "",
-        "x": 110,
-        "y": 60,
+        "x": 130,
+        "y": 140,
         "wires": [
             [
                 "3d80e96dae81a2bb"
@@ -910,8 +921,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
-        "y": 60,
+        "x": 400,
+        "y": 140,
         "wires": [
             []
         ]
@@ -928,8 +939,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
-        "y": 120,
+        "x": 400,
+        "y": 200,
         "wires": [
             []
         ]
@@ -964,8 +975,8 @@
         "topic": "",
         "topicType": "str",
         "className": "",
-        "x": 120,
-        "y": 120,
+        "x": 140,
+        "y": 200,
         "wires": [
             [
                 "e1860535c8a08327"
@@ -984,8 +995,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
-        "y": 180,
+        "x": 400,
+        "y": 260,
         "wires": [
             []
         ]
@@ -1025,8 +1036,8 @@
         "topic": "",
         "topicType": "str",
         "className": "",
-        "x": 120,
-        "y": 180,
+        "x": 140,
+        "y": 260,
         "wires": [
             [
                 "7cf856a07f1c66fa"
@@ -1068,8 +1079,8 @@
         "topic": "",
         "topicType": "str",
         "className": "",
-        "x": 130,
-        "y": 240,
+        "x": 150,
+        "y": 320,
         "wires": [
             [
                 "9f51ccca4ee8b865"
@@ -1088,8 +1099,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
-        "y": 240,
+        "x": 400,
+        "y": 320,
         "wires": [
             []
         ]
@@ -1106,8 +1117,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
-        "y": 300,
+        "x": 400,
+        "y": 380,
         "wires": [
             []
         ]
@@ -1162,8 +1173,8 @@
         "topic": "",
         "topicType": "str",
         "className": "",
-        "x": 120,
-        "y": 300,
+        "x": 140,
+        "y": 380,
         "wires": [
             [
                 "6cfac5631772eccb"
@@ -1200,8 +1211,8 @@
         "topic": "topic",
         "topicType": "msg",
         "className": "",
-        "x": 120,
-        "y": 360,
+        "x": 140,
+        "y": 440,
         "wires": [
             [
                 "ad3ac3b2fcb21cb6"
@@ -1220,8 +1231,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
-        "y": 360,
+        "x": 400,
+        "y": 440,
         "wires": [
             []
         ]
@@ -1243,12 +1254,7 @@
         "options": [
             {
                 "label": "Caméra 1 ( 172.24.1.112 ) / FULL",
-                "value": "rtsp://admin:JKFLFO@172.24.1.112/11",
-                "type": "str"
-            },
-            {
-                "label": "Caméra 1 ( 172.24.1.112 ) / SMALL",
-                "value": "rtsp://admin:JKFLFO@172.24.1.113/11",
+                "value": "rtsp://admin:JKFLFO@192.168.1.75/11",
                 "type": "str"
             },
             {
@@ -1266,8 +1272,8 @@
         "topic": "topic",
         "topicType": "msg",
         "className": "",
-        "x": 120,
-        "y": 420,
+        "x": 140,
+        "y": 500,
         "wires": [
             [
                 "b41ceee2da6c271e"
@@ -1286,8 +1292,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 380,
-        "y": 420,
+        "x": 400,
+        "y": 500,
         "wires": [
             []
         ]
@@ -1309,8 +1315,8 @@
         "font": "",
         "fontSize": "",
         "color": "#000000",
-        "x": 710,
-        "y": 780,
+        "x": 730,
+        "y": 860,
         "wires": []
     },
     {
@@ -1324,8 +1330,8 @@
         "filterType": "str",
         "dir": "files",
         "dirType": "flow",
-        "x": 510,
-        "y": 840,
+        "x": 530,
+        "y": 920,
         "wires": [
             [
                 "fabcbdf149e193dd",
@@ -1352,8 +1358,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 690,
-        "y": 840,
+        "x": 710,
+        "y": 920,
         "wires": [
             [
                 "93cccdd47add1666"
@@ -1385,8 +1391,8 @@
         "topic": "",
         "topicType": "str",
         "className": "",
-        "x": 980,
-        "y": 840,
+        "x": 1000,
+        "y": 920,
         "wires": [
             [
                 "9f16796b5dbbfb15"
@@ -1406,8 +1412,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 690,
-        "y": 900,
+        "x": 710,
+        "y": 980,
         "wires": []
     },
     {
@@ -1429,8 +1435,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 350,
-        "y": 840,
+        "x": 370,
+        "y": 920,
         "wires": [
             [
                 "1683421686e0f397"
@@ -1463,8 +1469,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 1170,
-        "y": 840,
+        "x": 1190,
+        "y": 920,
         "wires": [
             [
                 "c4ef818f2c146c1d"
@@ -1484,8 +1490,8 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1150,
-        "y": 900,
+        "x": 1170,
+        "y": 980,
         "wires": []
     },
     {
@@ -1509,8 +1515,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 130,
-        "y": 840,
+        "x": 150,
+        "y": 920,
         "wires": [
             [
                 "f4acd8dc6ae26070"
@@ -1535,8 +1541,8 @@
         "sendOnBlur": true,
         "className": "",
         "topicType": "msg",
-        "x": 160,
-        "y": 540,
+        "x": 180,
+        "y": 620,
         "wires": [
             [
                 "8ab4e2b028681339"
@@ -1553,35 +1559,35 @@
                 "t": "set",
                 "p": "VIDEO_PATH",
                 "pt": "global",
-                "to": "/home/pi/ECHO-PROJECT/EXPORT_VIDEOS/",
+                "to": "/home/bibi/code/ECHO-PROJECT/EXPORT_VIDEOS/",
                 "tot": "str"
             },
             {
                 "t": "set",
                 "p": "CONFIG_PATH",
                 "pt": "global",
-                "to": "/home/pi/ECHO-PROJECT/core/configs/",
+                "to": "/home/bibi/code/ECHO-PROJECT/core/configs/",
                 "tot": "str"
             },
             {
                 "t": "set",
                 "p": "pController",
                 "pt": "global",
-                "to": "python3 /home/pi/ECHO-PROJECT/core/pControler-from-JSON.py",
+                "to": "python3 /home/bibi/code/ECHO-PROJECT/core/pControler-from-JSON.py",
                 "tot": "str"
             },
             {
                 "t": "set",
                 "p": "max_size_file",
                 "pt": "global",
-                "to": "100000000",
+                "to": "10",
                 "tot": "str"
             },
             {
                 "t": "set",
                 "p": "max_size_time",
                 "pt": "global",
-                "to": "600000000000",
+                "to": "10",
                 "tot": "str"
             }
         ],
@@ -1590,8 +1596,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 740,
-        "y": 60,
+        "x": 760,
+        "y": 140,
         "wires": [
             [
                 "c9e79ca5273cf7db"
@@ -1619,8 +1625,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 580,
-        "y": 60,
+        "x": 600,
+        "y": 140,
         "wires": [
             [
                 "8ceaa32512946102"
@@ -1639,8 +1645,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 900,
-        "y": 60,
+        "x": 920,
+        "y": 140,
         "wires": [
             [
                 "2531eddb183f549d"
@@ -1659,8 +1665,8 @@
         "complete": "false",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1060,
-        "y": 60,
+        "x": 1080,
+        "y": 140,
         "wires": []
     },
     {
@@ -1678,11 +1684,120 @@
         "resendOnRefresh": true,
         "templateScope": "global",
         "className": "",
-        "x": 640,
-        "y": 180,
+        "x": 660,
+        "y": 260,
         "wires": [
             []
         ]
+    },
+    {
+        "id": "4292448b28f6f4f9",
+        "type": "ui_text_input",
+        "z": "797d6b58d40f9429",
+        "name": "",
+        "label": "Taille Max fichier vidéo ( Mo )",
+        "tooltip": "",
+        "group": "9a57f35f972f2fb2",
+        "order": 2,
+        "width": "6",
+        "height": "1",
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "topic",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 960,
+        "y": 240,
+        "wires": [
+            [
+                "0c38c6edc7e2fde7"
+            ]
+        ]
+    },
+    {
+        "id": "5b979c2014dcfb96",
+        "type": "ui_text_input",
+        "z": "797d6b58d40f9429",
+        "name": "",
+        "label": "Taille Max fichier vidéo ( Minutes )",
+        "tooltip": "",
+        "group": "9a57f35f972f2fb2",
+        "order": 2,
+        "width": "6",
+        "height": "1",
+        "passthru": true,
+        "mode": "text",
+        "delay": 300,
+        "topic": "topic",
+        "sendOnBlur": true,
+        "className": "",
+        "topicType": "msg",
+        "x": 980,
+        "y": 300,
+        "wires": [
+            [
+                "7d406401c78e2f61"
+            ]
+        ]
+    },
+    {
+        "id": "0c38c6edc7e2fde7",
+        "type": "function",
+        "z": "797d6b58d40f9429",
+        "name": "Stocker max_size_file",
+        "func": "global.set('max_size_file', msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1240,
+        "y": 240,
+        "wires": [
+            [
+                "5d0e6b9d3d32c04c"
+            ]
+        ]
+    },
+    {
+        "id": "7d406401c78e2f61",
+        "type": "function",
+        "z": "797d6b58d40f9429",
+        "name": "Stocker max_size_time",
+        "func": "global.set('max_size_time', msg.payload);\nreturn msg;",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1250,
+        "y": 300,
+        "wires": [
+            [
+                "5d0e6b9d3d32c04c"
+            ]
+        ]
+    },
+    {
+        "id": "5d0e6b9d3d32c04c",
+        "type": "debug",
+        "z": "797d6b58d40f9429",
+        "name": "debug Max File Size / Time",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1500,
+        "y": 260,
+        "wires": []
     },
     {
         "id": "f8223f37dabc1cb2",
@@ -2037,24 +2152,6 @@
         "x": 430,
         "y": 690,
         "wires": []
-    },
-    {
-        "id": "0fc6acac335b7959",
-        "type": "ui_iframe",
-        "z": "38ca37d8e26c9239",
-        "group": "bbd3e3f3bc9b",
-        "name": "Live View",
-        "order": 11,
-        "width": "12",
-        "height": "20",
-        "url": "http://localhost:8090/#Live",
-        "origin": "*",
-        "scale": 100,
-        "x": 120,
-        "y": 860,
-        "wires": [
-            []
-        ]
     },
     {
         "id": "d5480f02ade63c29",
