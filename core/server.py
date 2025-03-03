@@ -231,9 +231,9 @@ def on_message(client, userdata, msg):
             for pipeline in pipelines:
                 pipe_name = pipeline['name']
                 state = gstd_client.read(f'pipelines/{pipe_name}/state')['value']
-                gstd_client.pipeline_stop(pipe_name)
-                gstd_client.pipeline_delete(pipe_name)
-
+                thread = threading.Thread(target=stop_pipeline, args=(client, pipe_name))
+                thread.start()
+                
                 message = {"state": "stopped", "pipeline_name": pipe_name}
                 json_message = json.dumps(message)
                 client.publish(MQTT_LOG_SERVER, json_message)
