@@ -1559,21 +1559,21 @@
                 "t": "set",
                 "p": "VIDEO_PATH",
                 "pt": "global",
-                "to": "/home/bibi/code/ECHO-PROJECT/EXPORT_VIDEOS/",
+                "to": "/mnt/NVME/Export_VIDEOS/",
                 "tot": "str"
             },
             {
                 "t": "set",
                 "p": "CONFIG_PATH",
                 "pt": "global",
-                "to": "/home/bibi/code/ECHO-PROJECT/core/configs/",
+                "to": "/home/pi/ECHO-PROJECT/core/configs/",
                 "tot": "str"
             },
             {
                 "t": "set",
                 "p": "pController",
                 "pt": "global",
-                "to": "python3 /home/bibi/code/ECHO-PROJECT/core/pControler-from-JSON.py",
+                "to": "python3 /home/pi/ECHO-PROJECT/core/pControler-from-JSON.py",
                 "tot": "str"
             },
             {
