@@ -106,3 +106,25 @@ echo \
 sudo apt-get update
 
  sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+
+# OPTION INSTALL WITH NVME disk
+# Identifier le disque
+lsblk
+
+# Création du mount point
+sudo mkdir /mnt/NVME
+
+# Formatage du disque
+sudo mkfs.ext4 /dev/nvme0n1
+
+# Mounting
+sudo mount /dev/nvme0n1 /mnt/NVME
+
+# AUTO Mount
+sudo vi /etc/fstab
+# Add the following line at the end:
+/dev/nvme0n1 /mnt/nvme ext4 defaults 0 2
+
+# unmount ( if necessary )
+sudo umount /mnt/NVME
