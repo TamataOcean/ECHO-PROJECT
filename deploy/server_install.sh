@@ -128,3 +128,7 @@ sudo vi /etc/fstab
 
 # unmount ( if necessary )
 sudo umount /mnt/NVME
+
+
+### VIDEO SPY
+sudo docker run -d --name=AgentDVR -e PUID=1000 -e PGID=1000 -e TZ=America/New_York -e AGENTDVR_WEBUI_PORT=8090 -p 8090:8090 -p 3478:3478/udp -p 50000-50100:50000-50100/udp -v /appdata/AgentDVR/config/:/AgentDVR/Media/XML/ -v /appdata/AgentDVR/media/:/AgentDVR/Media/WebServerRoot/Media/ -v /appdata/AgentDVR/commands:/AgentDVR/Commands/ --restart unless-stopped mekayelanik/ispyagentdvr:latest
