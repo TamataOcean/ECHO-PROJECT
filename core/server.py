@@ -176,7 +176,7 @@ def stop_pipeline(client, pipe_Name):
         gstd_client.pipeline_stop(pipe_Name)
         time.sleep(2)
         gstd_client.pipeline_delete(pipe_Name)
-        state = "deleted"
+        state = "finished"
         message = {"state": state, "pipeline_name": pipe_Name}
         json_message = json.dumps(message)
         client.publish(MQTT_LOG_SERVER, json_message)
@@ -224,7 +224,7 @@ def on_message(client, userdata, msg):
                 message = f"Status command Pipeline: {pipe_name} - State: {state}"
                 json_message = json.dumps(message)
                 client.publish(MQTT_LOG_SERVER, json_message)
-                
+
         elif command == "stop_ALL":
             print("Stop d'urgence envoyé, on coupe toutes les pipelines")
             pipelines = gstd_client.list_pipelines()
