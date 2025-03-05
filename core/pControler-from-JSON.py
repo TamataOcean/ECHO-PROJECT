@@ -42,14 +42,13 @@ def process_orders(json_file):
         ID_Bassin = conf.get('ID_Bassin', 'N/A')
         ID_Arene = conf.get('ID_Arene', 'N/A')
         ID_Sequence = conf.get('ID_Sequence', 'N/A')
-        ID_Camera = conf.get('ID_Camera', 'N/A')
         pipeline_name = conf.get('pipeline_name', 'default_pipeline')
         location = conf.get('location', 'N/A')
         video_Path = conf.get('video_Path', 'N/A')
         max_size_time = conf.get('max_size_time', 'N/A')
         max_size_file = conf.get('max_size_file', 'N/A')
 
-        print(f"📌 Bassin: {ID_Bassin}, Arène: {ID_Arene}, Caméra: {ID_Camera}")
+        print(f"📌 Bassin: {ID_Bassin}, Arène: {ID_Arene}")
 
         client = mqtt.Client()
         client.connect(MQTT_BROKER, 1883, 60)
@@ -60,7 +59,6 @@ def process_orders(json_file):
                     "ID_Bassin": ID_Bassin,
                     "ID_Arene": ID_Arene,
                     "ID_Sequence": ID_Sequence,
-                    "ID_Camera": ID_Camera,
                     "location": location,
                     "video_file_name": pipeline_name,
                     "pipeline_name": pipeline_name,

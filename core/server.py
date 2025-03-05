@@ -13,11 +13,6 @@ MQTT_TOPIC = "gstreamer/control"
 MQTT_LOG_SERVER = "server/log"
 MQTT_PORT = 1883
 
-# Paramètres de pipeline
-export_directory_file = "/home/bibi/NAS/code/ECHO-PROJECT/EXPORT_VIDEOS/"
-camera_location = "rtsp://admin:JKFLFO@172.24.1.112/11"
-pipiline_name_display = "DISPLAY_VideoSalon"
-
 # Création du client gstd
 gstd_logger = CustomLogger('pygstc_example', loglevel='DEBUG')
 gstd_client = GstdClient()
@@ -47,7 +42,6 @@ def create_pipeline(client, pipe_Name, payload):
         ID_Bassin = payload.get("ID_Bassin")
         ID_Arene = payload.get("ID_Arene")
         ID_Sequence = payload.get("ID_Sequence")
-        ID_Camera = payload.get("ID_Camera")
         pipe_Location = payload.get("location")
         video_Path = payload.get("video_Path")
         max_size_time = payload.get("max_size_time")
@@ -55,7 +49,7 @@ def create_pipeline(client, pipe_Name, payload):
         max_size_file = payload.get("max_size_file")
         max_size_file = max_size_file * 10000000 # pour être en Mo
         timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-        video_name = f"{timestamp}_{ID_Serie}_{pipe_Name}_{ID_Bassin}_{ID_Arene}_{ID_Sequence}_{ID_Camera}_"
+        video_name = f"{timestamp}_{ID_Serie}_{pipe_Name}_{ID_Bassin}_{ID_Arene}_{ID_Sequence}_"
 
         if not os.path.exists(video_Path):
             os.makedirs(video_Path)
