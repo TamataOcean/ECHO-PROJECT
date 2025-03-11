@@ -1,9 +1,11 @@
 # ECHO-PROJECT
 Enregistrement vidéos automatisé pour analyser le comportement de poissons dans des bassins d'observation
 
-![image](https://github.com/user-attachments/assets/cc413941-bcca-44d6-9a1d-5fb1c5894a25)
+![Echo_Project_Schema2](https://github.com/user-attachments/assets/be0a8e73-cec2-4a45-88d7-8884c86ef8c7)
+
 
 # Contexte du projet
+
 Le projet de recherche ECHO, financé par l’AAP Observatoire de l’éolien en mer - l’Office
 Français de la Biodiversité, se concentre sur les pressions acoustiques liées à l’éolien en mer
 sur les mammifères marins et l’ichtyofaune. Ce projet mobilise les compétences interdisciplinaires de plusieurs partenaires scientifiques et techniques : le laboratoire LIENSs CNRS – La Rochelle Université, l’ADERA – Cohabys, la Fondation OPEN-C, le Laboratoire LOG de l’Université du Littoral Côte d’Opale et la société NEREIS Environnement. 
