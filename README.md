@@ -41,7 +41,7 @@ Caméras → 6 caméras (3 caméras par bassin, et donc 1 caméra par arène) + 
 - Possibilité de changer d’objectifs (pour optimiser le champ selon la distance
 entre la caméra et l’arène)
 - Switch POE → minimum 6 ports pour les 6 caméras [(~ 200€)](https://www.amazon.fr/Ethernet-position-rackable-Protection-Garantie/dp/B07DFF8GSZ?__mk_fr_FR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=3PP0BHI52XC71&dib=eyJ2IjoiMSJ9.SOsrRYn3MQxQXegvFx7JecY--yo8Kr5r7cZwhiNlgzoe67sTqWvmh82iPvrGmXMyK9tJzGppD95gDx3-kXqN2EcZtGWEqZba-YHgsKgVgLdbeZwX_7tLQgvPNvgQ5NYgimmWENbZNsYdiEe9FnqSOLLYaJoEsw5vvPosF84A3qJwzgRBOxcNttZgZPu2G2IkpPJSRmvIvgFiJS5esVXFtKgIjhSzwf7vJjeQk4GrHy5gJ1_kTu1AfAW77eeLfcGiLoRixA5FnL6WM1VwNzMjXgTh_OA5OhPeMLRPGH28uUbriiDoZo1LxbE-yr4WrtgpHe34EZ6n7--9yByPnH1ps0JqRNhPJb9M9FaXUG9ar4c.M7E2fa5sTtnpy5ZLh_utN6NzEn7X0eUj5GZ_pUXxwRg&dib_tag=se&keywords=16%2BPOE%2BSwitch%2Bcisco&qid=1739865976&s=computers&sprefix=16%2Bpoe%2Bswitch%2Bcisco%2Ccomputers%2C100&sr=1-5&th=1)
-- [Stockage NAS ~ 547€ ]((https://www.reichelt.com/fr/fr/shop/produit/boitier_vide_pour_serveur_nas_diskstation_ds423_-344247)) (fichiers vidéo volumineux et accès à distance)
+- [Stockage NAS ~ 547€ ](https://www.reichelt.com/fr/fr/shop/produit/boitier_vide_pour_serveur_nas_diskstation_ds423_-344247)(fichiers vidéo volumineux et accès à distance)
 - Box internet → fournie
 - Moniteurs (ordinateur, téléphone) → fournis
 - Alimentation → fournie
