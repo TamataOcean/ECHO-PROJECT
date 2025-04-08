@@ -48,7 +48,7 @@ def create_pipeline(client, pipe_Name, payload):
         max_size_time = max_size_time *  60000000000 # pour être en Minute
         max_size_file = payload.get("max_size_file")
         max_size_file = max_size_file * 10000000 # pour être en Mo
-        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        timestamp = datetime.datetime.now(datetime.timezone.utc).strftime("%Y%m%d_%H%M%S") # Update with UTC time
         video_name = f"{timestamp}_{ID_Serie}_{pipe_Name}_{ID_Bassin}_{ID_Arene}_{ID_Sequence}_"
 
         if not os.path.exists(video_Path):
