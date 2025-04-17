@@ -30,6 +30,8 @@ sudo systemctl enable nodered.service
 npm install node-red-dashboard
 # Composant pour accés aux fichiers du système
 npm install node-red-contrib-fs-ops
+npm install node-red-node-ping
+
 
 echo "######### Installation GStreamer client"
 sudo apt-get -y install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-bad1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-tools gstreamer1.0-x gstreamer1.0-alsa gstreamer1.0-gl gstreamer1.0-gtk3 gstreamer1.0-qt5 gstreamer1.0-pulseaudio
@@ -132,3 +134,13 @@ sudo umount /mnt/NVME
 
 ### VIDEO SPY
 sudo docker run -d --name=AgentDVR -e PUID=1000 -e PGID=1000 -e TZ=America/New_York -e AGENTDVR_WEBUI_PORT=8090 -p 8090:8090 -p 3478:3478/udp -p 50000-50100:50000-50100/udp -v /appdata/AgentDVR/config/:/AgentDVR/Media/XML/ -v /appdata/AgentDVR/media/:/AgentDVR/Media/WebServerRoot/Media/ -v /appdata/AgentDVR/commands:/AgentDVR/Commands/ --restart unless-stopped mekayelanik/ispyagentdvr:latest
+
+
+### CONFIG NAS
+# PRE : Déclarer un répertoire ECHO_VIDEOs en partage pour l'utilisateur raspi 
+# Créer un credential pour accéder au répertoire partagé
+
+# Point de montage
+
+sudo mkdir /mnt/echonas
+sudo mount -t cifs //[ADDRESS_IP_DU_NAS]/ECHO_VIDEOs /mnt/echonas -o credentials=/home/pi/.smbcredentials,vers=3.0,iocharset=utf8,uid=1000,gid=1000
