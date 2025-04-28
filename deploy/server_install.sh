@@ -137,4 +137,7 @@ sudo docker run -d --name=AgentDVR -e PUID=1000 -e PGID=1000 -e TZ=America/New_Y
 sudo mkdir /mnt/echonas
 sudo mount -t cifs //192.168.1.78/ECHO_VIDEOs /mnt/echonas -o credentials=/home/pi/.smbcredentials,vers=3.0,iocharset=utf8,uid=1000,gid=1000
 
+### CONFIG DOCKER TO ADD WEB BROWSER ON DSM
+https://hub.docker.com/r/cardinalby/chrome-remote-desktop/
+
 
