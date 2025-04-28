@@ -132,3 +132,9 @@ sudo umount /mnt/NVME
 
 ### VIDEO SPY
 sudo docker run -d --name=AgentDVR -e PUID=1000 -e PGID=1000 -e TZ=America/New_York -e AGENTDVR_WEBUI_PORT=8090 -p 8090:8090 -p 3478:3478/udp -p 50000-50100:50000-50100/udp -v /appdata/AgentDVR/config/:/AgentDVR/Media/XML/ -v /appdata/AgentDVR/media/:/AgentDVR/Media/WebServerRoot/Media/ -v /appdata/AgentDVR/commands:/AgentDVR/Commands/ --restart unless-stopped mekayelanik/ispyagentdvr:latest
+
+### NAS MAPPING
+sudo mkdir /mnt/echonas
+sudo mount -t cifs //192.168.1.78/ECHO_VIDEOs /mnt/echonas -o credentials=/home/pi/.smbcredentials,vers=3.0,iocharset=utf8,uid=1000,gid=1000
+
+
