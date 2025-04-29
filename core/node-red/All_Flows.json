@@ -44,7 +44,7 @@
     {
         "id": "f899a08a0af76d49",
         "type": "ui_group",
-        "name": "Paramétrage (son)",
+        "name": "Paramétrage (partition)",
         "tab": "564a9cba19c2bc96",
         "order": 3,
         "disp": true,
@@ -594,7 +594,7 @@
         "type": "ui_dropdown",
         "z": "797d6b58d40f9429",
         "name": "Choisir Ordre",
-        "label": "Ordre ( Play / Pause )",
+        "label": "Ordre",
         "tooltip": "",
         "place": "1",
         "group": "f899a08a0af76d49",
@@ -652,7 +652,7 @@
         "name": "Ajouter Ordre",
         "group": "f899a08a0af76d49",
         "order": 3,
-        "width": "6",
+        "width": "3",
         "height": "1",
         "passthru": false,
         "label": "Ajouter ",
@@ -689,42 +689,21 @@
         "y": 720,
         "wires": [
             [
-                "c61e18b32af9f17f"
+                "504d30552b7b1d3f"
             ]
         ]
-    },
-    {
-        "id": "c61e18b32af9f17f",
-        "type": "ui_text",
-        "z": "797d6b58d40f9429",
-        "group": "f899a08a0af76d49",
-        "order": 4,
-        "width": "8",
-        "height": "8",
-        "name": "Afficher Ordres",
-        "label": "Ordres appliqués",
-        "format": "{{msg.payload}}",
-        "layout": "row-spread",
-        "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": "",
-        "color": "#000000",
-        "x": 680,
-        "y": 720,
-        "wires": []
     },
     {
         "id": "b76cbcd4da8233f3",
         "type": "ui_button",
         "z": "797d6b58d40f9429",
         "name": "Générer Fichier JSON",
-        "group": "f899a08a0af76d49",
+        "group": "d783cb980c3979fc",
         "order": 6,
-        "width": "6",
+        "width": "12",
         "height": "1",
         "passthru": false,
-        "label": "Générer un fichier de paramétrage ( .json )",
+        "label": "Générer un fichier de paramétrage (.json)",
         "tooltip": "",
         "color": "#fff",
         "bgcolor": "#28a745",
@@ -747,7 +726,7 @@
         "type": "function",
         "z": "797d6b58d40f9429",
         "name": "Générer et Sauvegarder le JSON",
-        "func": "var ID_Serie = flow.get(\"ID_Serie\");\nvar ID_Bassin = flow.get(\"ID_Bassin\");\nvar ID_Arene = flow.get(\"ID_Arene\");\nvar ID_Sequence = flow.get(\"ID_Sequence\");\nvar ID_Camera = flow.get(\"ID_Camera\");\nvar location = flow.get(\"location\");\nvar video_file_name = flow.get(\"video_file_name\");\nvar PL_Name = flow.get(\"PL_Name\");\nvar Config_Name = flow.get('Config_Name');\nvar video_Path = global.get(\"VIDEO_PATH\");\nvar max_size_time = global.get(\"max_size_time\");\nvar max_size_file = global.get(\"max_size_file\");\n\nvar conf = {\n    \"pipeline_name\": PL_Name,\n    \"ID_Serie\": ID_Serie,\n    \"ID_Bassin\": ID_Bassin,\n    \"ID_Arene\": ID_Arene,\n    \"ID_Sequence\": ID_Sequence,\n    \"ID_Camera\": ID_Camera,\n    \"location\": location,\n    \"video_file_name\": video_file_name,\n    \"video_Path\": video_Path, \n    \"max_size_time\": max_size_time,\n    \"max_size_file\": max_size_file\n};\n\n// Récupérer les ordres enregistrés dans le flow\nvar orders = flow.get('orders') || [];\n\n// Créer un objet avec \"conf\" et \"orders\"\nvar finalPayload = {\n    \"conf\": conf,\n    \"orders\": orders\n};\n\n// Formater le JSON avec des sauts de ligne\nmsg.payload = JSON.stringify(finalPayload, null, 2);\n\n// Générer le nom du fichier à partir du Config_Name\nvar fileName = PL_Name + \".json\";\nvar configPath = global.get(\"CONFIG_PATH\");\n\nmsg.filename = configPath + fileName; // Chemin du fichier\n\nnode.warn(msg.filename);\n// Retourner le message\nreturn msg;\n",
+        "func": "var ID_Serie = flow.get(\"ID_Serie\");\nvar ID_Bassin = flow.get(\"ID_Bassin\");\nvar ID_Arene = flow.get(\"ID_Arene\");\nvar ID_Sequence = flow.get(\"ID_Sequence\");\nvar location = flow.get(\"location\");\nvar video_file_name = flow.get(\"video_file_name\");\nvar PL_Name = flow.get(\"PL_Name\");\nvar Config_Name = flow.get('Config_Name');\nvar video_Path = global.get(\"VIDEO_PATH\");\nvar max_size_time = global.get(\"max_size_time\");\nvar max_size_file = global.get(\"max_size_file\");\n\nvar conf = {\n    \"pipeline_name\": PL_Name,\n    \"ID_Serie\": ID_Serie,\n    \"ID_Bassin\": ID_Bassin,\n    \"ID_Arene\": ID_Arene,\n    \"ID_Sequence\": ID_Sequence,\n    \"location\": location,\n    \"video_file_name\": video_file_name,\n    \"video_Path\": video_Path, \n    \"max_size_time\": max_size_time,\n    \"max_size_file\": max_size_file\n};\n\n// Récupérer les ordres enregistrés dans le flow\nvar orders = flow.get('orders') || [];\n\n// Créer un objet avec \"conf\" et \"orders\"\nvar finalPayload = {\n    \"conf\": conf,\n    \"orders\": orders\n};\n\n// Formater le JSON avec des sauts de ligne\nmsg.payload = JSON.stringify(finalPayload, null, 2);\n\n// Générer le nom du fichier à partir du Config_Name\nvar fileName = PL_Name + \".json\";\nvar configPath = global.get(\"CONFIG_PATH\");\n\nmsg.filename = configPath + fileName; // Chemin du fichier\n\nnode.warn(msg.filename);\n// Retourner le message\nreturn msg;\n",
         "outputs": 1,
         "timeout": "",
         "noerr": 0,
@@ -759,8 +738,8 @@
         "wires": [
             [
                 "c01f51c0378507b6",
-                "a6735dd456a2b851",
-                "f4acd8dc6ae26070"
+                "f4acd8dc6ae26070",
+                "b3dad8c6447dc5e7"
             ]
         ]
     },
@@ -834,7 +813,7 @@
         "y": 680,
         "wires": [
             [
-                "c61e18b32af9f17f"
+                "5a47553f4fe7067c"
             ]
         ]
     },
@@ -845,7 +824,7 @@
         "name": "Clear",
         "group": "f899a08a0af76d49",
         "order": 5,
-        "width": "6",
+        "width": "3",
         "height": "1",
         "passthru": false,
         "label": "Réinitialiser",
@@ -882,18 +861,23 @@
         "multiple": false,
         "options": [
             {
-                "label": "S1",
-                "value": "Serie1",
+                "label": "ManipIntensite_Serie1",
+                "value": "ManipIntensite_Serie1",
                 "type": "str"
             },
             {
-                "label": "S2",
-                "value": "Serie2",
+                "label": "ManipIntensite_Serie2",
+                "value": "ManipIntensite_Serie2",
                 "type": "str"
             },
             {
-                "label": "S3",
-                "value": "Serie3",
+                "label": "ManipTest",
+                "value": "ManipTest",
+                "type": "str"
+            },
+            {
+                "label": "NA",
+                "value": "NA",
                 "type": "str"
             }
         ],
@@ -1017,18 +1001,33 @@
         "multiple": false,
         "options": [
             {
-                "label": "Arene 1",
+                "label": "Arène 1",
                 "value": "Arene_1",
                 "type": "str"
             },
             {
-                "label": "Arene 2",
+                "label": "Arène 2",
                 "value": "Arene_2",
                 "type": "str"
             },
             {
-                "label": "Arene 3",
+                "label": "Arène 3",
                 "value": "Arene_3",
+                "type": "str"
+            },
+            {
+                "label": "Arène 4",
+                "value": "Arene_4",
+                "type": "str"
+            },
+            {
+                "label": "Arène 5",
+                "value": "Arene_5",
+                "type": "str"
+            },
+            {
+                "label": "Arène 6",
+                "value": "Arene_6",
                 "type": "str"
             }
         ],
@@ -1060,18 +1059,13 @@
         "multiple": false,
         "options": [
             {
-                "label": "Séquence 1",
-                "value": "Seq1",
+                "label": "Séquence continu",
+                "value": "SeqContinu",
                 "type": "str"
             },
             {
-                "label": "Séquence 2",
-                "value": "Seq2",
-                "type": "str"
-            },
-            {
-                "label": "Séquence 3",
-                "value": "Seq3",
+                "label": "Pas de séquence",
+                "value": "NoSeq",
                 "type": "str"
             }
         ],
@@ -1128,7 +1122,7 @@
         "type": "ui_dropdown",
         "z": "797d6b58d40f9429",
         "name": "Pipeline Name",
-        "label": "PL_Name",
+        "label": "PipeL_Name",
         "tooltip": "",
         "place": "1",
         "group": "4402a57f897c8600",
@@ -1182,62 +1176,6 @@
         ]
     },
     {
-        "id": "aadb924890c07e5a",
-        "type": "ui_dropdown",
-        "z": "797d6b58d40f9429",
-        "name": "Choisir Caméra ",
-        "label": "ID_Camera",
-        "tooltip": "",
-        "place": "1",
-        "group": "4402a57f897c8600",
-        "order": 7,
-        "width": "6",
-        "height": "1",
-        "passthru": true,
-        "multiple": false,
-        "options": [
-            {
-                "label": "Caméra 1",
-                "value": "Cam1",
-                "type": "str"
-            },
-            {
-                "label": "Caméra 2",
-                "value": "Cam2",
-                "type": "str"
-            }
-        ],
-        "payload": "",
-        "topic": "topic",
-        "topicType": "msg",
-        "className": "",
-        "x": 140,
-        "y": 440,
-        "wires": [
-            [
-                "ad3ac3b2fcb21cb6"
-            ]
-        ]
-    },
-    {
-        "id": "ad3ac3b2fcb21cb6",
-        "type": "function",
-        "z": "797d6b58d40f9429",
-        "name": "Stocker Pipeline",
-        "func": "flow.set('ID_Camera', msg.payload);\nreturn msg;",
-        "outputs": 1,
-        "timeout": "",
-        "noerr": 0,
-        "initialize": "",
-        "finalize": "",
-        "libs": [],
-        "x": 400,
-        "y": 440,
-        "wires": [
-            []
-        ]
-    },
-    {
         "id": "ad4a74df31908257",
         "type": "ui_dropdown",
         "z": "797d6b58d40f9429",
@@ -1253,18 +1191,48 @@
         "multiple": false,
         "options": [
             {
-                "label": "Caméra 1 ( 172.24.1.112 ) / FULL",
-                "value": "rtsp://admin:JKFLFO@192.168.1.75/11",
+                "label": "Cam1 (19567 / 192.168.1.11)",
+                "value": "rtsp://admin:admin@192.168.1.11:8554/main/av",
                 "type": "str"
             },
             {
-                "label": "Ziwy Cam1 ( sub/av )",
-                "value": "rtsp://192.168.1.26:8554/sub/av",
+                "label": "Cam2 (19590 / 192.168.1.22)",
+                "value": "rtsp://192.168.1.22:8554/main/av",
                 "type": "str"
             },
             {
-                "label": "Ziwy Cam1 ( main/av )",
-                "value": "rtsp://192.168.1.26:8554/main/av",
+                "label": "Cam3 (25609 / 192.168.1.33)",
+                "value": "rtsp://admin:admin@192.168.1.33:8554/main/av",
+                "type": "str"
+            },
+            {
+                "label": "Cam4 (XXXXX / 192.168.1.44)",
+                "value": "rtsp://admin:admin@192.168.1.44:8554/main/av",
+                "type": "str"
+            },
+            {
+                "label": "Cam5 (XXXXX / 192.168.1.55)",
+                "value": "rtsp://admin:admin@192.168.1.55:8554/main/av",
+                "type": "str"
+            },
+            {
+                "label": "Cam6 (XXXXX / 192.168.1.66)",
+                "value": "rtsp://admin:admin@192.168.1.66:8554/main/av",
+                "type": "str"
+            },
+            {
+                "label": "Cam1 sub (19567 / 192.168.1.11)",
+                "value": "rtsp://admin:admin@192.168.1.11:8554/sub/av",
+                "type": "str"
+            },
+            {
+                "label": "Cam2 sub (19590 / 192.168.1.22)",
+                "value": "rtsp://192.168.1.22:8554/sub/av",
+                "type": "str"
+            },
+            {
+                "label": "Cam3 sub (25609 / 192.168.1.33)",
+                "value": "rtsp://admin:admin@192.168.1.33:8554/sub/av",
                 "type": "str"
             }
         ],
@@ -1297,27 +1265,6 @@
         "wires": [
             []
         ]
-    },
-    {
-        "id": "a6735dd456a2b851",
-        "type": "ui_text",
-        "z": "797d6b58d40f9429",
-        "group": "d783cb980c3979fc",
-        "order": 10,
-        "width": "12",
-        "height": "5",
-        "name": "Config",
-        "label": "Dernière paramétrage généré",
-        "format": "{{msg.payload}}",
-        "layout": "row-left",
-        "className": "",
-        "style": true,
-        "font": "",
-        "fontSize": "",
-        "color": "#000000",
-        "x": 730,
-        "y": 860,
-        "wires": []
     },
     {
         "id": "1683421686e0f397",
@@ -1371,7 +1318,7 @@
         "type": "ui_dropdown",
         "z": "797d6b58d40f9429",
         "name": "",
-        "label": "Choix des fichiers de paramétrage ( .json )",
+        "label": "Choix des fichiers de paramétrage (.json)",
         "tooltip": "",
         "place": "Select option",
         "group": "bbd3e3f3bc9b",
@@ -1391,7 +1338,7 @@
         "topic": "",
         "topicType": "str",
         "className": "",
-        "x": 1000,
+        "x": 990,
         "y": 920,
         "wires": [
             [
@@ -1435,7 +1382,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 370,
+        "x": 350,
         "y": 920,
         "wires": [
             [
@@ -1528,7 +1475,7 @@
         "type": "ui_text_input",
         "z": "797d6b58d40f9429",
         "name": "",
-        "label": "Durée de l'ordre ( en secondes )",
+        "label": "Durée de l'ordre (en secondes)",
         "tooltip": "",
         "group": "f899a08a0af76d49",
         "order": 2,
@@ -1541,7 +1488,7 @@
         "sendOnBlur": true,
         "className": "",
         "topicType": "msg",
-        "x": 180,
+        "x": 190,
         "y": 620,
         "wires": [
             [
@@ -1588,6 +1535,13 @@
                 "p": "max_size_time",
                 "pt": "global",
                 "to": "10",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "localhost",
+                "pt": "global",
+                "to": "192.168.1.194",
                 "tot": "str"
             }
         ],
@@ -1658,7 +1612,7 @@
         "type": "debug",
         "z": "797d6b58d40f9429",
         "name": "debug 1",
-        "active": true,
+        "active": false,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
@@ -1695,7 +1649,7 @@
         "type": "ui_text_input",
         "z": "797d6b58d40f9429",
         "name": "",
-        "label": "Taille Max fichier vidéo ( Mo )",
+        "label": "Taille Max fichier vidéo (en Mo)",
         "tooltip": "",
         "group": "9a57f35f972f2fb2",
         "order": 2,
@@ -1708,8 +1662,8 @@
         "sendOnBlur": true,
         "className": "",
         "topicType": "msg",
-        "x": 960,
-        "y": 240,
+        "x": 190,
+        "y": 40,
         "wires": [
             [
                 "0c38c6edc7e2fde7"
@@ -1721,7 +1675,7 @@
         "type": "ui_text_input",
         "z": "797d6b58d40f9429",
         "name": "",
-        "label": "Taille Max fichier vidéo ( Minutes )",
+        "label": "Taille Max fichier vidéo (en minutes)",
         "tooltip": "",
         "group": "9a57f35f972f2fb2",
         "order": 2,
@@ -1734,8 +1688,8 @@
         "sendOnBlur": true,
         "className": "",
         "topicType": "msg",
-        "x": 980,
-        "y": 300,
+        "x": 200,
+        "y": 80,
         "wires": [
             [
                 "7d406401c78e2f61"
@@ -1754,8 +1708,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1240,
-        "y": 240,
+        "x": 480,
+        "y": 40,
         "wires": [
             [
                 "5d0e6b9d3d32c04c"
@@ -1774,8 +1728,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 1250,
-        "y": 300,
+        "x": 470,
+        "y": 80,
         "wires": [
             [
                 "5d0e6b9d3d32c04c"
@@ -1795,9 +1749,83 @@
         "targetType": "msg",
         "statusVal": "",
         "statusType": "auto",
-        "x": 1500,
-        "y": 260,
+        "x": 740,
+        "y": 60,
         "wires": []
+    },
+    {
+        "id": "504d30552b7b1d3f",
+        "type": "json",
+        "z": "797d6b58d40f9429",
+        "name": "",
+        "property": "payload",
+        "action": "str",
+        "pretty": true,
+        "x": 630,
+        "y": 720,
+        "wires": [
+            [
+                "5a47553f4fe7067c"
+            ]
+        ]
+    },
+    {
+        "id": "b3dad8c6447dc5e7",
+        "type": "json",
+        "z": "797d6b58d40f9429",
+        "name": "",
+        "property": "payload",
+        "action": "str",
+        "pretty": true,
+        "x": 730,
+        "y": 860,
+        "wires": [
+            [
+                "793072d65b74b8c7"
+            ]
+        ]
+    },
+    {
+        "id": "5a47553f4fe7067c",
+        "type": "ui_template",
+        "z": "797d6b58d40f9429",
+        "group": "f899a08a0af76d49",
+        "name": "",
+        "order": 6,
+        "width": "12",
+        "height": "6",
+        "format": "<pre>{{msg.payload}}</pre>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 800,
+        "y": 680,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "793072d65b74b8c7",
+        "type": "ui_template",
+        "z": "797d6b58d40f9429",
+        "group": "d783cb980c3979fc",
+        "name": "",
+        "order": 6,
+        "width": "12",
+        "height": "6",
+        "format": "<pre>{{msg.payload}}</pre>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 880,
+        "y": 860,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "f8223f37dabc1cb2",
@@ -2154,24 +2182,54 @@
         "wires": []
     },
     {
-        "id": "d5480f02ade63c29",
-        "type": "ui_text",
+        "id": "ee7b96a799ac6a08",
+        "type": "ui_template",
         "z": "38ca37d8e26c9239",
         "group": "bbd3e3f3bc9b",
-        "order": 10,
+        "name": "Lien vers iSpy",
+        "order": 11,
         "width": 0,
         "height": 0,
-        "name": "",
-        "label": "---------------------------------------------------------------------------",
-        "format": "<a href=\"http://localhost:8090/#Live\" target=\"_blank\">iSpy console</a>",
-        "layout": "row-spread",
+        "format": "<div> \n    <a href=\"http://{{msg.topic}}:8090/#Live\" target=\"_blank\">iSpy console</a>\n</div>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
         "className": "",
-        "style": false,
-        "font": "",
-        "fontSize": 16,
-        "color": "#000000",
-        "x": 270,
-        "y": 820,
-        "wires": []
+        "x": 320,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c482285c077f3304",
+        "type": "inject",
+        "z": "38ca37d8e26c9239",
+        "name": "MAJ Auto ",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "v": "localhost",
+                "vt": "global"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "0.1",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 760,
+        "wires": [
+            [
+                "ee7b96a799ac6a08"
+            ]
+        ]
     }
 ]
