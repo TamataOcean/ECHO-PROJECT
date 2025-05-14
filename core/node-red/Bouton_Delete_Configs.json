@@ -1,0 +1,205 @@
+[
+    {
+        "id": "btn_clear_dir",
+        "type": "ui_button",
+        "z": "797d6b58d40f9429",
+        "name": "Vider dossier",
+        "group": "d783cb980c3979fc",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": false,
+        "label": "Delete ALL CONFIG",
+        "tooltip": "",
+        "color": "",
+        "bgcolor": "red",
+        "className": "",
+        "icon": "",
+        "payload": "vider",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 110,
+        "y": 1000,
+        "wires": [
+            [
+                "get_path_and_delete"
+            ]
+        ]
+    },
+    {
+        "id": "get_path_and_delete",
+        "type": "function",
+        "z": "797d6b58d40f9429",
+        "name": "Commande DELETE ALL Config wiht CONFIG_PATH",
+        "func": "const path = global.get(\"CONFIG_PATH\");\n\nif (!path || typeof path !== \"string\") {\n    node.error(\"CONFIG_PATH non défini ou invalide\");\n    return null;\n}\n\nif (!path.startsWith(\"/home/pi/\")) {\n    node.error(\"Chemin non autorisé\");\n    return null;\n}\n\n// Attention : les guillemets autour du chemin évitent les erreurs avec les espaces\nmsg.payload = `rm -f \"${path}\"*.json`;\nreturn msg;\n",
+        "outputs": 1,
+        "timeout": "",
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 1000,
+        "wires": [
+            [
+                "exec_clear",
+                "468c2ccebe0d6403"
+            ]
+        ]
+    },
+    {
+        "id": "exec_clear",
+        "type": "exec",
+        "z": "797d6b58d40f9429",
+        "command": "",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "name": "Supprimer fichiers CONFIG_PATH",
+        "x": 780,
+        "y": 1000,
+        "wires": [
+            [
+                "f3c016058ea17bac"
+            ],
+            [
+                "cf14ba2561029a6b"
+            ],
+            [
+                "6897b6fce75f6e76"
+            ]
+        ]
+    },
+    {
+        "id": "6651aaa6b1f4ce4a",
+        "type": "ui_toast",
+        "z": "797d6b58d40f9429",
+        "position": "top right",
+        "displayTime": "3",
+        "highlight": "",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "OK",
+        "cancel": "",
+        "raw": false,
+        "className": "",
+        "topic": "",
+        "name": "Toast OK",
+        "x": 1180,
+        "y": 960,
+        "wires": []
+    },
+    {
+        "id": "c78efcdfd846abb3",
+        "type": "ui_toast",
+        "z": "797d6b58d40f9429",
+        "position": "top right",
+        "displayTime": "5",
+        "highlight": "red",
+        "sendall": true,
+        "outputs": 0,
+        "ok": "Fermer",
+        "cancel": "",
+        "raw": false,
+        "topic": "",
+        "name": "Toast Erreur",
+        "x": 1190,
+        "y": 1000,
+        "wires": []
+    },
+    {
+        "id": "468c2ccebe0d6403",
+        "type": "debug",
+        "z": "797d6b58d40f9429",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 700,
+        "y": 940,
+        "wires": []
+    },
+    {
+        "id": "6897b6fce75f6e76",
+        "type": "debug",
+        "z": "797d6b58d40f9429",
+        "name": "debug 8",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 1040,
+        "wires": []
+    },
+    {
+        "id": "f3c016058ea17bac",
+        "type": "function",
+        "z": "797d6b58d40f9429",
+        "name": "function 4",
+        "func": "// Success (stdout)\nmsg.payload = \"Suppression réussie ! \" + msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1020,
+        "y": 960,
+        "wires": [
+            [
+                "6651aaa6b1f4ce4a"
+            ]
+        ]
+    },
+    {
+        "id": "cf14ba2561029a6b",
+        "type": "function",
+        "z": "797d6b58d40f9429",
+        "name": "function 5",
+        "func": "// Error (sterr)\nmsg.payload = \"Erreur pendant la suppression : \" + msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "timeout": 0,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1020,
+        "y": 1000,
+        "wires": [
+            [
+                "c78efcdfd846abb3"
+            ]
+        ]
+    },
+    {
+        "id": "d783cb980c3979fc",
+        "type": "ui_group",
+        "name": "Enregistrement du fichier de paramétrage (.json)",
+        "tab": "564a9cba19c2bc96",
+        "order": 4,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "564a9cba19c2bc96",
+        "type": "ui_tab",
+        "name": "Paramétrage",
+        "icon": "settings",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
+    }
+]
