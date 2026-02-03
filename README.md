@@ -1,6 +1,10 @@
 # ECHO-PROJECT
 Enregistrement vidéos automatisé pour analyser le comportement de poissons dans des bassins d'observation
 
+# Schéma de principe des positionnemnts des caméras
+
+![image](https://github.com/user-attachments/assets/aecfbcee-0637-4fb5-a61f-2e14f1ba8f26)
+
 # Contexte du projet
 
 Le projet de recherche ECHO, financé par l’AAP Observatoire de l’éolien en mer - l’Office Français de la Biodiversité, se concentre sur les pressions acoustiques liées à l’éolien en mer sur les mammifères marins et l’ichtyofaune. Ce projet mobilise les compétences interdisciplinaires de plusieurs partenaires scientifiques et techniques : le laboratoire LIENSs CNRS – La Rochelle Université, l’ADERA – Cohabys, la Fondation OPEN-C, le Laboratoire LOG de l’Université du Littoral Côte d’Opale et la société NEREIS Environnement. 
@@ -59,10 +63,6 @@ enregistrés.
 - Bien définir le format de sortie des vidéos, c’est-à-dire que le logiciel de [AnimalTA](http://vchiara.eu/index.php/animalta) lit des fichiers « .avi ».
 - Sortie vidéo : chaque dossier « série » contiendra différentes « séquences » vidéos spécifiques à une « série », un « bassin », une « arène », une « date de début », un « horaire (hh:mm:ss) de début », une « date de fin » et un « horaire (hh:mm:ss) de fin », avec le format de nom suivant :
 « IDSERIE_IDBASSIN_IDARENE_IDSEQUENCE_DATESTART_HSTART_ DATEEND_HEND.avi ».
-
-## Schéma de principe des positionnemnts des caméras
-
-![image](https://github.com/user-attachments/assets/aecfbcee-0637-4fb5-a61f-2e14f1ba8f26)
 
 ## Configuration des caméras 
 
