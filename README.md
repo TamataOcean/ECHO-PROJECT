@@ -1,9 +1,8 @@
 # ECHO-PROJECT
 Enregistrement vidéos automatisé pour analyser le comportement de poissons dans des bassins d'observation
 
-# Schéma de principe des positionnemnts des caméras
-
-![image](https://github.com/user-attachments/assets/aecfbcee-0637-4fb5-a61f-2e14f1ba8f26)
+# Schéma de principe
+![Echo_Project_Schema2](https://github.com/user-attachments/assets/be0a8e73-cec2-4a45-88d7-8884c86ef8c7)
 
 # Contexte du projet
 
@@ -17,9 +16,6 @@ Pour ce faire, une série d’expérimentations (en laboratoire, en mésocosme e
 Ainsi, pour étudier les différences de réponses comportementales initiales (e.g. changements soudains de la vitesse et de la direction de la nage) ou soutenues (e.g. cohésion du banc) entre conditions, des analyses vidéo sont nécessaires et la mise en place de caméras est essentielle. Dans un objectif d’automatisation, de praticité et de réplicabilité, le LIENSs souhaite développer un système permettant de piloter plusieurs caméras et d’en sortir des données brutes. Ces données brutes auront pour devenir : 
 - 1/ la bancarisation sur support dédié (e.g. NAS, voir ci-dessous) et sur plateforme de dépôt dans le cadre de la démarche de partage de données
 - 2/ d’être traitées et analysées pour calculer plusieurs variables comportementales.
-
-# Schéma de principe
-![Echo_Project_Schema2](https://github.com/user-attachments/assets/be0a8e73-cec2-4a45-88d7-8884c86ef8c7)
 
 # CAHIER DES CHARGES
 ### Objetif
@@ -63,6 +59,10 @@ enregistrés.
 - Bien définir le format de sortie des vidéos, c’est-à-dire que le logiciel de [AnimalTA](http://vchiara.eu/index.php/animalta) lit des fichiers « .avi ».
 - Sortie vidéo : chaque dossier « série » contiendra différentes « séquences » vidéos spécifiques à une « série », un « bassin », une « arène », une « date de début », un « horaire (hh:mm:ss) de début », une « date de fin » et un « horaire (hh:mm:ss) de fin », avec le format de nom suivant :
 « IDSERIE_IDBASSIN_IDARENE_IDSEQUENCE_DATESTART_HSTART_ DATEEND_HEND.avi ».
+
+# Schéma de principe des positionnemnts des caméras
+
+![image](https://github.com/user-attachments/assets/aecfbcee-0637-4fb5-a61f-2e14f1ba8f26)
 
 ## Configuration des caméras 
 
