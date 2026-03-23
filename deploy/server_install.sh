@@ -59,24 +59,21 @@ sudo cp ~/code/ECHO-PROJECT/deploy/gstd.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable gstd.service
 sudo systemctl start gstd.service
-
 echo "######### Gstd - Installation terminée"
 
 
 echo "Server ECHO-PROJECT Installation"
-
 # Ajout du service python server.py
 sudo cp ~/code/ECHO-PROJECT/deploy/mqtt_server.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable mqtt_server.service
 sudo systemctl start mqtt_server.service
-
+echo "Installation Server ECHO-PROJECT terminée"
 
 # Partage sur le réseau ( en attendant le NAS )
 sudo apt install samba -y
 
 # a la fin du fichier /etc/samba/smb.conf ajouter : 
-
 [Videos-Echo]
 path = /home/pi/code/ECHO-PROJECT/EXPORT_VIDEOS
 browseable = yes
@@ -93,22 +90,17 @@ sudo smbpasswd -a pi
 sudo systemctl restart smbd
 
 # installation Docker
-# Add Docker's official GPG key:
+curl -fsSL https://get.docker.com -o get-docker.sh
+export VERSION_CODENAME=bookworm
+sudo -E sh get-docker.sh
+sudo curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian bookworm stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 sudo apt-get update
-sudo apt-get install ca-certificates curl
-sudo install -m 0755 -d /etc/apt/keyrings
-sudo curl -fsSL https://download.docker.com/linux/raspbian/gpg -o /etc/apt/keyrings/docker.asc
-sudo chmod a+r /etc/apt/keyrings/docker.asc
-
-# Add the repository to Apt sources:
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/raspbian \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt-get update
-
- sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
+sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+sudo usermod -aG docker $USER
+sudo systemctl enable docker
+sudo systemctl start docker
+docker compose version
 
 # OPTION INSTALL WITH NVME disk
 ### Identifier le disque
@@ -131,8 +123,15 @@ sudo vi /etc/fstab
 ### unmount ( if necessary )
 sudo umount /mnt/NVME
 
-# VIDEO SPY
-sudo docker run -d --name=AgentDVR -e PUID=1000 -e PGID=1000 -e TZ=America/New_York -e AGENTDVR_WEBUI_PORT=8090 -p 8090:8090 -p 3478:3478/udp -p 50000-50100:50000-50100/udp -v /appdata/AgentDVR/config/:/AgentDVR/Media/XML/ -v /appdata/AgentDVR/media/:/AgentDVR/Media/WebServerRoot/Media/ -v /appdata/AgentDVR/commands:/AgentDVR/Commands/ --restart unless-stopped mekayelanik/ispyagentdvr:latest
+# VIDEO SPY 
+# Version Docker ( INOP avec Trixie ) 
+# sudo docker run -d --name=AgentDVR -e PUID=1000 -e PGID=1000 -e TZ=America/New_York -e AGENTDVR_WEBUI_PORT=8090 -p 8090:8090 -p 3478:3478/udp -p 50000-50100:50000-50100/udp -v /appdata/AgentDVR/config/:/AgentDVR/Media/XML/ -v /appdata/AgentDVR/media/:/AgentDVR/Media/WebServerRoot/Media/ -v /appdata/AgentDVR/commands:/AgentDVR/Commands/ --restart unless-stopped mekayelanik/ispyagentdvr:latest
+    sudo apt-get install curl
+    curl -sL "https://www.ispyconnect.com/install" -o install_agent.sh && sudo bash install_agent.sh; rm install_agent.sh
+
+When Agent DVR is installed access the local UI at http://localhost:8090
+# Save config file from /home/pi/code/ECHO-PROJECT/deploy/iSpyConfig to /opt/AgentDVR/Media/XML
+layout.json / objects.xml / config.xml
 
 # MAPPING WITH EXTERNAL NAS
 ### Create dedicated directory
