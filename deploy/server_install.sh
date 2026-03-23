@@ -146,7 +146,7 @@ sudo mount -t cifs //192.168.1.78/ECHO_VIDEOs /mnt/echonas -o credentials=/home/
 ### AUTO mount
 sudo vi /etc/fstab 
 # Ajouter la ligne suivante :
-//192.168.1.78/ECHO_VIDEOs /mnt/echonas cifs credentials=/home/pi/.smbcredentials,vers=3.0,iocharset=utf8,uid=1000,gid=1000
+//[IP_NAS]/ECHO_VIDEOs /mnt/echonas cifs credentials=/home/pi/.smbcredentials,vers=3.0,iocharset=utf8,uid=1000,gid=1000
 
 # DSM CONFIG
 ## ADD DOCKER TO USE WEB BROWSER ON DSM from external web site
