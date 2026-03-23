@@ -14,12 +14,17 @@ sudo apt-get -y install git
 echo "######### Installation vlc"
 sudo apt-get install vlc
 
+# -------------------------
+# Installation python
+# -------------------------
 echo "######### Installation python & dépendances"
 sudo apt-get -y install python3-gst-1.0 gstreamer1.0-tools gstreamer1.0-plugins-good
 sudo apt-get -y install python3-pip
-# pip3 install paho-mqtt > propduit une erreur
 sudo pip3 install paho-mqtt --break-system-packages
 
+# -------------------------
+# Installation Node-Red
+# -------------------------
 # Process > https://nodered.org/docs/getting-started/raspberrypi
 cd
 echo "######### Installation Node-Red"
@@ -31,6 +36,9 @@ npm install node-red-dashboard
 # Composant pour accés aux fichiers du système
 npm install node-red-contrib-fs-ops
 
+# -------------------------
+# Installation GStreamer
+# -------------------------
 echo "######### Installation GStreamer client"
 sudo apt-get -y install libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libgstreamer-plugins-bad1.0-dev gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly gstreamer1.0-libav gstreamer1.0-tools gstreamer1.0-x gstreamer1.0-alsa gstreamer1.0-gl gstreamer1.0-gtk3 gstreamer1.0-qt5 gstreamer1.0-pulseaudio
 
@@ -41,11 +49,7 @@ cd gstd-1.x/
 sudo apt-get -y install automake libtool pkg-config libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libglib2.0-dev libjson-glib-dev gtk-doc-tools libncursesw5-dev libdaemon-dev libjansson-dev libsoup2.4-dev python3-pip libedit-dev
 ./autogen.sh 
 ./configure 
-# make
-# make install
-# sudo make install
 
-### NEW PROCESS mais je ne sais pas quelle ligne retirée de la précédente commande ;) 
 meson build 
 ninja -C build
 sudo ninja -C build install
@@ -61,15 +65,48 @@ sudo systemctl enable gstd.service
 sudo systemctl start gstd.service
 echo "######### Gstd - Installation terminée"
 
-
-echo "Server ECHO-PROJECT Installation"
 # Ajout du service python server.py
+echo "Server ECHO-PROJECT Installation"
 sudo cp ~/code/ECHO-PROJECT/deploy/mqtt_server.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable mqtt_server.service
 sudo systemctl start mqtt_server.service
 echo "Installation Server ECHO-PROJECT terminée"
 
+# -------------------------
+#         VIDEO SPY 
+# -------------------------
+# Version Docker ( INOP avec Trixie ) 
+# sudo docker run -d --name=AgentDVR -e PUID=1000 -e PGID=1000 -e TZ=America/New_York -e AGENTDVR_WEBUI_PORT=8090 -p 8090:8090 -p 3478:3478/udp -p 50000-50100:50000-50100/udp -v /appdata/AgentDVR/config/:/AgentDVR/Media/XML/ -v /appdata/AgentDVR/media/:/AgentDVR/Media/WebServerRoot/Media/ -v /appdata/AgentDVR/commands:/AgentDVR/Commands/ --restart unless-stopped mekayelanik/ispyagentdvr:latest
+    
+    sudo apt-get install curl
+    curl -sL "https://www.ispyconnect.com/install" -o install_agent.sh && sudo bash install_agent.sh; rm install_agent.sh
+
+When Agent DVR is installed access the local UI at http://localhost:8090
+# Save config file from /home/pi/code/ECHO-PROJECT/deploy/iSpyConfig to /opt/AgentDVR/Media/XML
+layout.json / objects.xml / config.xml
+
+# -------------------------
+# MAPPING WITH EXTERNAL NAS
+# -------------------------
+### Create dedicated directory
+sudo mkdir /mnt/echonas
+### Create credential to authenticate on shared directory ( defined on NAS via DSM )
+touch /home/pi/.smbcredentials
+echo "username=votre_utilisateur" >> /home/pi/.smbcreds
+echo "password=votre_password" >> /home/pi/.smbcreds
+chmod 0400 /home/pi/.smbcreds
+
+sudo mount -t cifs //[IP_NAS]/ECHO_VIDEOs /mnt/echonas -o credentials=/home/pi/.smbcredentials,vers=3.0,iocharset=utf8,uid=1000,gid=1000
+
+### AUTO mount
+sudo vi /etc/fstab 
+# Ajouter la ligne suivante :
+//[IP_NAS]/ECHO_VIDEOs /mnt/echonas cifs credentials=/home/pi/.smbcredentials,vers=3.0,iocharset=utf8,uid=1000,gid=1000
+
+# --------------------------------
+# Installation Samba ( OPTIONNEL )
+# --------------------------------
 # Partage sur le réseau ( en attendant le NAS )
 sudo apt install samba -y
 
@@ -82,14 +119,14 @@ create mask = 0777
 directory mask = 0777
 public = yes
 force user = pi
-
 # ajoute un client 
 sudo smbpasswd -a pi
-
 # redémarrer le service
 sudo systemctl restart smbd
 
-# installation Docker
+# ---------------------------------
+# Installation Docker ( OPTIONNEL )
+# ---------------------------------
 curl -fsSL https://get.docker.com -o get-docker.sh
 export VERSION_CODENAME=bookworm
 sudo -E sh get-docker.sh
@@ -105,51 +142,16 @@ docker compose version
 # OPTION INSTALL WITH NVME disk
 ### Identifier le disque
 lsblk
-
 ### Création du mount point
 sudo mkdir /mnt/NVME
-
 ### Formatage du disque
 sudo mkfs.ext4 /dev/nvme0n1
-
 ### Mounting SSD Disk
 sudo mount /dev/nvme0n1 /mnt/NVME
-
 ### AUTO Mount
 sudo vi /etc/fstab
 # Add the following line at the end:
 /dev/nvme0n1 /mnt/nvme ext4 defaults 0 2
-
 ### unmount ( if necessary )
 sudo umount /mnt/NVME
-
-# VIDEO SPY 
-# Version Docker ( INOP avec Trixie ) 
-# sudo docker run -d --name=AgentDVR -e PUID=1000 -e PGID=1000 -e TZ=America/New_York -e AGENTDVR_WEBUI_PORT=8090 -p 8090:8090 -p 3478:3478/udp -p 50000-50100:50000-50100/udp -v /appdata/AgentDVR/config/:/AgentDVR/Media/XML/ -v /appdata/AgentDVR/media/:/AgentDVR/Media/WebServerRoot/Media/ -v /appdata/AgentDVR/commands:/AgentDVR/Commands/ --restart unless-stopped mekayelanik/ispyagentdvr:latest
-    sudo apt-get install curl
-    curl -sL "https://www.ispyconnect.com/install" -o install_agent.sh && sudo bash install_agent.sh; rm install_agent.sh
-
-When Agent DVR is installed access the local UI at http://localhost:8090
-# Save config file from /home/pi/code/ECHO-PROJECT/deploy/iSpyConfig to /opt/AgentDVR/Media/XML
-layout.json / objects.xml / config.xml
-
-# MAPPING WITH EXTERNAL NAS
-### Create dedicated directory
-sudo mkdir /mnt/echonas
-### Create credential to authenticate on shared directory ( defined on NAS via DSM )
-touch /home/pi/.smbcredentials
-echo "username=votre_utilisateur" >> /home/pi/.smbcreds
-echo "password=votre_password" >> /home/pi/.smbcreds
-chmod 0400 /home/pi/.smbcreds
-
-sudo mount -t cifs //192.168.1.78/ECHO_VIDEOs /mnt/echonas -o credentials=/home/pi/.smbcredentials,vers=3.0,iocharset=utf8,uid=1000,gid=1000
-### AUTO mount
-sudo vi /etc/fstab 
-# Ajouter la ligne suivante :
-//[IP_NAS]/ECHO_VIDEOs /mnt/echonas cifs credentials=/home/pi/.smbcredentials,vers=3.0,iocharset=utf8,uid=1000,gid=1000
-
-# DSM CONFIG
-## ADD DOCKER TO USE WEB BROWSER ON DSM from external web site
-https://hub.docker.com/r/cardinalby/chrome-remote-desktop/
-
 
