@@ -137,7 +137,7 @@ layout.json / objects.xml / config.xml
 ### Create dedicated directory
 sudo mkdir /mnt/echonas
 ### Create credential to authenticate on shared directory ( defined on NAS via DSM )
-touch /home/pi/.smbcreds
+touch /home/pi/.smbcredentials
 echo "username=votre_utilisateur" >> /home/pi/.smbcreds
 echo "password=votre_password" >> /home/pi/.smbcreds
 chmod 0400 /home/pi/.smbcreds
