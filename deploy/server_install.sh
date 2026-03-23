@@ -41,11 +41,9 @@ cd gstd-1.x/
 sudo apt-get -y install automake libtool pkg-config libgstreamer1.0-dev libgstreamer-plugins-base1.0-dev libglib2.0-dev libjson-glib-dev gtk-doc-tools libncursesw5-dev libdaemon-dev libjansson-dev libsoup2.4-dev python3-pip libedit-dev
 ./autogen.sh 
 ./configure 
-make
-make install
-sudo make install
-gstd --version
-echo "######### Gstd - Installation terminée"
+# make
+# make install
+# sudo make install
 
 ### NEW PROCESS mais je ne sais pas quelle ligne retirée de la précédente commande ;) 
 meson build 
@@ -54,12 +52,16 @@ sudo ninja -C build install
 pushd libgstc/python
 ./setup.py install --user
 sudo ./setup.py install --user
+gstd --version
 
 # Ajout du service GSTD
 sudo cp ~/code/ECHO-PROJECT/deploy/gstd.service /etc/systemd/system/
 sudo systemctl daemon-reload
 sudo systemctl enable gstd.service
 sudo systemctl start gstd.service
+
+echo "######### Gstd - Installation terminée"
+
 
 echo "Server ECHO-PROJECT Installation"
 
