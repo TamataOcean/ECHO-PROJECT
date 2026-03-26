@@ -88,6 +88,7 @@ echo "Installation Server ECHO-PROJECT terminée"
 When Agent DVR is installed access the local UI at http://localhost:8090
 # Save config file from /home/pi/code/ECHO-PROJECT/deploy/iSpyConfig to /opt/AgentDVR/Media/XML
 layout.json / objects.xml / config.xml
+cp /home/pi/code/ECHO-PROJECT/deploy/iSpy-config/* /opt/AgentDVR/Media/XML/
 
 # -------------------------
 # MAPPING WITH EXTERNAL NAS
