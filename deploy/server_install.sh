@@ -89,7 +89,8 @@ When Agent DVR is installed access the local UI at http://localhost:8090
 # Save config file from /home/pi/code/ECHO-PROJECT/deploy/iSpyConfig to /opt/AgentDVR/Media/XML
 layout.json / objects.xml / config.xml
 cp /home/pi/code/ECHO-PROJECT/deploy/iSpy-config/* /opt/AgentDVR/Media/XML/
-
+# Redémarrer le service pour prise en compte de la config
+sudo service AgentDVR restart
 # -------------------------
 # MAPPING WITH EXTERNAL NAS
 # -------------------------
