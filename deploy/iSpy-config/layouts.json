@@ -1,0 +1,268 @@
+﻿{
+  "layout": [
+    {
+      "rectangles": [
+        {
+          "index": 1,
+          "mode": "grid",
+          "coordinates": "0,0,100,100",
+          "interval": 4,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        }
+      ],
+      "name": "1 Grid",
+      "main": -1,
+      "ident": "42d308f3-583c-435c-8abe-66c0c68d399a",
+      "userident": ""
+    },
+    {
+      "rectangles": [
+        {
+          "index": 4,
+          "mode": "timeline",
+          "coordinates": "20,75,80,25",
+          "interval": 3,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        },
+        {
+          "index": 3,
+          "mode": "grid",
+          "coordinates": "20,0,25,75",
+          "interval": 3,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        },
+        {
+          "index": 1,
+          "mode": "grid",
+          "coordinates": "45,0,55,75",
+          "interval": 3,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        },
+        {
+          "index": 5,
+          "mode": "floorplans",
+          "coordinates": "0,0,20,30",
+          "interval": 3,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        },
+        {
+          "index": 2,
+          "mode": "files",
+          "coordinates": "0,30,20,70",
+          "interval": 3,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        }
+      ],
+      "name": "Desktop",
+      "main": 1,
+      "ident": "fcf3ce09-6251-4ee5-b092-b64c1ed88630",
+      "userident": ""
+    },
+    {
+      "rectangles": [
+        {
+          "index": 1,
+          "mode": "grid",
+          "coordinates": "0,0,100,50",
+          "interval": 4,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        },
+        {
+          "index": 2,
+          "mode": "grid",
+          "coordinates": "0,50,100,50",
+          "interval": 4,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        }
+      ],
+      "name": "2 Grids",
+      "main": -1,
+      "ident": "ffdc18ed-a6dc-4f56-a7ac-2c491309c4ca",
+      "userident": ""
+    },
+    {
+      "rectangles": [
+        {
+          "index": 4,
+          "mode": "grid",
+          "coordinates": "30,0,70,100",
+          "interval": 4,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        },
+        {
+          "index": 1,
+          "mode": "interval",
+          "coordinates": "0,0,30,35",
+          "interval": 4,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        }
+      ],
+      "name": "Column + Grid",
+      "main": 1,
+      "ident": "a1bcf9fa-8881-4036-92c0-54062b9aecbc",
+      "userident": ""
+    },
+    {
+      "rectangles": [
+        {
+          "index": 1,
+          "mode": "interval",
+          "coordinates": "0,0,20,20",
+          "interval": 4,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        },
+        {
+          "index": 2,
+          "mode": "interval",
+          "coordinates": "0,20,20,20",
+          "interval": 4,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        },
+        {
+          "index": 3,
+          "mode": "interval",
+          "coordinates": "0,40,20,20",
+          "interval": 4,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        },
+        {
+          "index": 4,
+          "mode": "interval",
+          "coordinates": "0,60,20,20",
+          "interval": 4,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        },
+        {
+          "index": 5,
+          "mode": "interval",
+          "coordinates": "0,80,20,20",
+          "interval": 4,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        },
+        {
+          "index": 6,
+          "mode": "interval",
+          "coordinates": "20,80,20,20",
+          "interval": 4,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        },
+        {
+          "index": 7,
+          "mode": "interval",
+          "coordinates": "40,80,20,20",
+          "interval": 4,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        },
+        {
+          "index": 8,
+          "mode": "interval",
+          "coordinates": "60,80,20,20",
+          "interval": 4,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        },
+        {
+          "index": 9,
+          "mode": "interval",
+          "coordinates": "80,80,20,20",
+          "interval": 4,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        },
+        {
+          "index": 10,
+          "mode": "interval",
+          "coordinates": "20,0,80,80",
+          "interval": 4,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        }
+      ],
+      "name": "L + Main",
+      "main": 10,
+      "ident": "cdd34b72-c828-479e-82b1-74990fb0233a",
+      "userident": ""
+    },
+    {
+      "rectangles": [
+        {
+          "index": 1,
+          "mode": "interval",
+          "coordinates": "30,0,70,100",
+          "interval": 4,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        },
+        {
+          "index": 2,
+          "mode": "alert",
+          "coordinates": "0,0,30,35",
+          "interval": 4,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        },
+        {
+          "index": 3,
+          "mode": "motion",
+          "coordinates": "0,35,30,30",
+          "interval": 4,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        },
+        {
+          "index": 4,
+          "mode": "grid",
+          "coordinates": "0,65,30,35",
+          "interval": 4,
+          "optimiseAR": 1.778,
+          "skipOffline": false,
+          "showDefaultDevice": false
+        }
+      ],
+      "name": "Alerts + Motion",
+      "main": 1,
+      "ident": "b0454de4-1e61-49b9-a46f-80fce616e759",
+      "userident": ""
+    }
+  ]
+}
