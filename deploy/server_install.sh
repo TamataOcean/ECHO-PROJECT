@@ -35,6 +35,9 @@ sudo systemctl enable nodered.service
 npm install node-red-dashboard
 # Composant pour accés aux fichiers du système
 npm install node-red-contrib-fs-ops
+# Ajout du flows de l'application 
+sudo cp ~/code/ECHO-PROJECT/core/node-red/flows.json /home/pi/.node-red/flows.json
+# Connection via : //localhost:1880/ui 
 
 # -------------------------
 # Installation GStreamer
@@ -93,9 +96,9 @@ layout.json / objects.xml / config.xml
 sudo mkdir /mnt/echonas
 ### Create credential to authenticate on shared directory ( defined on NAS via DSM )
 touch /home/pi/.smbcredentials
-echo "username=votre_utilisateur" >> /home/pi/.smbcreds
-echo "password=votre_password" >> /home/pi/.smbcreds
-chmod 0400 /home/pi/.smbcreds
+echo "username=votre_utilisateur" >> /home/pi/.smbcredentials
+echo "password=votre_password" >> /home/pi/.smbcredentials
+chmod 0400 /home/pi/.smbcredentials
 
 sudo mount -t cifs //[IP_NAS]/ECHO_VIDEOs /mnt/echonas -o credentials=/home/pi/.smbcredentials,vers=3.0,iocharset=utf8,uid=1000,gid=1000
 
