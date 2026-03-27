@@ -665,7 +665,7 @@
         "order": 1,
         "width": "12",
         "height": "5",
-        "format": "<div style=\"padding:6px 2px\">\n\n  <!-- Statut stockage -->\n  <div ng-if=\"msg\" style=\"display:flex;align-items:center;gap:14px;min-height:46px\">\n    <i class=\"material-icons\" ng-style=\"{color:msg.color,fontSize:'38px'}\">{{msg.icon}}</i>\n    <div>\n      <div style=\"font-weight:600;font-size:1em\" ng-style=\"{color:msg.color}\">{{msg.title}}</div>\n      <div style=\"color:#888;font-size:0.82em;margin-top:3px\">{{msg.subtitle}}</div>\n    </div>\n  </div>\n  <div ng-if=\"!msg\" style=\"color:#aaa;font-style:italic\">Vérification du stockage en cours...</div>\n\n  <!-- Formulaire configuration NAS (visible si non configuré ou injoignable) -->\n  <div ng-show=\"msg && msg.showForm\"\n       style=\"margin-top:12px;padding-top:10px;border-top:1px solid #e0e0e0\">\n    <div style=\"font-size:0.85em;color:#555;margin-bottom:6px\">\n      Adresse IP ou hostname du NAS :\n    </div>\n    <div style=\"display:flex;gap:8px;align-items:center\">\n      <input id=\"nas-ip-input\"\n             ng-model=\"nasIpModel\"\n             type=\"text\"\n             placeholder=\"192.168.1.200\"\n             style=\"flex:1;padding:7px 10px;border:1px solid #ccc;border-radius:4px;font-size:0.9em;min-width:0\">\n      <button id=\"nas-save-btn\"\n              style=\"padding:7px 16px;background:#1976D2;color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.9em;white-space:nowrap\">\n        Sauvegarder\n      </button>\n    </div>\n  </div>\n\n</div>\n\n<script>\n(function() {\n  var btn = document.getElementById('nas-save-btn');\n  if (btn && !btn._bound) {\n    btn._bound = true;\n    btn.addEventListener('click', function() {\n      var input = document.getElementById('nas-ip-input');\n      var ip = (input ? input.value : '').trim();\n      if (ip) scope.send({topic: 'save_nas', payload: ip});\n    });\n  }\n})();\n</script>",
+        "format": "<div style=\"padding:6px 2px\">\n\n  <!-- Statut stockage -->\n  <div ng-if=\"msg\" style=\"display:flex;align-items:center;gap:14px;min-height:46px\">\n    <i class=\"material-icons\" ng-style=\"{color:msg.color,fontSize:'38px'}\">{{msg.icon}}</i>\n    <div>\n      <div style=\"font-weight:600;font-size:1em\" ng-style=\"{color:msg.color}\">{{msg.title}}</div>\n      <div style=\"color:#888;font-size:0.82em;margin-top:3px\">{{msg.subtitle}}</div>\n    </div>\n  </div>\n  <div ng-if=\"!msg\" style=\"color:#aaa;font-style:italic\">Vérification du stockage en cours...</div>\n\n  <!-- Formulaire configuration NAS (visible si non configuré ou injoignable) -->\n  <div ng-show=\"msg && msg.showForm\"\n       style=\"margin-top:12px;padding-top:10px;border-top:1px solid #e0e0e0\">\n    <div style=\"font-size:0.85em;color:#555;margin-bottom:6px\">\n      Adresse IP ou hostname du NAS :\n    </div>\n    <div style=\"display:flex;gap:8px;align-items:center\">\n      <input id=\"nas-ip-input\"\n             ng-model=\"nasIpModel\"\n             type=\"text\"\n             placeholder=\"192.168.1.200\"\n             style=\"flex:1;padding:7px 10px;border:1px solid #ccc;border-radius:4px;font-size:0.9em;min-width:0\">\n      <button ng-click=\"send({topic: 'save_nas', payload: nasIpModel})\"\n              style=\"padding:7px 16px;background:#1976D2;color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.9em;white-space:nowrap\">\n        Sauvegarder\n      </button>\n    </div>\n  </div>\n\n</div>",
         "storeOutMessages": true,
         "fwdInMessages": true,
         "resendOnRefresh": true,
@@ -709,7 +709,7 @@
         "type": "function",
         "z": "9437544a0f6eb7b6",
         "name": "Prépare ping NAS",
-        "func": "var nasHost = global.get('NAS_HOST') || '';\nif (!nasHost) {\n    global.set('VIDEO_PATH', '/data/local_videos/');\n    msg.icon = 'storage';\n    msg.color = '#2196F3';\n    msg.title = 'NAS non configuré';\n    msg.subtitle = 'Aucun NAS renseigné — Vidéos enregistrées en local (/data/local_videos/)';\n    msg.showForm = true;\n    node.send([null, msg]);\n    return null;\n}\nmsg.host = nasHost;\nreturn msg;",
+        "func": "var nasHost = global.get('NAS_HOST') || '';\nif (!nasHost) {\n    global.set('VIDEO_PATH', '/data/local_videos/');\n    msg.icon = 'storage';\n    msg.color = '#2196F3';\n    msg.title = 'NAS non configuré';\n    msg.subtitle = 'Aucun NAS renseigné — Vidéos enregistrées en local (/data/local_videos/)';\n    msg.showForm = true;\n    node.send([null, msg]);\n    return null;\n}\nmsg.payload = nasHost;\nreturn msg;",
         "outputs": 2,
         "noerr": 0,
         "initialize": "",
@@ -718,7 +718,7 @@
         "y": 780,
         "wires": [
             [
-                "a1b2c3nas0005"
+                "7323e54970ece752"
             ],
             [
                 "a1b2c3nas0002"
@@ -729,6 +729,7 @@
         "id": "a1b2c3nas0005",
         "type": "ping",
         "z": "9437544a0f6eb7b6",
+        "mode": null,
         "name": "Ping NAS",
         "host": "",
         "timer": "0",
@@ -746,7 +747,7 @@
         "type": "function",
         "z": "9437544a0f6eb7b6",
         "name": "Traite résultat NAS",
-        "func": "var nasHost = global.get('NAS_HOST') || 'NAS';\nif (msg.payload !== false) {\n    global.set('VIDEO_PATH', '/app/EXPORT_VIDEOS/');\n    msg.icon = 'cloud_done';\n    msg.color = '#4CAF50';\n    msg.title = 'NAS Connecté  —  ' + nasHost;\n    msg.subtitle = 'Vidéos enregistrées sur le NAS  (latence : ' + msg.payload + ' ms)';\n    msg.showForm = false;\n} else {\n    global.set('VIDEO_PATH', '/data/local_videos/');\n    msg.icon = 'cloud_off';\n    msg.color = '#FF9800';\n    msg.title = 'NAS Non Disponible  —  ' + nasHost;\n    msg.subtitle = 'Vidéos enregistrées en local  (/data/local_videos/)';\n    msg.showForm = true;\n}\nreturn msg;",
+        "func": "var nasHost = global.get('NAS_HOST') || 'NAS';\nvar output = (msg.payload || '').toString();\nvar pingOk = output.indexOf('1 received') !== -1;\nif (pingOk) {\n    global.set('VIDEO_PATH', '/app/EXPORT_VIDEOS/');\n    msg.icon = 'cloud_done';\n    msg.color = '#4CAF50';\n    msg.title = 'NAS Connecté  —  ' + nasHost;\n    msg.subtitle = 'Vidéos enregistrées sur le NAS';\n    msg.showForm = false;\n} else {\n    global.set('VIDEO_PATH', '/data/local_videos/');\n    msg.icon = 'cloud_off';\n    msg.color = '#FF9800';\n    msg.title = 'NAS Non Disponible  —  ' + nasHost;\n    msg.subtitle = 'Vidéos enregistrées en local  (/data/local_videos/)';\n    msg.showForm = true;\n}\nreturn msg;",
         "outputs": 1,
         "noerr": 0,
         "initialize": "",
@@ -816,6 +817,45 @@
                 "a1b2c3nas0004"
             ]
         ]
+    },
+    {
+        "id": "7323e54970ece752",
+        "type": "exec",
+        "z": "9437544a0f6eb7b6",
+        "command": "/usr/bin/ping -c1 -W1 ",
+        "addpay": "payload",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 650,
+        "y": 620,
+        "wires": [
+            [
+                "f8b00da30620fad4",
+                "a1b2c3nas0006"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "f8b00da30620fad4",
+        "type": "debug",
+        "z": "9437544a0f6eb7b6",
+        "name": "debug 6",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 830,
+        "y": 540,
+        "wires": []
     },
     {
         "id": "cca33e2388101194",
@@ -1717,8 +1757,8 @@
                 "t": "set",
                 "p": "NAS_HOST",
                 "pt": "global",
-                "to": "",
-                "tot": "str"
+                "to": "NAS_HOST",
+                "tot": "env"
             }
         ],
         "action": "",

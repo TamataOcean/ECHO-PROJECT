@@ -19,6 +19,8 @@ RUN apt-get update && apt-get install -y \
     gstreamer1.0-libav \
     python3-gst-1.0 \
     meson ninja-build \
+    # Outils réseau
+    iputils-ping \
     # Broker MQTT
     mosquitto \
     # Gestionnaire de processus
