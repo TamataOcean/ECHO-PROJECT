@@ -13,6 +13,7 @@ services:
       - ${LOCAL_VIDEO_PATH}:/app/EXPORT_VIDEOS   # stockage vidéo sur l'hôte
       - ./node-red/data:/data                     # flows et config Node-RED persistés
       - /dev:/dev                                  # accès aux périphériques (caméras)
+      - ./.env:/app/config.env                    # .env monté pour mise à jour NAS_HOST depuis l'UI
     environment:
       - TZ=${TIMEZONE}
     restart: unless-stopped

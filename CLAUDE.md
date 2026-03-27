@@ -72,7 +72,8 @@ ECHO-PROJECT/
 │   ├── export_camera_config/  # Export des paramètres caméra
 │   ├── test_gst_daemon/       # Test de connectivité GSTD
 │   └── record_video/          # Exemple d'enregistrement direct
-├── Hardware/                  # Specs matérielles (NAS Synology, Raspberry Pi 5)
+├── Hardware/                  # Références matérielles : NAS Synology DS423, Raspberry Pi 5 16 GB
+├── private/                   # Fichiers de config locaux non versionnés (ex : ConfigNas.conf)
 └── EXPORT_VIDEOS/             # Répertoire de sortie vidéo (volume monté)
 ```
 
@@ -87,6 +88,9 @@ ECHO-PROJECT/
 | `MQTT_BROKER` | `127.0.0.1` | Adresse du broker |
 | `MQTT_PORT` | `1883` | Port MQTT |
 | `TIMEZONE` | `Europe/Paris` | Timezone des containers |
+| `NAS_HOST` | `192.168.0.17` | IP/hostname du NAS (utilisée pour le ping de connectivité depuis l'UI) |
+
+Le fichier `docker/.env` est monté dans le container echo-core en `/app/config.env` afin que l'UI Node-Red puisse mettre à jour `NAS_HOST` à chaud sans redémarrer la stack.
 
 **Démarrer la stack :**
 ```bash
@@ -142,11 +146,23 @@ Les configs JSON (dans `core/configs/SAV/`) définissent une session d'enregistr
 - `stop_ALL` — arrêt d'urgence de tous les pipelines
 - `status` — retourne l'état courant des pipelines
 
+## Flows Node-Red — onglets UI
+
+| Onglet (dev) | Onglet Dashboard | Rôle |
+|---|---|---|
+| *(flows principaux)* | Contrôle / Monitoring | Création de pipelines, enregistrement, logs |
+| `Ping Equipements` | Config Matériel → Equipements | Ping réseau des caméras, NAS et routeur |
+| `Liste Caméras` | — | Listage des caméras Basler disponibles |
+| `Read Pipeline` | Read Pipeline(s) | Affichage/lecture des configs pipeline JSON |
+
+L'onglet "Config Matériel" remplace l'ancien "Tab 4" et centralise les infos réseau + équipements.
+
 ## Notes de développement
 
 - Les fichiers `pipeline*.json` sont exclus du dépôt git (contiennent des IPs et chemins locaux).
 - Les fichiers `.mov` sont exclus du dépôt git.
 - `node_modules/` est exclu du dépôt git.
+- Le dossier `private/` contient des configs locales non versionnées (ex : `ConfigNas.conf`).
 - Le fichier `core/node-red/All_Flows.json` est la source de vérité pour les flows Node-Red — ne pas modifier directement les flows dans `docker/node-red/data/` si les deux existent.
 - La stack Docker utilise le réseau `host` pour les services MQTT/GStreamer (nécessaire pour accéder aux périphériques `/dev/`).
 - Pour le déploiement bare-metal Raspberry Pi, utiliser `deploy/server_install.sh`.

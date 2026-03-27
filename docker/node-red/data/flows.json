@@ -297,6 +297,17 @@
         "className": ""
     },
     {
+        "id": "a1b2c3nas0001",
+        "type": "ui_group",
+        "name": "Stockage Vidéo",
+        "tab": "1899631ef10e7f34",
+        "order": 2,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
         "id": "09585d3fda80deca",
         "type": "mqtt out",
         "z": "9437544a0f6eb7b6",
@@ -642,6 +653,167 @@
         "wires": [
             [
                 "09585d3fda80deca"
+            ]
+        ]
+    },
+    {
+        "id": "a1b2c3nas0002",
+        "type": "ui_template",
+        "z": "9437544a0f6eb7b6",
+        "group": "a1b2c3nas0001",
+        "name": "Statut Stockage",
+        "order": 1,
+        "width": "12",
+        "height": "5",
+        "format": "<div style=\"padding:6px 2px\">\n\n  <!-- Statut stockage -->\n  <div ng-if=\"msg\" style=\"display:flex;align-items:center;gap:14px;min-height:46px\">\n    <i class=\"material-icons\" ng-style=\"{color:msg.color,fontSize:'38px'}\">{{msg.icon}}</i>\n    <div>\n      <div style=\"font-weight:600;font-size:1em\" ng-style=\"{color:msg.color}\">{{msg.title}}</div>\n      <div style=\"color:#888;font-size:0.82em;margin-top:3px\">{{msg.subtitle}}</div>\n    </div>\n  </div>\n  <div ng-if=\"!msg\" style=\"color:#aaa;font-style:italic\">Vérification du stockage en cours...</div>\n\n  <!-- Formulaire configuration NAS (visible si non configuré ou injoignable) -->\n  <div ng-show=\"msg && msg.showForm\"\n       style=\"margin-top:12px;padding-top:10px;border-top:1px solid #e0e0e0\">\n    <div style=\"font-size:0.85em;color:#555;margin-bottom:6px\">\n      Adresse IP ou hostname du NAS :\n    </div>\n    <div style=\"display:flex;gap:8px;align-items:center\">\n      <input id=\"nas-ip-input\"\n             ng-model=\"nasIpModel\"\n             type=\"text\"\n             placeholder=\"192.168.1.200\"\n             style=\"flex:1;padding:7px 10px;border:1px solid #ccc;border-radius:4px;font-size:0.9em;min-width:0\">\n      <button id=\"nas-save-btn\"\n              style=\"padding:7px 16px;background:#1976D2;color:white;border:none;border-radius:4px;cursor:pointer;font-size:0.9em;white-space:nowrap\">\n        Sauvegarder\n      </button>\n    </div>\n  </div>\n\n</div>\n\n<script>\n(function() {\n  var btn = document.getElementById('nas-save-btn');\n  if (btn && !btn._bound) {\n    btn._bound = true;\n    btn.addEventListener('click', function() {\n      var input = document.getElementById('nas-ip-input');\n      var ip = (input ? input.value : '').trim();\n      if (ip) scope.send({topic: 'save_nas', payload: ip});\n    });\n  }\n})();\n</script>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 1040,
+        "y": 780,
+        "wires": [
+            [
+                "a1b2c3nas0007"
+            ]
+        ]
+    },
+    {
+        "id": "a1b2c3nas0003",
+        "type": "inject",
+        "z": "9437544a0f6eb7b6",
+        "name": "Check NAS (30s)",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "30",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 5,
+        "topic": "",
+        "payload": "",
+        "payloadType": "str",
+        "x": 180,
+        "y": 780,
+        "wires": [
+            [
+                "a1b2c3nas0004"
+            ]
+        ]
+    },
+    {
+        "id": "a1b2c3nas0004",
+        "type": "function",
+        "z": "9437544a0f6eb7b6",
+        "name": "Prépare ping NAS",
+        "func": "var nasHost = global.get('NAS_HOST') || '';\nif (!nasHost) {\n    global.set('VIDEO_PATH', '/data/local_videos/');\n    msg.icon = 'storage';\n    msg.color = '#2196F3';\n    msg.title = 'NAS non configuré';\n    msg.subtitle = 'Aucun NAS renseigné — Vidéos enregistrées en local (/data/local_videos/)';\n    msg.showForm = true;\n    node.send([null, msg]);\n    return null;\n}\nmsg.host = nasHost;\nreturn msg;",
+        "outputs": 2,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 450,
+        "y": 780,
+        "wires": [
+            [
+                "a1b2c3nas0005"
+            ],
+            [
+                "a1b2c3nas0002"
+            ]
+        ]
+    },
+    {
+        "id": "a1b2c3nas0005",
+        "type": "ping",
+        "z": "9437544a0f6eb7b6",
+        "name": "Ping NAS",
+        "host": "",
+        "timer": "0",
+        "inputs": 0,
+        "x": 640,
+        "y": 720,
+        "wires": [
+            [
+                "a1b2c3nas0006"
+            ]
+        ]
+    },
+    {
+        "id": "a1b2c3nas0006",
+        "type": "function",
+        "z": "9437544a0f6eb7b6",
+        "name": "Traite résultat NAS",
+        "func": "var nasHost = global.get('NAS_HOST') || 'NAS';\nif (msg.payload !== false) {\n    global.set('VIDEO_PATH', '/app/EXPORT_VIDEOS/');\n    msg.icon = 'cloud_done';\n    msg.color = '#4CAF50';\n    msg.title = 'NAS Connecté  —  ' + nasHost;\n    msg.subtitle = 'Vidéos enregistrées sur le NAS  (latence : ' + msg.payload + ' ms)';\n    msg.showForm = false;\n} else {\n    global.set('VIDEO_PATH', '/data/local_videos/');\n    msg.icon = 'cloud_off';\n    msg.color = '#FF9800';\n    msg.title = 'NAS Non Disponible  —  ' + nasHost;\n    msg.subtitle = 'Vidéos enregistrées en local  (/data/local_videos/)';\n    msg.showForm = true;\n}\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 830,
+        "y": 720,
+        "wires": [
+            [
+                "a1b2c3nas0002"
+            ]
+        ]
+    },
+    {
+        "id": "a1b2c3nas0007",
+        "type": "function",
+        "z": "9437544a0f6eb7b6",
+        "name": "Sauvegarde IP NAS",
+        "func": "if (msg.topic !== 'save_nas') return null;\nvar ip = (msg.payload || '').trim();\nif (!ip) return null;\nglobal.set('NAS_HOST', ip);\n// Construire la commande Python pour mettre à jour /app/config.env\nmsg.payload = ip;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 940,
+        "y": 840,
+        "wires": [
+            [
+                "a1b2c3nas0008"
+            ]
+        ]
+    },
+    {
+        "id": "a1b2c3nas0008",
+        "type": "exec",
+        "z": "9437544a0f6eb7b6",
+        "command": "python3 -c \"import re,sys; f='/app/config.env'; c=open(f).read(); c=re.sub(r'^NAS_HOST=.*',f'NAS_HOST='+sys.argv[1],c,flags=re.M); open(f,'w').write(c); print('ok')\" ",
+        "addpay": true,
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Update .env NAS_HOST",
+        "x": 710,
+        "y": 940,
+        "wires": [
+            [
+                "a1b2c3nas0009"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "a1b2c3nas0009",
+        "type": "function",
+        "z": "9437544a0f6eb7b6",
+        "name": "Relance check NAS",
+        "func": "// Relancer immédiatement le check ping\nnode.send([{payload:''}]);\nreturn null;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "x": 520,
+        "y": 840,
+        "wires": [
+            [
+                "a1b2c3nas0004"
             ]
         ]
     },
@@ -1539,6 +1711,13 @@
                 "p": "max_size_time",
                 "pt": "global",
                 "to": "10",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "NAS_HOST",
+                "pt": "global",
+                "to": "",
                 "tot": "str"
             }
         ],
