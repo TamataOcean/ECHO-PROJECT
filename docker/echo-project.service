@@ -1,0 +1,21 @@
+[Unit]
+Description=Echo Project — Système d'acquisition vidéo ECHO
+Documentation=https://github.com/your-org/ECHO-PROJECT
+After=docker.service network-online.target
+Requires=docker.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/bibi/code/ECHO-PROJECT/docker
+# Premier démarrage : build l'image si elle n'existe pas encore
+ExecStartPre=/usr/bin/docker compose build --no-cache
+ExecStart=/usr/bin/docker compose up
+ExecStop=/usr/bin/docker compose down
+Restart=on-failure
+RestartSec=15s
+TimeoutStartSec=600
+TimeoutStopSec=60
+
+[Install]
+WantedBy=multi-user.target
