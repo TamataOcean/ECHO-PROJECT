@@ -1,0 +1,1 @@
+[{"label":"test rtsp","rtsp":"rtsp://admin:JKFLFO@192.168.1.75/11","type":"camera"},{"label":"test rtsp2","rtsp":"rtsp://admin:JKFLFO@192.168.1.76/11","type":"camera"},{"label":"Camera local","rtsp":"rtsp://127.0.0.1:8554/cam","type":"camera"}]
