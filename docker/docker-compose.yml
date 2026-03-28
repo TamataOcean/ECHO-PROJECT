@@ -1,6 +1,16 @@
 version: '3.8'
 
 services:
+  camera_spawn:
+    image: bluenviron/mediamtx:latest-ffmpeg
+    container_name: camera_spawn
+    network_mode: host
+    devices:
+      - /dev/video0:/dev/video0
+    volumes:
+      - ./camera_spawn/mediamtx.yml:/mediamtx.yml
+    restart: unless-stopped
+
   echo-project:
     build:
       context: .
