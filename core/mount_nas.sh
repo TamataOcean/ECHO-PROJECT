@@ -20,7 +20,7 @@ printf "username=%s\npassword=%s\n" "${NAS_USER:-}" "${NAS_PASS:-}" > /tmp/nas.c
 chmod 600 /tmp/nas.cred
 
 # Montage CIFS
-mount -t cifs "//${NAS_HOST}/${NAS_SHARE}" /mnt/raspi_travel \
+mount -t cifs "//${NAS_HOST}/${NAS_SHARE}" /app/EXPORT_VIDEOS \
     -o username=${NAS_USER},password=${NAS_PASS},vers=3.0,iocharset=utf8,uid=1000,gid=1000,file_mode=0777,dir_mode=0777
 
 STATUS=$?
