@@ -7,11 +7,12 @@ import paho.mqtt.client as mqtt
 from pygstc.gstc import *
 from pygstc.logger import *
 
-# Configuration MQTT
-MQTT_BROKER = "localhost"
-MQTT_TOPIC = "gstreamer/control"
-MQTT_LOG_SERVER = "server/log"
-MQTT_PORT = 1883
+# Configuration MQTT récupérée du .env (via Docker)
+MQTT_BROKER = os.getenv("MQTT_BROKER", "localhost")
+MQTT_PORT = int(os.getenv("MQTT_PORT", 1883))
+MQTT_TOPIC = os.getenv("MQTT_TOPIC_CONTROL", "gstreamer/control")
+MQTT_LOG_SERVER = os.getenv("MQTT_TOPIC_LOGS", "server/log")
+VIDEO_ROOT = os.getenv("EXPORT_VIDEO_ROOT", "/app/EXPORT_VIDEOS")
 
 # Création du client gstd
 gstd_logger = CustomLogger('pygstc_example', loglevel='DEBUG')
@@ -246,7 +247,9 @@ def on_connect(client, userdata, flags, rc):
     client.subscribe(MQTT_TOPIC)
 
 # Connexion MQTT
-client = mqtt.Client()
+# client = mqtt.Client()
+print("📡 lancement du client MQTT")
+client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION1)
 client.on_connect = on_connect
 client.on_message = on_message
 client.connect(MQTT_BROKER, MQTT_PORT, 60)

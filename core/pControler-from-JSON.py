@@ -7,8 +7,9 @@ import os
 import paho.mqtt.client as mqtt
 
 # Configuration MQTT
-MQTT_BROKER = "localhost"  # Remplace par ton broker MQTT
-MQTT_TOPIC = "gstreamer/control"  # Le topic auquel publier
+MQTT_BROKER = os.getenv("MQTT_BROKER", "mosquitto")
+MQTT_PORT = int(os.getenv("MQTT_PORT", 1883))
+MQTT_TOPIC = os.getenv("MQTT_TOPIC_CONTROL", "gstreamer/control")
 
 def send_mqtt_command(client, command, pipe_name):
     if not client.is_connected():

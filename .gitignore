@@ -1,3 +1,4 @@
 *.mov
 pipeline*.json
 node_modules
+.env

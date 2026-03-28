@@ -52,7 +52,9 @@ Caméras → 6 caméras (3 caméras par bassin, et donc 1 caméra par arène)
 entre la caméra et l’arène)
 - Objectifs → 6 objectifs de 12.5mm (ou autre taille) pour les 6 caméras [modèle « Kowa » de 12.5mm](https://www.baslerweb.com/fr-fr/shop/kowa-lens-lm12hc-f1-4-f12-5mm-1/) : 349€ l’unité
 - Hub POE → minimum 6 ports pour les 6 caméras (?€)
-- Stockage NAS (fichiers vidéo volumineux et accès à distance)
+- **Stockage NAS** : [Synology DiskStation DS423](https://www.reichelt.com/fr/fr/shop/produit/boitier_vide_pour_serveur_nas_diskstation_ds423_-344247) — 4 baies, accès CIFS/SMB
+- **Disques durs** : 4× [Seagate IronWolf 2 To](https://www.ldlc.com/fiche/PB00569022.html#) — NAS optimisés
+- **Calcul embarqué** : [Raspberry Pi 5 16 GB (boîtier inclus)](https://www.reichelt.com/fr/fr/shop/produit/raspberry_pi-c_avec_raspberry_pi_5b_16gb_premonte-396559) — sans carte SSD
 - Box internet → fournie
 - Moniteurs (ordinateur, téléphone) → fournis
 - Alimentation → fournie

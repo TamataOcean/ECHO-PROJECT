@@ -68,11 +68,11 @@ RUN mkdir -p /app /data /app/EXPORT_VIDEOS /var/log/echo-project /run/mosquitto
 # --- Copie des sources ---
 COPY core/server.py /app/server.py
 COPY core/pControler-from-JSON.py /app/pControler-from-JSON.py
-COPY mount_nas.sh /app/mount_nas.sh
-COPY update_nas_config.py /app/update_nas_config.py
+COPY core/mount_nas.sh /app/mount_nas.sh
+COPY core/update_nas_config.py /app/update_nas_config.py
 RUN chmod +x /app/mount_nas.sh /app/update_nas_config.py
 COPY mosquitto/mosquitto.conf /etc/mosquitto/mosquitto.conf
-COPY supervisord.conf /etc/supervisord.conf
+COPY core/supervisord.conf /etc/supervisord.conf
 
 WORKDIR /app
 
