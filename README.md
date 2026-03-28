@@ -3,6 +3,63 @@ Enregistrement vidéos automatisé pour analyser le comportement de poissons dan
 
 ![image](https://github.com/user-attachments/assets/cc413941-bcca-44d6-9a1d-5fb1c5894a25)
 
+# Installation & Déploiement
+
+## Prérequis
+- [Docker](https://docs.docker.com/engine/install/) & Docker Compose
+- Raspberry Pi 5 (16 GB) — ou toute machine Linux x86_64 pour les tests
+- Accès réseau aux caméras Basler (RTSP) et au NAS (CIFS/SMB)
+
+## 1. Cloner le dépôt
+```bash
+git clone <url-du-repo> ECHO-PROJECT
+cd ECHO-PROJECT
+```
+
+## 2. Configurer l'environnement
+```bash
+cp .env.example .env
+# Éditer .env : renseigner NAS_HOST, NAS_SHARE, NAS_USER, NAS_PASS
+# et LOCAL_VIDEO_PATH (chemin de stockage vidéo sur l'hôte)
+nano .env
+```
+
+## 3. Construire et démarrer la stack
+```bash
+# Premier démarrage (build de l'image echo-project)
+docker compose build && docker compose up -d
+
+# Démarrages suivants
+docker compose up -d
+```
+
+> **Rebuild requis** uniquement si le `Dockerfile` est modifié (ajout de paquets, etc.).
+
+## 4. Accès aux interfaces
+| Interface | URL |
+|---|---|
+| Node-Red (flows) | http://localhost:1880 |
+| Node-Red Dashboard | http://localhost:1880/ui |
+
+## 5. Monter le NAS (depuis l'UI)
+Une fois la stack démarrée, l'onglet **Config Matériel** dans le Dashboard permet de déclencher le montage CIFS du NAS via le script `mount_nas.sh`.
+
+## 6. Caméra de test (optionnel)
+Pour tester sans caméra Basler sur le réseau, démarrer le container `camera_spawn` qui expose la webcam du PC en RTSP :
+```bash
+docker compose up -d camera_spawn
+# Flux disponible sur : rtsp://127.0.0.1:8554/cam  (forcer TCP dans VLC)
+```
+
+## 7. Démarrage automatique sur le Raspberry Pi
+Pour lancer la stack au boot via systemd :
+```bash
+sudo cp deploy/echo-project.service /etc/systemd/system/
+sudo systemctl enable --now echo-project.service
+```
+
+---
+
 # Contexte du projet
 Le projet de recherche ECHO, financé par l’AAP Observatoire de l’éolien en mer - l’Office
 Français de la Biodiversité, se concentre sur les pressions acoustiques liées à l’éolien en mer
