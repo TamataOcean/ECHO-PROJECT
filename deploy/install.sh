@@ -29,6 +29,16 @@ success() { echo -e "${GREEN}[OK]${NC}    $*"; }
 warn()    { echo -e "${YELLOW}[WARN]${NC}  $*"; }
 error()   { echo -e "${RED}[ERROR]${NC} $*" >&2; exit 1; }
 
+# --- Détection Raspberry Pi ---
+IS_RASPBERRY_PI=false
+RPI_MODEL=""
+if [[ -f /proc/device-tree/model ]]; then
+    RPI_MODEL=$(tr -d '\0' < /proc/device-tree/model)
+    if [[ "$RPI_MODEL" == *"Raspberry Pi"* ]]; then
+        IS_RASPBERRY_PI=true
+    fi
+fi
+
 # --- Paramètres ---
 INSTALL_DIR="${INSTALL_DIR:-$HOME/ECHO-PROJECT}"
 VIDEO_PATH="${VIDEO_PATH:-/mnt/NVME/EXPORT_VIDEOS}"
@@ -54,11 +64,56 @@ if [[ "$(uname -s)" != "Linux" ]]; then
     error "Ce script requiert Linux."
 fi
 
+if $IS_RASPBERRY_PI; then
+    info "Raspberry Pi détecté : $RPI_MODEL ($(uname -m))"
+fi
+
 # =============================================================================
-# 2. Docker
+# 2. Raspberry Pi — cgroups mémoire (requis pour Docker)
+# =============================================================================
+if $IS_RASPBERRY_PI; then
+    # Raspberry Pi OS Bookworm : cmdline dans /boot/firmware/cmdline.txt
+    # Raspberry Pi OS Bullseye et antérieur : /boot/cmdline.txt
+    if [[ -f /boot/firmware/cmdline.txt ]]; then
+        CMDLINE_FILE="/boot/firmware/cmdline.txt"
+    elif [[ -f /boot/cmdline.txt ]]; then
+        CMDLINE_FILE="/boot/cmdline.txt"
+    else
+        CMDLINE_FILE=""
+        warn "Fichier cmdline.txt introuvable — vérifiez les cgroups manuellement."
+    fi
+
+    if [[ -n "$CMDLINE_FILE" ]]; then
+        NEEDS_REBOOT=false
+        if ! grep -q "cgroup_enable=memory" "$CMDLINE_FILE"; then
+            info "Activation des cgroups mémoire dans $CMDLINE_FILE..."
+            # Ajouter en fin de la première ligne (cmdline.txt est sur une seule ligne)
+            sed -i '1s/$/ cgroup_enable=memory cgroup_memory=1/' "$CMDLINE_FILE"
+            NEEDS_REBOOT=true
+            success "cgroups mémoire activés."
+        else
+            success "cgroups mémoire déjà activés."
+        fi
+
+        if $NEEDS_REBOOT; then
+            echo ""
+            echo -e "${YELLOW}╔══════════════════════════════════════════════════════════════╗${NC}"
+            echo -e "${YELLOW}║  REDÉMARRAGE REQUIS pour activer les cgroups mémoire.        ║${NC}"
+            echo -e "${YELLOW}║  Relancez ce script après le reboot pour continuer.          ║${NC}"
+            echo -e "${YELLOW}║                                                              ║${NC}"
+            echo -e "${YELLOW}║    sudo reboot                                               ║${NC}"
+            echo -e "${YELLOW}╚══════════════════════════════════════════════════════════════╝${NC}"
+            echo ""
+            exit 0
+        fi
+    fi
+fi
+
+# =============================================================================
+# 3. Docker
 # =============================================================================
 install_docker() {
-    info "Installation de Docker..."
+    info "Installation de Docker via get.docker.com..."
     curl -fsSL https://get.docker.com | sh
     # Ajouter l'utilisateur courant au groupe docker
     if [[ -n "${SUDO_USER:-}" ]]; then
@@ -84,7 +139,7 @@ fi
 success "Docker Compose $(docker compose version --short)"
 
 # =============================================================================
-# 3. Git
+# 4. Git
 # =============================================================================
 if ! command -v git &>/dev/null; then
     info "Installation de git..."
@@ -93,7 +148,7 @@ fi
 success "git $(git --version | awk '{print $3}')"
 
 # =============================================================================
-# 4. Clonage du dépôt
+# 5. Clonage du dépôt
 # =============================================================================
 if [[ -d "$INSTALL_DIR/.git" ]]; then
     info "Dépôt existant détecté dans $INSTALL_DIR — mise à jour..."
@@ -110,7 +165,7 @@ fi
 cd "$INSTALL_DIR"
 
 # =============================================================================
-# 5. Configuration .env
+# 6. Configuration .env
 # =============================================================================
 if [[ ! -f ".env" ]]; then
     info "Création du fichier .env depuis .env.example..."
@@ -136,7 +191,7 @@ set_env "LOCAL_VIDEO_PATH" "$VIDEO_PATH"
 success ".env configuré (LOCAL_VIDEO_PATH=$VIDEO_PATH)"
 
 # =============================================================================
-# 6. Création du répertoire vidéo
+# 7. Création du répertoire vidéo
 # =============================================================================
 if [[ ! -d "$VIDEO_PATH" ]]; then
     info "Création du répertoire vidéo : $VIDEO_PATH"
@@ -144,7 +199,7 @@ if [[ ! -d "$VIDEO_PATH" ]]; then
 fi
 
 # =============================================================================
-# 7. Build et démarrage de la stack
+# 8. Build et démarrage de la stack
 # =============================================================================
 info "Build de l'image Docker (peut prendre plusieurs minutes)..."
 docker compose build
@@ -155,7 +210,7 @@ docker compose up -d
 success "Stack démarrée."
 
 # =============================================================================
-# 8. Service systemd (optionnel)
+# 9. Service systemd (optionnel)
 # =============================================================================
 if [[ "$AUTOSTART" == "true" ]]; then
     if ! command -v systemctl &>/dev/null; then
