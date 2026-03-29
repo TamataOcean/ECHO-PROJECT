@@ -63,6 +63,9 @@ info "Vérification du système..."
 if [[ "$(uname -s)" != "Linux" ]]; then
     error "Ce script requiert Linux."
 fi
+if [[ "$EUID" -ne 0 ]]; then
+    error "Ce script doit être exécuté en root.\n  Utilisez : curl -fsSL ... | sudo bash"
+fi
 
 if $IS_RASPBERRY_PI; then
     info "Raspberry Pi détecté : $RPI_MODEL ($(uname -m))"
