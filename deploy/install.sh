@@ -46,7 +46,7 @@ NAS_HOST="${NAS_HOST:-}"
 NAS_SHARE="${NAS_SHARE:-}"
 NAS_USER="${NAS_USER:-}"
 NAS_PASS="${NAS_PASS:-}"
-BRANCH="${BRANCH:-master}"
+BRANCH="${BRANCH:-feat/dockerization}"
 AUTOSTART="${AUTOSTART:-false}"
 REPO_URL="https://github.com/TamataOcean/ECHO-PROJECT.git"
 
