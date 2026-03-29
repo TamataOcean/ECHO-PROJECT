@@ -185,18 +185,54 @@ set_env() {
     fi
 }
 
-set_env "LOCAL_VIDEO_PATH" "$VIDEO_PATH"
-[[ -n "$NAS_HOST"  ]] && set_env "NAS_HOST"  "$NAS_HOST"
-[[ -n "$NAS_SHARE" ]] && set_env "NAS_SHARE" "$NAS_SHARE"
-[[ -n "$NAS_USER"  ]] && set_env "NAS_USER"  "$NAS_USER"
-[[ -n "$NAS_PASS"  ]] && set_env "NAS_PASS"  "$NAS_PASS"
+# Fonction de prompt interactif (lit depuis /dev/tty pour compatibilité curl|bash)
+ask() {
+    local prompt="$1" default="$2" secret="${3:-false}" answer
+    if $secret; then
+        read -rsp "  ${prompt} [${default}] : " answer </dev/tty
+        echo ""
+    else
+        read -rp  "  ${prompt} [${default}] : " answer </dev/tty
+    fi
+    echo "${answer:-$default}"
+}
 
-success ".env configuré (LOCAL_VIDEO_PATH=$VIDEO_PATH)"
+echo ""
+echo -e "${YELLOW}--- Configuration ---${NC}"
+
+# Si les variables ne sont pas déjà passées en env, on interroge l'utilisateur
+if [[ "$VIDEO_PATH" == "/mnt/NVME/EXPORT_VIDEOS" ]]; then
+    VIDEO_PATH=$(ask "Répertoire stockage vidéo (hôte)" "/mnt/NVME/EXPORT_VIDEOS")
+fi
+
+if [[ -z "$NAS_HOST" ]]; then
+    NAS_HOST=$(ask "IP/hostname du NAS (laisser vide si aucun)" "")
+fi
+
+if [[ -n "$NAS_HOST" ]]; then
+    [[ -z "$NAS_SHARE" ]] && NAS_SHARE=$(ask "Nom du partage CIFS" "ECHO_VIDEOs")
+    [[ -z "$NAS_USER"  ]] && NAS_USER=$(ask  "Utilisateur NAS" "pi")
+    [[ -z "$NAS_PASS"  ]] && NAS_PASS=$(ask  "Mot de passe NAS" "" true)
+fi
+
+if [[ "$AUTOSTART" == "false" ]]; then
+    _autostart=$(ask "Démarrage automatique au boot ? (true/false)" "true")
+    AUTOSTART="$_autostart"
+fi
+
+echo ""
+set_env "LOCAL_VIDEO_PATH" "$VIDEO_PATH"
+set_env "NAS_HOST"         "$NAS_HOST"
+set_env "NAS_SHARE"        "${NAS_SHARE:-}"
+set_env "NAS_USER"         "${NAS_USER:-}"
+set_env "NAS_PASS"         "${NAS_PASS:-}"
+
+success ".env configuré."
 
 # =============================================================================
 # 7. Création du répertoire vidéo
 # =============================================================================
-if [[ ! -d "$VIDEO_PATH" ]]; then
+if [[ -n "$VIDEO_PATH" && ! -d "$VIDEO_PATH" ]]; then
     info "Création du répertoire vidéo : $VIDEO_PATH"
     mkdir -p "$VIDEO_PATH" || warn "Impossible de créer $VIDEO_PATH — à faire manuellement si nécessaire."
 fi
