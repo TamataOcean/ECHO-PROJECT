@@ -3152,7 +3152,7 @@
         "y": 200,
         "wires": [
             [
-                "b1c2d3e4f5a60002"
+                "ec401og0000000002"
             ],
             [],
             [
@@ -3223,7 +3223,7 @@
         "y": 240,
         "wires": [
             [
-                "b1c2d3e4f5a60002"
+                "ec401og0000000002"
             ],
             [],
             [
@@ -3313,7 +3313,7 @@
         "y": 300,
         "wires": [
             [
-                "b1c2d3e4f5a60003"
+                "ec401og0000000003"
             ],
             [],
             [
@@ -3345,7 +3345,7 @@
         "y": 320,
         "wires": [
             [
-                "b1c2d3e4f5a60001"
+                "ec401og0000000001"
             ]
         ]
     },
@@ -3367,7 +3367,7 @@
         ]
     },
     {
-        "id": "b1c2d3e4f5a60001",
+        "id": "ec401og0000000001",
         "type": "file in",
         "z": "7bd870335f289f7f",
         "name": "Lire equipments.json",
@@ -3380,12 +3380,12 @@
         "y": 360,
         "wires": [
             [
-                "b1c2d3e4f5a60004"
+                "ec401og0000000004"
             ]
         ]
     },
     {
-        "id": "b1c2d3e4f5a60004",
+        "id": "ec401og0000000004",
         "type": "function",
         "z": "7bd870335f289f7f",
         "name": "equipments → options dropdown",
@@ -3409,7 +3409,7 @@
         ]
     },
     {
-        "id": "b1c2d3e4f5a60002",
+        "id": "ec401og0000000002",
         "type": "file",
         "z": "7bd870335f289f7f",
         "name": "Écrire equipments.json",
@@ -3425,7 +3425,7 @@
         ]
     },
     {
-        "id": "b1c2d3e4f5a60003",
+        "id": "ec401og0000000003",
         "type": "file",
         "z": "7bd870335f289f7f",
         "name": "Écrire equipments.json",
@@ -3880,6 +3880,230 @@
             [
                 "c1d2e3f4a5b60008"
             ]
+        ]
+    },
+    {
+        "id": "a8c1d219180e2d4d",
+        "type": "tab",
+        "label": "LOGS MQTT",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "8789b7a48c4bc661",
+        "type": "ui_tab",
+        "name": "Logs MQTT",
+        "icon": "list",
+        "order": 10,
+        "disabled": false,
+        "hidden": false
+    },
+    {
+        "id": "c4dcda0477ea6624",
+        "type": "ui_group",
+        "name": "Logs en temps réel",
+        "tab": "8789b7a48c4bc661",
+        "order": 1,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "890b312fd2802949",
+        "type": "ui_group",
+        "name": "Fichier de logs",
+        "tab": "8789b7a48c4bc661",
+        "order": 2,
+        "disp": true,
+        "width": "12",
+        "collapse": false,
+        "className": ""
+    },
+    {
+        "id": "ec401og0000000005",
+        "type": "mqtt in",
+        "z": "a8c1d219180e2d4d",
+        "name": "Tous les topics MQTT",
+        "topic": "#",
+        "qos": "2",
+        "datatype": "auto",
+        "broker": "8e239b0d5cb9746b",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 130,
+        "y": 120,
+        "wires": [
+            [
+                "ec401og0000000006"
+            ]
+        ]
+    },
+    {
+        "id": "ec401og0000000006",
+        "type": "function",
+        "z": "a8c1d219180e2d4d",
+        "name": "Horodatage",
+        "func": "var now = new Date();\nvar pad = function(n){ return String(n).padStart(2,'0'); };\nvar ts = pad(now.getHours())+':'+pad(now.getMinutes())+':'+pad(now.getSeconds());\nvar payload = msg.payload;\nif (typeof payload === 'object') payload = JSON.stringify(payload);\nmsg.payload = '['+ts+'] ['+msg.topic+'] '+payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 350,
+        "y": 120,
+        "wires": [
+            [
+                "ec401og0000000007"
+            ]
+        ]
+    },
+    {
+        "id": "ec401og0000000007",
+        "type": "ui_template",
+        "z": "a8c1d219180e2d4d",
+        "group": "c4dcda0477ea6624",
+        "name": "Logs en temps réel",
+        "order": 1,
+        "width": "12",
+        "height": "10",
+        "format": "<div ng-init=\"logs=[]\" style=\"width:100%\">\n  <div id=\"echo-log-box\" style=\"height:360px;overflow-y:auto;background:#111;color:#ccc;font-family:'Courier New',monospace;font-size:11px;padding:8px;border-radius:4px;word-break:break-all;\">\n    <div ng-repeat=\"line in logs track by $index\"\n         ng-style=\"{'color': line.indexOf('gstreamer/control')!==-1 ? '#7ec8e3' : line.indexOf('server/log')!==-1 ? '#90ee90' : '#ccc'}\">\n      {{line}}\n    </div>\n  </div>\n</div>\n<script>\n(function(scope){\n  scope.$watch('msg',function(msg){\n    if(!msg) return;\n    if(msg.payload==='__CLEAR__'){\n      scope.logs=[];\n      return;\n    }\n    scope.logs.push(msg.payload);\n    if(scope.logs.length>500) scope.logs.shift();\n    setTimeout(function(){\n      var el=document.getElementById('echo-log-box');\n      if(el) el.scrollTop=el.scrollHeight;\n    },20);\n  });\n})(scope);\n</script>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": false,
+        "templateScope": "local",
+        "className": "",
+        "x": 570,
+        "y": 120,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "ec401og0000000008",
+        "type": "ui_button",
+        "z": "a8c1d219180e2d4d",
+        "name": "Effacer logs",
+        "group": "c4dcda0477ea6624",
+        "order": 2,
+        "width": "3",
+        "height": "1",
+        "passthru": false,
+        "label": "Effacer",
+        "tooltip": "Efface les logs affichés",
+        "color": "",
+        "bgcolor": "#e53935",
+        "className": "",
+        "icon": "fa-trash",
+        "payload": "__CLEAR__",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 350,
+        "y": 200,
+        "wires": [
+            [
+                "ec401og0000000007"
+            ]
+        ]
+    },
+    {
+        "id": "ec401og000000000c",
+        "type": "inject",
+        "z": "a8c1d219180e2d4d",
+        "name": "Auto-refresh 10s",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "10",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.5,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 130,
+        "y": 280,
+        "wires": [
+            [
+                "ec401og000000000a"
+            ]
+        ]
+    },
+    {
+        "id": "ec401og0000000009",
+        "type": "ui_button",
+        "z": "a8c1d219180e2d4d",
+        "name": "Actualiser fichier",
+        "group": "890b312fd2802949",
+        "order": 1,
+        "width": "3",
+        "height": "1",
+        "passthru": false,
+        "label": "Actualiser",
+        "tooltip": "Lit les 100 dernières lignes du fichier de log",
+        "color": "",
+        "bgcolor": "#1565C0",
+        "className": "",
+        "icon": "fa-refresh",
+        "payload": "",
+        "payloadType": "str",
+        "topic": "",
+        "topicType": "str",
+        "x": 130,
+        "y": 320,
+        "wires": [
+            [
+                "ec401og000000000a"
+            ]
+        ]
+    },
+    {
+        "id": "ec401og000000000a",
+        "type": "exec",
+        "z": "a8c1d219180e2d4d",
+        "command": "tail -n 200 /app/logs/mqtt.log",
+        "addpay": false,
+        "append": "",
+        "useSpawn": false,
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "Lire fichier log",
+        "x": 350,
+        "y": 320,
+        "wires": [
+            [
+                "ec401og000000000b"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "ec401og000000000b",
+        "type": "ui_template",
+        "z": "a8c1d219180e2d4d",
+        "group": "890b312fd2802949",
+        "name": "Contenu fichier log",
+        "order": 2,
+        "width": "12",
+        "height": "10",
+        "format": "<div id=\"log-file-box\" style=\"height:420px;overflow-y:auto;background:#111;color:#ccc;font-family:'Courier New',monospace;font-size:11px;padding:8px;border-radius:4px;white-space:pre-wrap;word-break:break-all;\">\n  {{msg.payload || 'Chargement...'}}\n</div>\n<script>\n(function(scope){\n  scope.$watch('msg',function(msg){\n    if(!msg||!msg.payload) return;\n    setTimeout(function(){\n      var el=document.getElementById('log-file-box');\n      if(el) el.scrollTop=el.scrollHeight;\n    },30);\n  });\n})(scope);\n</script>",
+        "storeOutMessages": true,
+        "fwdInMessages": true,
+        "resendOnRefresh": true,
+        "templateScope": "local",
+        "className": "",
+        "x": 570,
+        "y": 320,
+        "wires": [
+            []
         ]
     }
 ]

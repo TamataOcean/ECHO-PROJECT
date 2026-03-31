@@ -2,6 +2,8 @@ services:
   camera_spawn:
     image: bluenviron/mediamtx:latest-ffmpeg
     container_name: camera_spawn
+    profiles:
+      - camera
     network_mode: host
     devices:
       - /dev/video0:/dev/video0
@@ -22,6 +24,7 @@ services:
       - ./node-red/data:/data                     # flows et config Node-RED persistés
       - /dev:/dev                                  # accès aux périphériques (caméras)
       - ./.env:/app/config.env                    # .env monté pour mise à jour NAS_HOST depuis l'UI
+      - ./logs:/app/logs                           # logs MQTT persistés sur l'hôte
     environment:
       - TZ=${TIMEZONE}
     restart: unless-stopped

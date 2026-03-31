@@ -63,10 +63,11 @@ RUN mkdir -p /usr/src/node-red \
         node-red-contrib-fs-ops
 
 # --- Répertoires runtime ---
-RUN mkdir -p /app /data /app/EXPORT_VIDEOS /var/log/echo-project /run/mosquitto
+RUN mkdir -p /app /data /app/EXPORT_VIDEOS /app/logs /var/log/echo-project /run/mosquitto
 
 # --- Copie des sources ---
 COPY core/server.py /app/server.py
+COPY core/mqtt_logger.py /app/mqtt_logger.py
 COPY core/pControler-from-JSON.py /app/pControler-from-JSON.py
 COPY core/mount_nas.sh /app/mount_nas.sh
 COPY core/update_nas_config.py /app/update_nas_config.py
